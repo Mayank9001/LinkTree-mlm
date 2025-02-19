@@ -23,9 +23,6 @@
     border-radius: 2.5rem;
     background-color: #ffffff;
   }
-  .icon {
-    /* margin-left: -0.5rem; */
-  }
   .adminBtns {
     display: flex;
     flex-direction: row;
