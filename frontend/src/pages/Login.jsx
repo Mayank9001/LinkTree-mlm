@@ -9,7 +9,6 @@ const Login = () => {
     username: "",
     password: "",
   });
-  console.log(password);
   return (
     <div className={styles.main}>
       <div className={styles.logo}>
