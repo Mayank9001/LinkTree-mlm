@@ -6,7 +6,7 @@ const Navbar = ({ active }) => {
   const navigate = useNavigate();
   return (
     <div className={styles.main}>
-      <div className={styles.blocks} onClick={() => navigate("/profile")}>
+      <a className={styles.blocks} onClick={() => navigate("/profile")}>
         <svg
           width="18"
           height="18"
@@ -24,8 +24,8 @@ const Navbar = ({ active }) => {
         <span style={{ color: active.isLinks ? "#28A263" : "#676767" }}>
           Links
         </span>
-      </div>
-      <div className={styles.blocks} onClick={() => navigate("/appearance")}>
+      </a>
+      <a className={styles.blocks} onClick={() => navigate("/appearance")}>
         <svg
           width="16"
           height="16"
@@ -43,8 +43,8 @@ const Navbar = ({ active }) => {
         <span style={{ color: active.isAppearance ? "#28A263" : "#676767" }}>
           Appearance
         </span>
-      </div>
-      <div className={styles.blocks} onClick={() => navigate("/analytics")}>
+      </a>
+      <a className={styles.blocks} onClick={() => navigate("/analytics")}>
         <svg
           width="16"
           height="16"
@@ -62,8 +62,8 @@ const Navbar = ({ active }) => {
         <span style={{ color: active.isAnalytics ? "#28A263" : "#676767" }}>
           Analytics
         </span>
-      </div>
-      <div className={styles.blocks} onClick={() => navigate("/settings")}>
+      </a>
+      <a className={styles.blocks} onClick={() => navigate("/settings")}>
         <svg
           width="16"
           height="16"
@@ -81,7 +81,7 @@ const Navbar = ({ active }) => {
         <span style={{ color: active.isSettings ? "#28A263" : "#676767" }}>
           Settings
         </span>
-      </div>
+      </a>
     </div>
   );
 };
