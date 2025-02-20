@@ -41,10 +41,24 @@ const Login = () => {
             </p>
           </div>
           <div>
-            <button type="submit" className={styles.signinbtn}>Sign in</button>
+            <button type="submit" className={styles.signinbtn}>
+              Sign in
+            </button>
           </div>
         </form>
-        <div className={styles.formfoot}></div>
+        <div className={styles.formfoot}>
+          <span style={{ textDecoration: "underline" }}>Forgot password?</span>
+          <span style={{ color: "#000000" }}>
+            Don't have an account? <a href="/signup">Sign up</a>
+          </span>
+        </div>
+      </div>
+      <div className={styles.footer}>
+        This site is protected by reCAPTCHA and the
+        <a>Google Privacy Policy</a>
+        and
+        <a>Terms of Service</a>
+        apply.
       </div>
     </div>
   );

@@ -75,4 +75,42 @@
     letter-spacing: 0%;
     text-align: center;
   }
+  .formfoot {
+    display: grid;
+    place-items: center;
+    text-align: center;
+    color: #28a263;
+    font-family: "Inter";
+    font-weight: 400;
+    font-size: 0.6rem;
+    line-height: 0.75rem;
+    letter-spacing: 0%;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+  .formfoot span a {
+    color: #28a263;
+    text-decoration: underline;
+  }
+  .footer {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 0.8rem;
+    width: 90%;
+    color: #676b5f;
+    font-family: "Inter";
+    font-weight: 400;
+    font-size: 0.45rem;
+    line-height: 0.7rem;
+    letter-spacing: 0%;
+    text-align: center;
+  }
+  .footer a{
+    margin: 0 1px;
+    font-weight: 400;
+    text-decoration: underline;
+    color: #676B5F;
+  }
 }
