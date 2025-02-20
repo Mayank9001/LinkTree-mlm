@@ -1,18 +1,18 @@
 import React from "react";
 import Navbar from "../components/Navbar";
 
-const Profile = () => {
-  const active={
-    isLinks: true,
+const Analytics = () => {
+  const active = {
+    isLinks: false,
     isAppearance: false,
-    isAnalytics: false,
+    isAnalytics: true,
     isSettings: false,
-  }
+  };
   return (
     <>
-    <Navbar active={active}/>
+      <Navbar active={active} />
     </>
   );
 };
 
-export default Profile;
+export default Analytics;
