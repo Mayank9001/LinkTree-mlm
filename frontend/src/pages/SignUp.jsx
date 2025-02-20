@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import styles from "./styles/SignUp.module.css";
 import Spark from "../assets/Spark.png";
 import { IoMdCheckbox } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({
@@ -93,7 +95,7 @@ const SignUp = () => {
             </span>
           </div>
           <div>
-            <button type="submit" className={styles.signinbtn}>
+            <button type="submit" className={styles.signinbtn} onClick={()=>navigate("/tellus")}>
               Create an account
             </button>
           </div>

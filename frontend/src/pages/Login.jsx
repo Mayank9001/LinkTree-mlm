@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import styles from "./styles/Login.module.css";
 import Spark from "../assets/Spark.png";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({
@@ -40,7 +42,7 @@ const Login = () => {
             </p>
           </div>
           <div>
-            <button type="submit" className={styles.signinbtn}>
+            <button type="submit" className={styles.signinbtn} onClick={()=>navigate("/tellus")}>
               Sign in
             </button>
           </div>

@@ -6,8 +6,10 @@ import Group from "../assets/Group.png";
 import analytics from "../assets/analytics.png";
 import { IoMenu } from "react-icons/io5";
 import div from "../assets/div.png";
+import { useNavigate } from "react-router-dom";
 import styles from "./styles/Home.module.css";
 const Home = () => {
+  const navigate = useNavigate();
   const testimonials = [
     {
       bgColor: "#ffffff",
@@ -33,7 +35,7 @@ const Home = () => {
           <button className={styles.adminBtn} disabled>
             Admin
           </button>
-          <button className={styles.signupBtn}>Sign up free</button>
+          <button className={styles.signupBtn} onClick={()=>navigate('/signup')}>Sign up free</button>
         </div>
         <div className={styles.hamburger}>
           <IoMenu size={25} color="#252525" />
@@ -77,8 +79,6 @@ const Home = () => {
         </div>
         <div className={styles.pic1}>
           <img src={div} alt="div" />
-          {/* <img src={pic1} alt="pic1" /> */}
-          {/* <p>Share your content in limitless ways on your Spark</p> */}
         </div>
         <div className={styles.blk5}>
           <h1>Share limitless content in limitless ways</h1>
