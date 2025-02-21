@@ -73,6 +73,13 @@
     border: 0.67px solid #66666659;
     border-radius: 0.5rem;
     background-color: #ffffff;
+    font-family: "Poppins";
+    font-weight: 400;
+    font-size: 0.7rem;
+    line-height: 1rem;
+    color: #393939;
+    padding-left: 1rem;
+    letter-spacing: 0%;
   }
   .forminput p {
     font-family: "Poppins";
