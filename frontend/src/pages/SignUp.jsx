@@ -25,8 +25,9 @@ const SignUp = () => {
         </div>
         <form>
           <div className={styles.forminput}>
-            <label>First name</label>
+            <label for="firstname">First name</label>
             <input
+              id="firstname"
               type="text"
               placeholder=""
               onChange={(e) => setUsername(e.target.value)}
@@ -36,8 +37,9 @@ const SignUp = () => {
             </p>
           </div>
           <div className={styles.forminput}>
-            <label>Last name</label>
+            <label for="lastname">Last name</label>
             <input
+              id="lastname"
               type="text"
               placeholder=""
               onChange={(e) => setUsername(e.target.value)}
@@ -47,8 +49,9 @@ const SignUp = () => {
             </p>
           </div>
           <div className={styles.forminput}>
-            <label>Email</label>
+            <label for="email">Email</label>
             <input
+              id="email"
               type="text"
               placeholder=""
               onChange={(e) => setUsername(e.target.value)}
@@ -58,8 +61,9 @@ const SignUp = () => {
             </p>
           </div>
           <div className={styles.forminput}>
-            <label>Password</label>
+            <label for="password">Password</label>
             <input
+              id="password"
               type="password"
               placeholder=""
               onChange={(e) => setPassword(e.target.value)}
@@ -69,8 +73,9 @@ const SignUp = () => {
             </p>
           </div>
           <div className={styles.forminput}>
-            <label>Confirm Password</label>
+            <label for="cnfpassword">Confirm Password</label>
             <input
+              id="cnfpassword"
               type="password"
               placeholder=""
               onChange={(e) => setPassword(e.target.value)}
@@ -95,7 +100,11 @@ const SignUp = () => {
             </span>
           </div>
           <div>
-            <button type="submit" className={styles.signinbtn} onClick={()=>navigate("/tellus")}>
+            <button
+              type="submit"
+              className={styles.signinbtn}
+              onClick={() => navigate("/tellus")}
+            >
               Create an account
             </button>
           </div>

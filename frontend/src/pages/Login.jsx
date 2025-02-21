@@ -20,8 +20,9 @@ const Login = () => {
       <div className={styles.form}>
         <form>
           <div className={styles.forminput}>
-            <label>Username</label>
+            <label for="username">Username</label>
             <input
+              id="username"
               type="text"
               placeholder=""
               onChange={(e) => setUsername(e.target.value)}
@@ -31,8 +32,9 @@ const Login = () => {
             </p>
           </div>
           <div className={styles.forminput}>
-            <label>Password</label>
+            <label for="password">Password</label>
             <input
+              id="password"
               type="password"
               placeholder=""
               onChange={(e) => setPassword(e.target.value)}
@@ -42,7 +44,11 @@ const Login = () => {
             </p>
           </div>
           <div>
-            <button type="submit" className={styles.signinbtn} onClick={()=>navigate("/tellus")}>
+            <button
+              type="submit"
+              className={styles.signinbtn}
+              onClick={() => navigate("/tellus")}
+            >
               Sign in
             </button>
           </div>

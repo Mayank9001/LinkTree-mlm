@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import styles from "./styles/Settings.module.css";
 import Spark from "../assets/Spark.png";
@@ -84,10 +84,7 @@ const Settings = () => {
               </p>
             </div>
             <div>
-              <button
-                type="submit"
-                className={styles.signinbtn}
-              >
+              <button type="submit" className={styles.signinbtn}>
                 Save
               </button>
             </div>
