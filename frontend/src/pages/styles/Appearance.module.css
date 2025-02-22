@@ -1,0 +1,212 @@
+@media screen and (max-width: 768px) {
+  .container {
+    width: 100vw;
+    height: 90vh;
+    color: #000000;
+    position: fixed;
+    top: 0;
+    background-color: white;
+    overflow-x: auto;
+  }
+  .header {
+    display: flex;
+    gap: 55vw;
+    z-index: 500;
+    position: fixed;
+    height: max-content;
+    flex-direction: row;
+    width: 100%;
+    margin-top: 1rem;
+  }
+  .logo {
+    width: 10rem;
+    margin-left: 1rem;
+  }
+  .pic {
+    background-color: #f3f3f1;
+    border-radius: 50%;
+    margin-right: 1rem;
+    width: 2rem;
+    height: 2rem;
+  }
+  .logout button {
+    position: fixed;
+    right: 1.8rem;
+    margin-top: 2rem;
+    width: 8rem;
+    height: 2.5rem;
+    display: flex;
+    justify-content: center;
+    color: #000000;
+    background-color: #f3f3f1;
+    align-items: center;
+    top: 0;
+    z-index: 501;
+    border: none;
+    border-radius: 1.5rem;
+    display: flex;
+    flex-direction: row;
+  }
+  .logout button svg {
+    margin-right: 0.5rem;
+  }
+  .content {
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+    margin-top: 5.5rem;
+  }
+  .saveBtn {
+    width: 90%;
+    margin-left: 1rem;
+  }
+  .saveBtn button {
+    background-color: #29a263;
+    border: none;
+    width: 8rem;
+    height: 2rem;
+    border-radius: 0.6rem;
+  }
+  .preview {
+    width: 5.5rem;
+    height: 1.6rem;
+    position: fixed;
+    top: 80%;
+    display: none;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .preview button {
+    width: 100%;
+    height: 100%;
+    border-radius: 0.85rem;
+    border: none;
+    font-family: "Poppins";
+    font-weight: 500;
+    font-size: 0.7rem;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0px 3px 7px 0px #00000059;
+    align-items: center;
+    background-color: #ffffff;
+    color: #404040;
+    z-index: 1000;
+    line-height: 1.1rem;
+    letter-spacing: 0%;
+  }
+  .preview button svg {
+    margin-right: 0.3rem;
+  }
+  .layouts {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  .layouts label {
+    margin-left: 1rem;
+    font-family: "Poppins";
+    font-weight: 600;
+    color: #212529;
+    font-size: 0.7rem;
+    line-height: 0.85rem;
+    letter-spacing: -0.22px;
+  }
+  .types {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .types label {
+    text-align: center;
+    font-family: "Inter";
+    font-weight: 600;
+    font-size: 0.5rem;
+    line-height: 2rem;
+    letter-spacing: 0%;
+    margin-left: 0;
+    width: 100%;
+    color: #000000;
+  }
+  .layout,
+  .styling {
+    margin-top: 0.5rem;
+    margin-left: 1rem;
+    width: 90%;
+    padding-top: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 0.5rem;
+    height: 9rem;
+    background-color: #f3f3f1;
+    border-radius: 0.85rem;
+  }
+  .types button svg{
+    z-index: 0;
+  }
+  .layout button {
+    width: 5rem;
+    height: 4.5rem;
+    background-color: #f3f3f1;
+    border: 0.56px solid #323232;
+    border-radius: 0.3rem;
+  }
+  .layout button label {
+    position: relative;
+    top: 10px;
+  }
+  .styling {
+    display: flex;
+    flex-direction: column;
+    height: max-content;
+    padding-top: 0.5rem;
+  }
+  .btnStyle {
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+  }
+  .btnStyle label {
+    font-family: "Poppins";
+    font-weight: 400;
+    font-size: 0.5rem;
+    line-height: 0.7rem;
+    letter-spacing: 0%;
+    color: #212529;
+  }
+  .btnRow1,
+  .btnRow2,
+  .btnRow3,
+  .btnRow4 {
+    margin-left: 1rem;
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    height: 1.5rem;
+    align-items: end;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .btnRow1 button,
+  .btnRow2 button,
+  .btnRow3 button,
+  .btnRow4 button {
+    width: 6.5rem;
+    height: 1.3rem;
+    background-color: #000000;
+    border: none;
+  }
+  .btnRow2 button,
+  .btnRow3 button {
+    background-color: #ffffff;
+    border: 0.56px solid #000000;
+  }
+  .btnRow3 button {
+    box-shadow: 2.23px 2.23px 0px 0px #000000;
+  }
+  .btnRow4 button{
+    box-shadow: 0px 2.23px 2.23px 0px #00000029;
+    background-color: #ffffff;
+  }
+}
