@@ -33,6 +33,7 @@
     height: fit-content;
     display: flex;
     flex-direction: column;
+    margin-bottom: 1rem;
   }
   .profile {
     display: flex;
@@ -258,7 +259,7 @@
     background-color: #28a263;
     font-family: "Inter";
     font-weight: 600;
-    font-size: 0.85rem;
+    font-size: 0.52rem;
     line-height: 0.8rem;
     letter-spacing: -0.18px;
     text-align: center;
@@ -266,7 +267,7 @@
     align-items: center;
   }
   .addBtn span {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     width: 1.5rem;
     height: 1.5rem;
     font-weight: 300;
@@ -351,8 +352,6 @@
     align-items: center;
     gap: 1rem;
   }
-  .toggle {
-  }
   .toggle input {
     display: none;
   }
@@ -385,5 +384,154 @@
   }
   .toggle input:checked + label:before {
     left: 0.4rem;
+  }
+  .banner {
+    width: 100%;
+    margin-bottom: 1.25rem;
+    margin-top: 1.3rem;
+  }
+  .bannerTitle {
+    margin-left: 1rem;
+    height: 2rem;
+    font-family: "Poppins";
+    font-weight: 600;
+    font-size: 0.7rem;
+    line-height: 2rem;
+    letter-spacing: 0%;
+    width: 90%;
+  }
+  .customize {
+    margin-left: 1rem;
+    width: 90%;
+    border: 1px solid #00000026;
+    border-radius: 0.9rem;
+    padding-bottom: 1rem;
+  }
+  .bannerdisplay {
+    width: 90%;
+    margin-left: 1rem;
+    border: 1px solid #00000026;
+    display: flex;
+    border-radius: 0.2rem;
+    margin-top: 1rem;
+    flex-direction: column;
+    background-color: #342b26;
+    align-items: center;
+  }
+  .bannerdisplay img {
+    width: 4.5rem;
+    height: 4.5rem;
+    margin-top: 3rem;
+    border-radius: 50%;
+    background-color: #d9d9d9;
+  }
+  .bannerdisplay h5 {
+    margin-top: 2px;
+    font-family: "Poppins";
+    font-weight: 700;
+    font-size: 0.85rem;
+    line-height: 2rem;
+    margin-bottom: 0;
+    letter-spacing: 0%;
+    color: #ffffff;
+  }
+  .bannerdisplay h6 {
+    display: flex;
+    align-items: center;
+    font-family: "Poppins";
+    font-weight: 400;
+    font-size: 0.6rem;
+    line-height: 0.6rem;
+    letter-spacing: 0%;
+    color: #ffffffb8;
+    margin-top: 0;
+  }
+  .custombg {
+    display: flex;
+    margin: 1rem 0 0 1rem;
+    flex-direction: column;
+  }
+  .bgtitle {
+    font-family: "Poppins";
+    font-weight: 500;
+    font-size: 0.45rem;
+    margin-bottom: 0.6rem;
+    line-height: 0.45rem;
+    letter-spacing: 0%;
+  }
+  .bgBtns {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .bgBtns button {
+    border-radius: 50%;
+    width: 1.8rem;
+    height: 1.8rem;
+    border: none;
+  }
+  .selectColor {
+    display: flex;
+    gap: 0.5rem;
+  }
+  .selectColor div {
+    border-radius: 0.3rem;
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+  .selectColor input {
+    border: none;
+    height: 1.75rem;
+    width: 8.5rem;
+    background-color: #f6f7f5;
+    border-radius: 0.35rem;
+    font-family: "Poppins";
+    font-weight: 500;
+    padding-left: 0.5rem;
+    font-size: 7.47px;
+    line-height: 31.89px;
+    letter-spacing: 0%;
+    color: #000000;
+  }
+  .saveBtn {
+    width: 90%;
+    margin-left: 1rem;
+  }
+  .saveBtn button {
+    background-color: #29a263;
+    border: none;
+    width: 8rem;
+    height: 2rem;
+    border-radius: 0.6rem;
+  }
+  .preview {
+    width: 5.5rem;
+    height: 1.6rem;
+    position: fixed;
+    top: 80%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .preview button {
+    width: 100%;
+    height: 100%;
+    border-radius: 0.85rem;
+    border: none;
+    font-family: "Poppins";
+    font-weight: 500;
+    font-size: 0.7rem;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0px 3px 7px 0px #00000059;
+    align-items: center;
+    background-color: #ffffff;
+    color: #404040;
+    z-index: 1000;
+    line-height: 1.1rem;
+    letter-spacing: 0%;
+  }
+  .preview button svg {
+    margin-right: 0.3rem;
   }
 }

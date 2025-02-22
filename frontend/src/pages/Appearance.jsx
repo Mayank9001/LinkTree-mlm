@@ -11,6 +11,7 @@ const Appearance = () => {
   return (
     <>
       <Navbar active={active} />
+      <div>Appearance</div>
     </>
   );
 };

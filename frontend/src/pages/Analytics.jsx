@@ -11,6 +11,7 @@ const Analytics = () => {
   return (
     <>
       <Navbar active={active} />
+      <div>Analytics</div>
     </>
   );
 };

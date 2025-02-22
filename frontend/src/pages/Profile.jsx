@@ -11,11 +11,14 @@ const Profile = () => {
     isSettings: false,
   };
   const [isLinkActive, setIsLinkActive] = useState(true);
-  const [isShopActive, setIsShopActive] = useState(false);
   const [profileimg, setProfileimg] = useState(Boy);
   const [isLinkToggle, setIsLinkToggle] = useState(false);
   const [bio, setBio] = useState("Bio");
-  const username = "@bardrock";
+  const [bgColor, setBgColor] = useState("#342b26");
+  const [bgInputColor, setBgInputColor] = useState("#000000");
+  const [color, setColor] = useState("#FFFFFF");
+  const username = "bardrock";
+  const linkUrl = "https://www.instagram.com/opopo_08/";
   const linkTitle = "Instagram";
   const Move = () => (
     <svg
@@ -31,7 +34,6 @@ const Profile = () => {
       />
     </svg>
   );
-  const linkUrl = "https://www.instagram.com/opopo_08/";
   const Del = () => (
     <svg
       width="8"
@@ -50,7 +52,7 @@ const Profile = () => {
     <svg
       width="11"
       height="11"
-      style={{marginRight:"5px"}}
+      style={{ marginRight: "5px" }}
       viewBox="0 0 12 12"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -81,7 +83,7 @@ const Profile = () => {
       width="9"
       height="9"
       viewBox="0 0 9 9"
-      style={{marginLeft:"5px"}}
+      style={{ marginLeft: "5px" }}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -142,6 +144,35 @@ const Profile = () => {
       </defs>
     </svg>
   );
+  const Icon = () => (
+    <svg
+      width="14"
+      height="13"
+      viewBox="0 0 14 13"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g clipPath="url(#clip0_198_1623)">
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M9.91381 4.01871C10.0265 4.00019 10.1416 4.03642 10.2237 4.11617C11.1777 5.04387 11.7032 6.2855 11.7032 7.6123C11.7032 10.3029 9.51435 12.4918 6.8239 12.4918C4.59836 12.4918 2.6569 10.9851 2.10262 8.82772C1.99759 8.41842 1.94434 8.00953 1.94434 7.6123C1.94434 6.83256 2.12649 6.08299 2.48574 5.38448C2.83929 4.69776 3.35916 4.09644 3.98922 3.64534L4.00036 3.63766C4.02357 3.62235 4.04837 3.60421 4.07462 3.585L4.07733 3.58301L4.11692 3.55416C5.11871 2.83729 5.7479 1.72599 5.8441 0.504482C5.85358 0.383929 5.92281 0.276153 6.02851 0.217368C6.13422 0.158607 6.26223 0.156658 6.36967 0.21217C7.60372 0.849995 8.50967 1.98673 8.85516 3.33089C8.96024 3.74012 9.01349 4.14901 9.01349 4.54636C9.01349 4.75344 8.99999 4.95997 8.97316 5.16527C9.24228 4.88107 9.47102 4.55957 9.6511 4.20972C9.70346 4.10803 9.80094 4.03717 9.91381 4.01871ZM6.54126 9.94066C7.49334 9.94066 8.26514 9.04022 8.26514 7.92947C8.26514 6.81872 7.49334 5.91827 6.54126 5.91827C5.58919 5.91827 4.81738 6.81872 4.81738 7.92947C4.81738 9.04022 5.58919 9.94066 6.54126 9.94066Z"
+          fill={bgColor === "#ffffff" ? "#000000b8" : "#ffffff"}
+          fillOpacity="0.72"
+        />
+      </g>
+      <defs>
+        <clipPath id="clip0_198_1623">
+          <rect
+            width="13.6702"
+            height="12.32"
+            fill="white"
+            transform="translate(0.220703 0.171875)"
+          />
+        </clipPath>
+      </defs>
+    </svg>
+  );
   return (
     <>
       <Navbar active={active} />
@@ -175,7 +206,7 @@ const Profile = () => {
               </div>
               <span className={styles.title}>
                 <h4>Profile Title</h4>
-                <h5>{username}</h5>
+                <h5>@{username}</h5>
               </span>
               <span className={styles.biobio}>
                 <label htmlFor="bio">Bio</label>
@@ -246,6 +277,99 @@ const Profile = () => {
               </div>
             </div>
           </div>
+          <div className={styles.banner}>
+            <span className={styles.bannerTitle}>Banner</span>
+            <div className={styles.customize}>
+              <div
+                className={styles.bannerdisplay}
+                style={{ backgroundColor: bgColor }}
+              >
+                <img src={profileimg} />
+                <h5
+                  style={{
+                    color: bgColor === "#ffffff" ? "#000000b8" : "#ffffffb8",
+                  }}
+                >
+                  @{username}
+                </h5>
+                <h6
+                  style={{
+                    color: bgColor === "#ffffff" ? "#000000b8" : "#ffffffb8",
+                  }}
+                >
+                  <Icon />/{username}
+                </h6>
+              </div>
+              <div className={styles.custombg}>
+                <span className={styles.bgtitle}>Custom Background Color</span>
+                <div className={styles.bgBtns}>
+                  <button
+                    style={{ backgroundColor: "#342B26" }}
+                    onClick={() => {
+                      setBgColor("#342B26");
+                      setColor("#ffffff");
+                    }}
+                  ></button>
+                  <button
+                    style={{
+                      backgroundColor: "#FFFFFF",
+                      border: "0.46px solid #0000002E",
+                    }}
+                    onClick={() => {
+                      setBgColor("#ffffff");
+                      setColor("#000000");
+                    }}
+                  ></button>
+                  <button
+                    style={{ backgroundColor: "#000000" }}
+                    onClick={() => {
+                      setBgColor("#000000");
+                    }}
+                  ></button>
+                </div>
+                <div className={styles.selectColor}>
+                  <div style={{ backgroundColor: bgInputColor }}></div>
+                  <input
+                    type="text"
+                    defaultValue={bgInputColor}
+                    onChange={(e) => {
+                      setBgColor(e.target.value);
+                      setBgInputColor(e.target.value);
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className={styles.saveBtn}>
+            <button>Save</button>
+          </div>
+        </div>
+        <div className={styles.preview}>
+          <button>
+            <svg
+              width="16"
+              height="13"
+              viewBox="0 0 16 13"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M0.945949 7.15642C1.78675 8.62298 4.15635 12.033 8.00035 12.033C11.8507 12.033 14.2163 8.62136 15.0563 7.15642C15.1708 6.95728 15.2311 6.73081 15.2309 6.50022C15.2308 6.26963 15.1703 6.04323 15.0555 5.84423C14.2155 4.37848 11.8475 0.966797 8.00035 0.966797C4.15315 0.966797 1.78595 4.37686 0.945949 5.84261C0.831064 6.04187 0.770508 6.26861 0.770508 6.49952C0.770508 6.73042 0.831064 6.95716 0.945949 7.15642Z"
+                stroke="black"
+                strokeOpacity="0.75"
+                strokeWidth="0.8"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M8.00039 8.63281C8.55735 8.63281 9.09149 8.40811 9.48531 8.00813C9.87914 7.60815 10.1004 7.06566 10.1004 6.5C10.1004 5.93434 9.87914 5.39185 9.48531 4.99187C9.09149 4.59189 8.55735 4.36719 8.00039 4.36719C7.44344 4.36719 6.90929 4.59189 6.51547 4.99187C6.12164 5.39185 5.90039 5.93434 5.90039 6.5C5.90039 7.06566 6.12164 7.60815 6.51547 8.00813C6.90929 8.40811 7.44344 8.63281 8.00039 8.63281Z"
+                stroke="black"
+                strokeOpacity="0.75"
+                strokeWidth="0.8"
+                strokeLinejoin="round"
+              />
+            </svg>Preview
+          </button>
         </div>
       </div>
     </>
