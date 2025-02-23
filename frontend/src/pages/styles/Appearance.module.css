@@ -332,7 +332,7 @@
     grid-template-columns: 1fr 1fr 1fr 1fr;
   }
   .themelist {
-    width: 4.5rem;
+    width: 4rem;
     height: 8rem;
     display: flex;
     flex-direction: column;
