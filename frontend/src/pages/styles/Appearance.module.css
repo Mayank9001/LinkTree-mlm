@@ -180,14 +180,13 @@
   .btnRow3,
   .btnRow4,
   .btnRow5 {
-    margin-left: 1rem;
+    margin: 0.5rem auto 0.5rem 1rem;
+    width: 95%;
     display: flex;
     flex-direction: row;
-    gap: 0.5rem;
+    justify-content: space-between;
     height: 1.5rem;
     align-items: end;
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
   }
   .btnRow1 button,
   .btnRow2 button,
@@ -221,6 +220,7 @@
   .btnRow51,
   .btnRow52 {
     display: flex;
+    justify-content: space-between;
     flex-direction: row;
     width: 100%;
     gap: 0.5rem;
