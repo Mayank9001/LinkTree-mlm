@@ -184,7 +184,6 @@
   .btnRow52 {
     margin: 0.5rem auto 0.5rem 1rem;
     width: 95%;
-    background-color: darkcyan;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -199,7 +198,7 @@
   .btnRow5 button,
   .btnRow51 button,
   .btnRow52 button {
-    width: 6.3rem;
+    width: 30%;
     height: 1.3rem;
     background-color: #000000;
     border: none;
@@ -226,9 +225,6 @@
   .btnRow52 {
     margin: 0;
     width: 100%;
-  }
-  svg{
-    background-color: khaki;
   }
   .box {
     display: block;
