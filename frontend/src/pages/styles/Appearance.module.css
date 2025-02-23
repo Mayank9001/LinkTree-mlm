@@ -195,6 +195,7 @@
   .btnRow4 button,
   .btnRow5 button {
     width: 6.5rem;
+    max-width: 6.5rem;
     height: 1.3rem;
     background-color: #000000;
     border: none;
@@ -217,11 +218,14 @@
     gap: 0.7rem;
     height: max-content;
   }
-  .btnRow51 {
+  .btnRow51, .btnRow52 {
     display: flex;
     flex-direction: row;
     gap: 0.5rem;
     width: 100%;
+  }
+  .btnRow51 button{
+    width: 6.3rem;
   }
   .box {
     display: block;

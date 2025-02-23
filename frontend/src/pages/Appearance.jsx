@@ -265,9 +265,9 @@ const Appearance = () => {
                   <div className={styles.btnRow51}>
                     <button>
                       <svg
-                        width="6.5rem"
+                        width="6.3rem"
                         height="3"
-                        viewBox="0 0 104 3"
+                        viewBox="0 0 102 3"
                         style={{
                           position: "relative",
                           left: "-0.4rem",
@@ -282,14 +282,14 @@ const Appearance = () => {
                         />
                       </svg>
                       <svg
-                        width="6.5rem"
+                        width="6.3rem"
                         style={{
                           position: "relative",
                           left: "-0.4rem",
                           top: "-0.37rem",
                         }}
                         height="3"
-                        viewBox="0 0 104 3"
+                        viewBox="0 0 102 3"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
                       >
@@ -350,7 +350,7 @@ const Appearance = () => {
                     </button>
                     <button></button>
                   </div>
-                  <div className={styles.btnRow51}>
+                  <div className={styles.btnRow52}>
                     <button
                       style={{
                         borderRadius: "0.85rem",
