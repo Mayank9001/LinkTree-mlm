@@ -296,9 +296,10 @@
   .ffInput input {
     border: 0.56px solid #e0e2d9;
     background-color: white;
-    width: 98%;
+    width: 80%;
     height: 100%;
     font-family: "DM Sans";
+    border-radius: 0.3rem;
     font-weight: 700;
     font-size: 8.46px;
     line-height: 13.54px;
