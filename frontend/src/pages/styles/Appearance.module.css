@@ -142,7 +142,7 @@
     background-color: #f3f3f1;
     border-radius: 0.85rem;
   }
-  .types button svg{
+  .types button svg {
     z-index: 0;
   }
   .layout button {
@@ -178,7 +178,8 @@
   .btnRow1,
   .btnRow2,
   .btnRow3,
-  .btnRow4 {
+  .btnRow4,
+  .btnRow5 {
     margin-left: 1rem;
     display: flex;
     flex-direction: row;
@@ -191,7 +192,8 @@
   .btnRow1 button,
   .btnRow2 button,
   .btnRow3 button,
-  .btnRow4 button {
+  .btnRow4 button,
+  .btnRow5 button {
     width: 6.5rem;
     height: 1.3rem;
     background-color: #000000;
@@ -205,8 +207,28 @@
   .btnRow3 button {
     box-shadow: 2.23px 2.23px 0px 0px #000000;
   }
-  .btnRow4 button{
+  .btnRow4 button {
     box-shadow: 0px 2.23px 2.23px 0px #00000029;
     background-color: #ffffff;
+  }
+  .btnRow5 {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    height: max-content;
+  }
+  .btnRow51 {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    width: 100%;
+  }
+  .box {
+    display: block;
+    width: 0.29rem;
+    position: relative;
+    height: 0.29rem;
+    background-color: white;
+    border: 0.56px solid #000000;
   }
 }
