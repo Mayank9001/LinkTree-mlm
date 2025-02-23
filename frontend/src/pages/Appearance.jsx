@@ -329,7 +329,6 @@ const Appearance = () => {
                           </clipPath>
                         </defs>
                       </svg>
-
                       <svg
                         width="6.4rem"
                         height="4"
