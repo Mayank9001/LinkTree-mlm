@@ -2,11 +2,48 @@ import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import styles from "./styles/Appearance.module.css";
 import Spark from "../assets/Spark.png";
+import AirBlack from "../assets/themes/AirBlack.png";
+import AirGrey from "../assets/themes/AirGrey.png";
+import AirSmoke from "../assets/themes/AirSmoke.png";
+import AirSnow from "../assets/themes/AirSnow.png";
+import MineralBlue from "../assets/themes/MineralBlue.png";
+import MineralGreen from "../assets/themes/MineralGreen.png";
+import MineralOrange from "../assets/themes/MineralOrange.png";
 import Boy from "../assets/Boy.png";
 
 const Appearance = () => {
   const [logoutVisbile, setLogoutVisible] = useState(false);
   const [selectedlayout, setSelectedLayout] = useState("stack");
+  const themes = [
+    {
+      image: AirSnow,
+      title: "Air Snow",
+    },
+    {
+      image: AirGrey,
+      title: "Air Grey",
+    },
+    {
+      image: AirSmoke,
+      title: "Air Smoke",
+    },
+    {
+      image: AirBlack,
+      title: "Air Black",
+    },
+    {
+      image: MineralBlue,
+      title: "Mineral Blue",
+    },
+    {
+      image: MineralGreen,
+      title: "Mineral Green",
+    },
+    {
+      image: MineralOrange,
+      title: "Mineral Orange",
+    },
+  ];
   const active = {
     isLinks: false,
     isAppearance: true,
@@ -405,15 +442,91 @@ const Appearance = () => {
                 </div>
               </div>
               <div className={styles.btnStyle}>
-                <label>Button color</label>
+                <label style={{ fontWeight: "600" }}>Button color</label>
+                <div className={styles.selectColor}>
+                  <div
+                    style={{ backgroundColor: "#000000" }}
+                    className={styles.bginputColor}
+                  ></div>
+                  <div className={styles.bgInput}>
+                    <input
+                      id="buttonBgCustomInput"
+                      type="text"
+                      defaultValue="#ffffff"
+                    />
+                    <label htmlFor="buttonBgCustomInput">Button color</label>
+                  </div>
+                </div>
               </div>
               <div className={styles.btnStyle}>
-                <label>Button font color</label>
+                <label style={{ fontWeight: "600" }}>Button font color</label>
+                <div className={styles.selectColor}>
+                  <div
+                    style={{ backgroundColor: "#888888" }}
+                    className={styles.bginputColor}
+                  ></div>
+                  <div className={styles.bgInput}>
+                    <input
+                      id="buttonFontColorCustomInput"
+                      type="text"
+                      defaultValue="#888888"
+                    />
+                    <label htmlFor="buttonFontColorCustomInput">
+                      Button font color
+                    </label>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-          <div className="">Fonts</div>
-          <div className="">Themes</div>
+          <div className={styles.layouts}>
+            <label>Fonts</label>
+            <div className={styles.styling}>
+              <div className={styles.btnStyle}>
+                <label style={{ fontWeight: "600" }}>Font</label>
+                <div className={styles.ffInput}>
+                  <input id="ffInput" defaultValue="DM Sans" />
+                  <div
+                    htmlFor="ffInput"
+                    style={{ width: "1.7rem", height: "1.7rem" }}
+                  >
+                    Aa
+                  </div>
+                </div>
+              </div>
+              <div className={styles.btnStyle}>
+                <label style={{ fontWeight: "600" }}>Color</label>
+                <div className={styles.selectColor}>
+                  <div
+                    style={{ backgroundColor: "#ffffff" }}
+                    className={styles.bginputColor}
+                  ></div>
+                  <div className={styles.bgInput}>
+                    <input
+                      id="fontColorCustomInput"
+                      type="text"
+                      style={{ backgroundColor: "#ffffff" }}
+                      defaultValue="#ffffff"
+                    />
+                    <label htmlFor="fontColorCustomInput">Color</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className={styles.layouts}>
+            <label>Themes</label>
+            <div className={styles.styling}>
+              <div className={styles.themecontent}>
+                {themes.map((theme, index) => (
+                  <div className={styles.themelist}>
+                    <img src={theme.image} />
+                    <span>{theme.title}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
           <div className={styles.saveBtn}>
             <button>Save</button>
           </div>
