@@ -179,14 +179,16 @@
   .btnRow2,
   .btnRow3,
   .btnRow4,
-  .btnRow5 {
+  .btnRow5,
+  .btnRow51,
+  .btnRow52 {
     margin: 0.5rem auto 0.5rem 1rem;
     width: 95%;
+    background-color: darkcyan;
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-between;
     height: 1.5rem;
-    gap: 0.5rem;
     align-items: end;
   }
   .btnRow1 button,
@@ -194,7 +196,8 @@
   .btnRow3 button,
   .btnRow4 button,
   .btnRow5 button,
-  .btnRow51 button {
+  .btnRow51 button,
+  .btnRow52 button {
     width: 6.3rem;
     height: 1.3rem;
     background-color: #000000;
@@ -220,19 +223,11 @@
   }
   .btnRow51,
   .btnRow52 {
-    display: flex;
-    justify-content: center;
-    flex-direction: row;
+    margin: 0;
     width: 100%;
-    gap: 1rem;
   }
-  .btnRow51 button {
-    width: 6.3rem;
-    gap: 1rem;
-  }
-  .btnRow51 button svg {
-    width: 6.3rem;
-    background-color: darkkhaki;
+  svg{
+    background-color: khaki;
   }
   .box {
     display: block;
