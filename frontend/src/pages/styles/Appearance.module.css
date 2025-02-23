@@ -189,6 +189,7 @@
     flex-direction: row;
     justify-content: space-between;
     height: 1.5rem;
+    gap: 1rem;
     align-items: end;
   }
   .btnRow1 button,
