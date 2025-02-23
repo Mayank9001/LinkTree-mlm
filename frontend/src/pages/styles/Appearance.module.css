@@ -184,8 +184,9 @@
     width: 95%;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     height: 1.5rem;
+    gap: 0.5rem;
     align-items: end;
   }
   .btnRow1 button,
@@ -220,14 +221,18 @@
   .btnRow51,
   .btnRow52 {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     flex-direction: row;
     width: 100%;
-    gap: 0.5rem;
+    gap: 1rem;
   }
   .btnRow51 button {
     width: 6.3rem;
     gap: 1rem;
+  }
+  .btnRow51 button svg {
+    width: 6.3rem;
+    background-color: darkkhaki;
   }
   .box {
     display: block;
