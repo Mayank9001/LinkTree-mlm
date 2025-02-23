@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import styles from "./styles/Appearance.module.css";
-import Spark from "../assets/Spark.png";
 import AirBlack from "../assets/themes/AirBlack.png";
 import AirGrey from "../assets/themes/AirGrey.png";
 import AirSmoke from "../assets/themes/AirSmoke.png";
@@ -9,6 +8,7 @@ import AirSnow from "../assets/themes/AirSnow.png";
 import MineralBlue from "../assets/themes/MineralBlue.png";
 import MineralGreen from "../assets/themes/MineralGreen.png";
 import MineralOrange from "../assets/themes/MineralOrange.png";
+import Spark from "../assets/Spark.png";
 import Boy from "../assets/Boy.png";
 
 const Appearance = () => {
