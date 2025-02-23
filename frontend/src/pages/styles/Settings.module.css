@@ -9,8 +9,11 @@
   .header {
     display: flex;
     gap: 55vw;
+    z-index: 500;
+    position: fixed;
     height: max-content;
     flex-direction: row;
+    width: 100%;
     margin-top: 1rem;
   }
   .logo {
@@ -24,12 +27,33 @@
     width: 2rem;
     height: 2rem;
   }
+  .logout button {
+    position: fixed;
+    right: 1.8rem;
+    margin-top: 2rem;
+    width: 8rem;
+    height: 2.5rem;
+    display: flex;
+    justify-content: center;
+    color: #000000;
+    background-color: #f3f3f1;
+    align-items: center;
+    top: 0;
+    z-index: 501;
+    border: none;
+    border-radius: 1.5rem;
+    display: flex;
+    flex-direction: row;
+  }
+  .logout button svg {
+    margin-right: 0.5rem;
+  }
   .form {
     display: flex;
     flex-direction: column;
     width: 90%;
     height: fit-content;
-    margin: 1.5rem auto;
+    margin: 6rem auto;
   }
   .forminput {
     display: flex;
