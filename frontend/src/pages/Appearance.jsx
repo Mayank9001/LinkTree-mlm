@@ -267,7 +267,7 @@ const Appearance = () => {
                       <svg
                         width="96"
                         height="3"
-                        viewBox="0 0 97 3"
+                        viewBox="0 0 101 3"
                         style={{
                           position: "relative",
                           left: "-0.4rem",
