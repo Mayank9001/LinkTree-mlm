@@ -25,7 +25,7 @@ const SignUp = () => {
         </div>
         <form>
           <div className={styles.forminput}>
-            <label for="firstname">First name</label>
+            <label htmlFor="firstname">First name</label>
             <input
               id="firstname"
               type="text"
@@ -37,7 +37,7 @@ const SignUp = () => {
             </p>
           </div>
           <div className={styles.forminput}>
-            <label for="lastname">Last name</label>
+            <label htmlFor="lastname">Last name</label>
             <input
               id="lastname"
               type="text"
@@ -49,7 +49,7 @@ const SignUp = () => {
             </p>
           </div>
           <div className={styles.forminput}>
-            <label for="email">Email</label>
+            <label htmlFor="email">Email</label>
             <input
               id="email"
               type="text"
@@ -61,7 +61,7 @@ const SignUp = () => {
             </p>
           </div>
           <div className={styles.forminput}>
-            <label for="password">Password</label>
+            <label htmlFor="password">Password</label>
             <input
               id="password"
               type="password"
@@ -73,7 +73,7 @@ const SignUp = () => {
             </p>
           </div>
           <div className={styles.forminput}>
-            <label for="cnfpassword">Confirm Password</label>
+            <label htmlFor="cnfpassword">Confirm Password</label>
             <input
               id="cnfpassword"
               type="password"

@@ -17,16 +17,11 @@ const userSchema = new mongoose.Schema(
       required: true,
       unique: true,
       lowercase: true,
-      match: [/.+@.+\..+/, "Enter a valid email address"],
     },
     password: {
       type: String,
       required: true,
       minlength: 8,
-    },
-    category: {
-      type: String,
-      trim: true,
     },
   },
   {
