@@ -4,6 +4,7 @@ const auth = require("../middleware/auth");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
 const User = require("../models/user.model");
+const Profile = require("../models/profile.model");
 
 router.post("/signup", async (req, res) => {
   const { firstName, lastName, email, password } = req.body;
@@ -43,24 +44,28 @@ router.post("/signup", async (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
-  const { email, password } = req.body;
-  if (!email || !password) {
+  const { username, password } = req.body;
+  if (!username || !password) {
     return res
       .status(400)
       .json({ success: false, message: "All fields are required!" });
   }
   try {
-    const user = await User.findOne({ email });
+    const profile = await Profile.findOne({ username });
+    const user = await User.findOne({ _id: profile.userId });
     if (!user) {
       return res
         .status(400)
-        .json({ success: false, message: "Email Not Found!!" });
+        .json({ success: false, message: "Username Not Found!!" });
     }
     const isValidPassword = await bcrypt.compare(password, user.password);
     if (!isValidPassword) {
       return res
         .status(400)
-        .json({ success: false, message: "Email or Password is incorrect!!" });
+        .json({
+          success: false,
+          message: "Username or Password is incorrect!!",
+        });
     }
     const payload = {
       id: user._id,
