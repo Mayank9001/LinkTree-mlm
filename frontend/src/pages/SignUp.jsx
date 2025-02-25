@@ -1,17 +1,67 @@
 import React, { useState } from "react";
 import styles from "./styles/SignUp.module.css";
 import Spark from "../assets/Spark.png";
+import { toast } from "react-toastify";
 import { IoMdCheckbox } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
-
+import { userSignup } from "../services/user.services";
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const passwordRegex =
+  /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d@$!%*?&]{8,}$/;
 const SignUp = () => {
   const navigate = useNavigate();
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState({
-    username: "",
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
     password: "",
+    confirmPassword: "",
   });
+  const [errors, setErrors] = useState({});
+  const validateInput = () => {
+    const newError = {};
+    if (!formData.firstName.trim()) {
+      newError.firstName = "First name required*";
+    }
+    if (!formData.lastName.trim()) {
+      newError.lastName = "Last name required";
+    }
+    if (!formData.email.trim() || !emailRegex.test(formData.email)) {
+      newError.email = "Invalid Email*";
+    }
+    if (!formData.password.trim()) {
+      newError.password = "Please enter your password*";
+    } else if (formData.password.length < 8) {
+      newError.password = "The password must be at least 8 characters long*";
+    } else if (!passwordRegex.test(formData.password)) {
+      newError.password =
+        "Please choose a strong password that includes at least 1 lowercase and uppercase letter, a number, as well as a special character (!@#$%^&*)";
+    }
+    if (formData.password !== formData.confirmPassword) {
+      newError.confirmPassword = "Password did not match*";
+    }
+    setErrors(newError);
+    return Object.keys(errors).length === 0;
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!validateInput()) {
+      toast.info("All Fields Required!!");
+      return;
+    }
+    try {
+      const res = await userSignup(formData);
+      const data = await res.json();
+      if (res.status === 200) {
+        localStorage.setItem("token", data.token);
+        navigate("/tellus");
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className={styles.main}>
       <div className={styles.logo}>
@@ -23,17 +73,19 @@ const SignUp = () => {
           Create an account
           <a href="/login">Sign in instead</a>
         </div>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className={styles.forminput}>
             <label htmlFor="firstname">First name</label>
             <input
               id="firstname"
               type="text"
               placeholder=""
-              onChange={(e) => setUsername(e.target.value)}
+              onChange={(e) =>
+                setFormData({ ...formData, firstName: e.target.value })
+              }
             />
-            <p style={{ visibility: errors.username ? "visible" : "hidden" }}>
-              {errors.username || "Field Requires"}
+            <p style={{ visibility: errors.firstName ? "visible" : "hidden" }}>
+              {errors.firstName || "Field Requires"}
             </p>
           </div>
           <div className={styles.forminput}>
@@ -42,10 +94,12 @@ const SignUp = () => {
               id="lastname"
               type="text"
               placeholder=""
-              onChange={(e) => setUsername(e.target.value)}
+              onChange={(e) =>
+                setFormData({ ...formData, lastName: e.target.value })
+              }
             />
-            <p style={{ visibility: errors.username ? "visible" : "hidden" }}>
-              {errors.username || "Field Requires"}
+            <p style={{ visibility: errors.lastName ? "visible" : "hidden" }}>
+              {errors.lastName || "Field Requires"}
             </p>
           </div>
           <div className={styles.forminput}>
@@ -54,10 +108,12 @@ const SignUp = () => {
               id="email"
               type="text"
               placeholder=""
-              onChange={(e) => setUsername(e.target.value)}
+              onChange={(e) =>
+                setFormData({ ...formData, email: e.target.value })
+              }
             />
-            <p style={{ visibility: errors.username ? "visible" : "hidden" }}>
-              {errors.username || "Field Requires"}
+            <p style={{ visibility: errors.email ? "visible" : "hidden" }}>
+              {errors.email || "Field Requires"}
             </p>
           </div>
           <div className={styles.forminput}>
@@ -66,7 +122,9 @@ const SignUp = () => {
               id="password"
               type="password"
               placeholder=""
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) =>
+                setFormData({ ...formData, password: e.target.value })
+              }
             />
             <p style={{ visibility: errors.password ? "visible" : "hidden" }}>
               {errors.password || "Field Requires"}
@@ -78,10 +136,16 @@ const SignUp = () => {
               id="cnfpassword"
               type="password"
               placeholder=""
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) =>
+                setFormData({ ...formData, confirmPassword: e.target.value })
+              }
             />
-            <p style={{ visibility: errors.password ? "visible" : "hidden" }}>
-              {errors.password || "Field Requires"}
+            <p
+              style={{
+                visibility: errors.confirmPassword ? "visible" : "hidden",
+              }}
+            >
+              {errors.confirmPassword || "Field Requires"}
             </p>
           </div>
           <div>
@@ -100,11 +164,7 @@ const SignUp = () => {
             </span>
           </div>
           <div>
-            <button
-              type="submit"
-              className={styles.signinbtn}
-              onClick={() => navigate("/tellus")}
-            >
+            <button type="submit" className={styles.signinbtn}>
               Create an account
             </button>
           </div>

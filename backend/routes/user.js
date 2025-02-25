@@ -8,13 +8,6 @@ const Profile = require("../models/profile.model");
 
 router.post("/signup", async (req, res) => {
   const { firstName, lastName, email, password } = req.body;
-  //   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  //   const uppercaseRegex = /[A-Z]/;
-  //   const lowercaseRegex = /[a-z]/;
-  //   const numberRegex = /\d/;
-  //   const passwordRegex =
-  //     /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d@$!%*?&]{8,}$/;
-
   if (!firstName || !lastName || !email || !password) {
     return res.status(400).json({ message: "Please fill in all fields" });
   }
@@ -30,10 +23,20 @@ router.post("/signup", async (req, res) => {
       email: email,
       password: hashedPass,
     });
-    await newUser.save();
+    const user = await newUser.save();
+    const payload = {
+      id: user._id,
+    };
+    const token = jwt.sign(payload, process.env.JWT_SECRET, {
+      expiresIn: "8hr",
+    });
     return res
       .status(200)
-      .json({ success: true, message: "User Registered Successfully!!!" });
+      .json({
+        success: true,
+        message: "User Registered Successfully!!!",
+        token: token,
+      });
   } catch (error) {
     console.log(error);
     return res.status(500).json({
@@ -60,12 +63,10 @@ router.post("/login", async (req, res) => {
     }
     const isValidPassword = await bcrypt.compare(password, user.password);
     if (!isValidPassword) {
-      return res
-        .status(400)
-        .json({
-          success: false,
-          message: "Username or Password is incorrect!!",
-        });
+      return res.status(400).json({
+        success: false,
+        message: "Username or Password is incorrect!!",
+      });
     }
     const payload = {
       id: user._id,

@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState } from "react"
+import { toast } from "react-toastify";
 import Spark from "../assets/Spark.png";
 import styles from "./styles/TellUs.module.css";
 import { useNavigate } from "react-router-dom";
+import { setUserDetails } from "../services/profile.services";
 const categories = [
   {
     icon: "🎨",
@@ -54,10 +56,29 @@ const categories = [
 ];
 const TellUs = () => {
   const [username, setUsername] = useState("");
-  const [selected, setSelected] = useState("");
+  const [category, setCategory] = useState("");
   const navigate = useNavigate();
-  // console.log(username);
-  // console.log(selected);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!username.trim() || !category.trim()) {
+      return;
+    }
+    try {
+      const userData = {
+        username: username,
+        category: category,
+      };
+      const res = await setUserDetails(userData);
+      const data = await res.json();
+      if (res.status === 200) {
+        navigate("/profile");
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <div className={styles.main}>
       <div className={styles.logo}>
@@ -75,21 +96,21 @@ const TellUs = () => {
       <div className={styles.cards}>
         <span>Select one category that best describes your Linktree:</span>
         <div className={styles.categories}>
-          {categories.map((category, index) => (
+          {categories.map((item, index) => (
             <button
               key={index}
-              onClick={() => setSelected(category.name)}
+              onClick={() => setCategory(item.name)}
               className={`${
-                selected === category.name ? styles.selected : styles.category
+                category === item.name ? styles.selected : styles.category
               }`}
             >
-              {category.icon} {category.name}
+              {item.icon} {item.name}
             </button>
           ))}
         </div>
       </div>
       <div className={styles.continue}>
-        <button onClick={() => navigate("/profile")}>Continue</button>
+        <button onClick={handleSubmit}>Continue</button>
       </div>
     </div>
   );
