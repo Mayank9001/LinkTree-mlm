@@ -10,3 +10,13 @@ export const setUserDetails = async (data) => {
     body: JSON.stringify(data),
   });
 };
+
+export const getProfile = async () => {
+  return await fetch(`${URL}/api/profile/getprofile`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `${localStorage.getItem("token")}`,
+    },
+  });
+};

@@ -41,12 +41,11 @@ const SignUp = () => {
       newError.confirmPassword = "Password did not match*";
     }
     setErrors(newError);
-    return Object.keys(errors).length === 0;
+    return Object.keys(newError).length === 0;
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateInput()) {
-      toast.info("All Fields Required!!");
       return;
     }
     try {

@@ -178,7 +178,7 @@
     color: #676b5f;
   }
   .biobio input {
-    width: calc(100% - 0.65rem);
+    width: calc(100% - 1.15rem);
     height: 1.2rem;
     background-color: #f6f7f5;
     font-family: "Inter";
@@ -186,6 +186,7 @@
     font-size: 0.5rem;
     line-height: 0.7rem;
     padding-left: 0.5rem;
+    padding-right: 0.5rem;
     letter-spacing: 0%;
     color: #000000;
     outline: none;
@@ -205,7 +206,7 @@
   .wordcount {
     margin: 0;
     text-align: right;
-    font-family: Inter;
+    font-family: "Inter";
     font-weight: 400;
     font-size: 0.45rem;
     line-height: 0.6rem;

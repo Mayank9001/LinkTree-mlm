@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import styles from "./styles/Settings.module.css";
+import { toast } from "react-toastify";
 import Spark from "../assets/Spark.png";
+import { userDetails, updateUser } from "../services/user.services";
 import Boy from "../assets/Boy.png";
 import { useNavigate } from "react-router-dom";
 const Settings = () => {
@@ -13,12 +15,57 @@ const Settings = () => {
   };
   const navigate = useNavigate();
   const [logoutVisbile, setLogoutVisible] = useState(false);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState({
-    username: "",
-    password: "",
+  const [formData, setFormData] = useState({
+    newFirstName: "",
+    newLastName: "",
+    newEmail: "",
+    newPassword: "",
+    newConfirmPassword: "",
   });
+  const [errors, setErrors] = useState({});
+  const getDetails = async () => {
+    const res = await userDetails();
+    const data = await res.json();
+    if (res.status === 200) {
+      setFormData({
+        newFirstName: data.user.userDetails.firstName,
+        newLastName: data.user.userDetails.lastName,
+        newEmail: data.user.userDetails.email,
+        newPassword: "",
+        newConfirmPassword: "",
+      });
+    }
+  };
+  useEffect(() => {
+    getDetails();
+  }, []);
+  const validateInput = () => {
+    const newError = {};
+    if (formData.newPassword !== formData.newConfirmPassword) {
+      newError.confirmPassword = "Password did not match*";
+      newError.password = "The password you entered does not match*";
+    }
+    setErrors(newError);
+    return Object.keys(newError).length === 0;
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!validateInput()) {
+      return;
+    }
+    try {
+      const res = await updateUser(formData);
+      const data = await res.json();
+      if (res.status === 200) {
+        getDetails();
+        console.log(data);
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <>
       <Navbar active={active} />
@@ -60,16 +107,24 @@ const Settings = () => {
           </div>
         </div>
         <div className={styles.form}>
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className={styles.forminput}>
               <label>First name</label>
               <input
                 type="text"
                 placeholder=""
-                onChange={(e) => setUsername(e.target.value)}
+                defaultValue={formData.newFirstName}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    newFirstName: e.target.value.trim(),
+                  })
+                }
               />
-              <p style={{ visibility: errors.username ? "visible" : "hidden" }}>
-                {errors.username || "Field Requires"}
+              <p
+                style={{ visibility: errors.firstName ? "visible" : "hidden" }}
+              >
+                {errors.firstName || "Field Requires"}
               </p>
             </div>
             <div className={styles.forminput}>
@@ -77,10 +132,16 @@ const Settings = () => {
               <input
                 type="text"
                 placeholder=""
-                onChange={(e) => setUsername(e.target.value)}
+                defaultValue={formData.newLastName}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    newLastName: e.target.value.trim(),
+                  })
+                }
               />
-              <p style={{ visibility: errors.username ? "visible" : "hidden" }}>
-                {errors.username || "Field Requires"}
+              <p style={{ visibility: errors.lastName ? "visible" : "hidden" }}>
+                {errors.lastName || "Field Requires"}
               </p>
             </div>
             <div className={styles.forminput}>
@@ -88,10 +149,13 @@ const Settings = () => {
               <input
                 type="text"
                 placeholder=""
-                onChange={(e) => setUsername(e.target.value)}
+                defaultValue={formData.newEmail}
+                onChange={(e) =>
+                  setFormData({ ...formData, newEmail: e.target.value.trim() })
+                }
               />
-              <p style={{ visibility: errors.username ? "visible" : "hidden" }}>
-                {errors.username || "Field Requires"}
+              <p style={{ visibility: errors.email ? "visible" : "hidden" }}>
+                {errors.email || "Field Requires"}
               </p>
             </div>
             <div className={styles.forminput}>
@@ -99,7 +163,13 @@ const Settings = () => {
               <input
                 type="password"
                 placeholder=""
-                onChange={(e) => setPassword(e.target.value)}
+                defaultValue={formData.newPassword}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    newPassword: e.target.value.trim(),
+                  })
+                }
               />
               <p style={{ visibility: errors.password ? "visible" : "hidden" }}>
                 {errors.password || "Field Requires"}
@@ -110,10 +180,20 @@ const Settings = () => {
               <input
                 type="password"
                 placeholder=""
-                onChange={(e) => setPassword(e.target.value)}
+                defaultValue={formData.newConfirmPassword}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    newConfirmPassword: e.target.value.trim(),
+                  })
+                }
               />
-              <p style={{ visibility: errors.password ? "visible" : "hidden" }}>
-                {errors.password || "Field Requires"}
+              <p
+                style={{
+                  visibility: errors.confirmPassword ? "visible" : "hidden",
+                }}
+              >
+                {errors.confirmPassword || "Field Requires"}
               </p>
             </div>
             <div>

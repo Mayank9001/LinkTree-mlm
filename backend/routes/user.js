@@ -14,7 +14,9 @@ router.post("/signup", async (req, res) => {
   try {
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res.status(400).json({ message: "Email already exists" });
+      return res
+        .status(400)
+        .json({ status: false, message: "Email already exists" });
     }
     const hashedPass = await bcrypt.hash(password, 10);
     const newUser = new User({
@@ -30,13 +32,11 @@ router.post("/signup", async (req, res) => {
     const token = jwt.sign(payload, process.env.JWT_SECRET, {
       expiresIn: "8hr",
     });
-    return res
-      .status(200)
-      .json({
-        success: true,
-        message: "User Registered Successfully!!!",
-        token: token,
-      });
+    return res.status(200).json({
+      success: true,
+      message: "User Registered Successfully!!!",
+      token: token,
+    });
   } catch (error) {
     console.log(error);
     return res.status(500).json({
@@ -55,12 +55,13 @@ router.post("/login", async (req, res) => {
   }
   try {
     const profile = await Profile.findOne({ username });
-    const user = await User.findOne({ _id: profile.userId });
-    if (!user) {
+    console.log(profile);
+    if (!profile  ) {
       return res
         .status(400)
         .json({ success: false, message: "Username Not Found!!" });
     }
+    const user = await User.findOne({ _id: profile.userId });
     const isValidPassword = await bcrypt.compare(password, user.password);
     if (!isValidPassword) {
       return res.status(400).json({
@@ -108,24 +109,34 @@ router.get("/userdetails", auth, async (req, res) => {
   }
 });
 
-router.put("/update", auth, async (req, res) => {
+router.put("/updateuser", auth, async (req, res) => {
   const userId = req.user.id;
   const { newFirstName, newLastName, newEmail, newPassword } = req.body;
   try {
-    const user = User.findById({ _id: userId });
+    const user = await User.findById({ _id: userId });
     if (!user) {
       return res.status(400).json({ success: false, message: "Invalid User" });
     }
-    const hashedPassword = await bcrypt.hash(newPassword, 10);
-    await User.findByIdAndUpdate(userId, {
-      firstName: newFirstName,
-      lastName: newLastName,
-      email: newEmail,
-      password: hashedPassword,
-    });
+    if (newPassword.trim() !== "") {
+      const hashedPassword = await bcrypt.hash(newPassword, 10);
+      await User.findByIdAndUpdate(userId, {
+        firstName: newFirstName,
+        lastName: newLastName,
+        email: newEmail,
+        password: hashedPassword,
+      });
+    } else {
+      await User.findByIdAndUpdate(userId, {
+        firstName: newFirstName,
+        lastName: newLastName,
+        email: newEmail,
+      });
+    }
+    const temp = await User.findById({ _id: userId });
     return res.status(200).json({
       success: true,
       message: "successfully saved",
+      user: temp,
     });
   } catch (error) {
     console.log(error);
