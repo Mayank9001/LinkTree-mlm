@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import styles from "./styles/Settings.module.css";
+import { getProfile } from "../services/profile.services";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import Spark from "../assets/Spark.png";
 import { userDetails, updateUser } from "../services/user.services";
 import Boy from "../assets/Boy.png";
@@ -12,7 +14,9 @@ const Settings = () => {
     isAnalytics: false,
     isSettings: true,
   };
+  const navigate = useNavigate();
   const [logoutVisbile, setLogoutVisible] = useState(false);
+  const [profilePic, setProfilePic] = useState(Boy);
   const [formData, setFormData] = useState({
     newFirstName: "",
     newLastName: "",
@@ -34,7 +38,15 @@ const Settings = () => {
       });
     }
   };
+  const getProfilePic = async () => {
+    const response = await getProfile();
+    const profileData = await response.json();
+    if (response.status === 200) {
+      setProfilePic(profileData.profile.profilePic);
+    }
+  };
   useEffect(() => {
+    getProfilePic();
     getDetails();
   }, []);
   const validateInput = () => {
@@ -63,6 +75,14 @@ const Settings = () => {
       console.log(error);
     }
   };
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userData");
+    localStorage.removeItem("design");
+    localStorage.removeItem("theme");
+    toast.info("Logged Out Successfully!!!");
+    navigate("/login");
+  };
   return (
     <>
       <Navbar active={active} />
@@ -70,7 +90,7 @@ const Settings = () => {
         <div className={styles.header}>
           <img src={Spark} className={styles.logo} alt="logo" />
           <img
-            src={Boy}
+            src={profilePic}
             alt="profile"
             className={styles.pic}
             onClick={() => setLogoutVisible((prev) => !prev)}
@@ -78,6 +98,7 @@ const Settings = () => {
           <div className={styles.logout}>
             {logoutVisbile && (
               <button
+                onClick={handleLogout}
                 style={{ visibility: logoutVisbile ? "visible" : "hidden" }}
               >
                 <svg
