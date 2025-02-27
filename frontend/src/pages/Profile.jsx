@@ -504,7 +504,7 @@ const Profile = () => {
                   <div
                     style={{
                       backgroundColor:
-                        data.banner.profileBg !== "#000000"
+                        data.banner.profileBg && data.banner.profileBg !== "#000000"
                           ? data.banner.profileBg
                           : "#000000",
                     }}
@@ -512,7 +512,7 @@ const Profile = () => {
                   <input
                     type="text"
                     value={
-                      data.banner.profileBg !== "#000000"
+                      data.banner.profileBg && data.banner.profileBg !== "#000000"
                         ? data.banner.profileBg
                         : "#000000"
                     }

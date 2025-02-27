@@ -90,6 +90,7 @@ const Appearance = () => {
     return data !== "undefined" && data !== null
       ? JSON.parse(data)
       : {
+          profilePic: Boy,
           layout: "Stack",
           buttonStyle: {
             fontFamily: "",
@@ -117,6 +118,7 @@ const Appearance = () => {
       const profile = temp.profile;
       setFormData({
         ...formData,
+        profilePic: profile.profilePic,
         layout: profile.layout,
         buttonStyle: {
           fontFamily: profile.buttonStyle.fontFamily,
@@ -165,7 +167,7 @@ const Appearance = () => {
         <div className={styles.header}>
           <img src={Spark} className={styles.logo} alt="logo" />
           <img
-            src={Boy}
+            src={formData.profilePic}
             alt="profile"
             className={styles.pic}
             onClick={() => setLogoutVisible((prev) => !prev)}
