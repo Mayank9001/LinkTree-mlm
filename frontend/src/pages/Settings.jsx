@@ -5,7 +5,6 @@ import { toast } from "react-toastify";
 import Spark from "../assets/Spark.png";
 import { userDetails, updateUser } from "../services/user.services";
 import Boy from "../assets/Boy.png";
-import { useNavigate } from "react-router-dom";
 const Settings = () => {
   const active = {
     isLinks: false,
@@ -13,7 +12,6 @@ const Settings = () => {
     isAnalytics: false,
     isSettings: true,
   };
-  const navigate = useNavigate();
   const [logoutVisbile, setLogoutVisible] = useState(false);
   const [formData, setFormData] = useState({
     newFirstName: "",
@@ -58,7 +56,6 @@ const Settings = () => {
       const data = await res.json();
       if (res.status === 200) {
         getDetails();
-        console.log(data);
       } else {
         toast.error(data.message);
       }

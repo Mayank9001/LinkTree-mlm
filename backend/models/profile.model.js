@@ -10,30 +10,29 @@ const profileSchema = new mongoose.Schema({
   category: { type: String, required: true },
   bio: { type: String, maxlength: 80 },
   profilePic: {
-    data: Buffer,
-    contentType: String,
+    type: String,
+    default:
+      "https://res.cloudinary.com/dzoc66yv6/image/upload/v1740589747/Boy.png",
   },
   banner: {
-    profileBg: { type: String },
-    fontColor: { type: String },
+    profileBg: { type: String, default: "" },
+    fontColor: { type: String, default: "" },
   },
   layout: {
     type: String,
     enum: ["Stack", "Grid", "Carousel"],
-  },
-  fontStyle: {
-    fontFamily: { type: String },
-    fontColor: { type: String },
+    default: "Stack",
   },
   buttonStyle: {
-    bgColor: { type: String },
-    boxShadow: { type: String },
-    border: { type: String },
-    borderRadius: { type: String },
-    bgFontColor: { type: String },
+    bgColor: { type: String, default: "" },
+    boxShadow: { type: String, default: "" },
+    border: { type: String, default: "" },
+    borderRadius: { type: String, default: "" },
+    fontFamily: { type: String, default: "DM Sans" },
+    fontColor: { type: String, default: "#ffffff" },
   },
   themes: {
-    bgColor: { type: String },
+    bgColor: { type: String, default: "" },
   },
   clicks: {
     type: Number,

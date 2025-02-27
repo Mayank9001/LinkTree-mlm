@@ -90,7 +90,8 @@ const TellUs = () => {
         <input
           type="text"
           placeholder="Tell us your username"
-          onChange={(e) => setUsername(e.target.value)}
+          value={username}
+          onChange={(e) => setUsername(e.target.value.toLowerCase())}
         />
       </div>
       <div className={styles.cards}>

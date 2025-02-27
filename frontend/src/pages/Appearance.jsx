@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import styles from "./styles/Appearance.module.css";
 import AirBlack from "../assets/themes/AirBlack.png";
@@ -9,39 +9,74 @@ import MineralBlue from "../assets/themes/MineralBlue.png";
 import MineralGreen from "../assets/themes/MineralGreen.png";
 import MineralOrange from "../assets/themes/MineralOrange.png";
 import Spark from "../assets/Spark.png";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import Boy from "../assets/Boy.png";
+import { setDesign, getProfile } from "../services/profile.services";
 
 const Appearance = () => {
   const [logoutVisbile, setLogoutVisible] = useState(false);
-  const [selectedlayout, setSelectedLayout] = useState("stack");
+  const [selectedTheme, setSelectedTheme] = useState(() => {
+    const theme = localStorage.getItem("theme");
+    return theme ? theme : "";
+  });
+  const navigate = useNavigate();
   const themes = [
     {
       image: AirSnow,
       title: "Air Snow",
+      bgColor: "#ffffff",
+      borderRadius: "0.3rem",
+      buttonColor: "#2A3235",
+      buttonFontColor: "#ffffff",
     },
     {
       image: AirGrey,
       title: "Air Grey",
+      bgColor: "#EBEEF1",
+      borderRadius: "0.3rem",
+      buttonColor: "#ffffff",
+      buttonFontColor: "#000000",
     },
     {
       image: AirSmoke,
       title: "Air Smoke",
+      bgColor: "#2A3235",
+      borderRadius: "0.3rem",
+      buttonColor: "#ffffff",
+      buttonFontColor: "#000000",
     },
     {
       image: AirBlack,
       title: "Air Black",
+      bgColor: "#000000",
+      borderRadius: "0.3rem",
+      buttonColor: "#222222",
+      buttonFontColor: "#ffffff",
     },
     {
       image: MineralBlue,
       title: "Mineral Blue",
+      bgColor: "#E0F6FF",
+      borderRadius: "0.85rem",
+      buttonColor: "#E0F6FF",
+      buttonFontColor: "#000000",
     },
     {
       image: MineralGreen,
       title: "Mineral Green",
+      bgColor: "#E0FAEE",
+      borderRadius: "0.85rem",
+      buttonColor: "#E0FAEE",
+      buttonFontColor: "#000000",
     },
     {
       image: MineralOrange,
       title: "Mineral Orange",
+      bgColor: "#FFEEE2",
+      borderRadius: "0.85rem",
+      buttonColor: "#FFEEE2",
+      buttonFontColor: "#000000",
     },
   ];
   const active = {
@@ -49,6 +84,80 @@ const Appearance = () => {
     isAppearance: true,
     isAnalytics: false,
     isSettings: false,
+  };
+  const [formData, setFormData] = useState(() => {
+    const data = localStorage.getItem("design");
+    return data !== "undefined" && data !== null
+      ? JSON.parse(data)
+      : {
+          layout: "Stack",
+          buttonStyle: {
+            fontFamily: "",
+            bgColor: "",
+            boxShadow: "",
+            border: "",
+            borderRadius: "",
+            fontColor: "",
+          },
+          themes: {
+            bgColor: "",
+          },
+        };
+  });
+  useEffect(() => {
+    localStorage.setItem("design", JSON.stringify(formData));
+  }, [formData]);
+  useEffect(() => {
+    localStorage.setItem("theme", selectedTheme);
+  }, [selectedTheme]);
+  const getDetails = async () => {
+    const res = await getProfile();
+    const temp = await res.json();
+    if (res.status === 200) {
+      const profile = temp.profile;
+      // console.log(profile);
+      setFormData({
+        ...formData,
+        layout: profile.layout,
+        buttonStyle: {
+          fontFamily: profile.buttonStyle.fontFamily,
+          bgColor: profile.buttonStyle.bgColor,
+          boxShadow: profile.buttonStyle.boxShadow,
+          border: profile.buttonStyle.border,
+          borderRadius: profile.buttonStyle.borderRadius,
+          fontColor: profile.buttonStyle.fontColor,
+        },
+        themes: {
+          bgColor: profile.themes.bgColor,
+        },
+      });
+    }
+  };
+  useEffect(() => {
+    getDetails();
+  }, []);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await setDesign(formData);
+      const data = await res.json();
+      if (res.status === 200) {
+        toast.success(data.message);
+        getDetails();
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userData");
+    localStorage.removeItem("design");
+    localStorage.removeItem("theme");
+    toast.info("Logged Out Successfully!!!");
+    navigate("/login");
   };
   return (
     <>
@@ -65,6 +174,7 @@ const Appearance = () => {
           <div className={styles.logout}>
             {logoutVisbile && (
               <button
+                onClick={handleLogout}
                 style={{ visibility: logoutVisbile ? "visible" : "hidden" }}
               >
                 <svg
@@ -96,10 +206,10 @@ const Appearance = () => {
             <div className={styles.layout}>
               <div className={styles.types}>
                 <button
-                  onClick={() => setSelectedLayout("stack")}
+                  onClick={() => setFormData({ ...formData, layout: "Stack" })}
                   style={{
-                    backgroundColor: selectedlayout === "stack" && "#FFFFFF",
-                    border: selectedlayout === "stack" && "none",
+                    backgroundColor: formData.layout === "Stack" && "#FFFFFF",
+                    border: formData.layout === "Stack" && "none",
                   }}
                 >
                   <svg
@@ -139,10 +249,10 @@ const Appearance = () => {
               </div>
               <div className={styles.types}>
                 <button
-                  onClick={() => setSelectedLayout("grid")}
+                  onClick={() => setFormData({ ...formData, layout: "Grid" })}
                   style={{
-                    backgroundColor: selectedlayout === "grid" && "#FFFFFF",
-                    border: selectedlayout === "grid" && "none",
+                    backgroundColor: formData.layout === "Grid" && "#FFFFFF",
+                    border: formData.layout === "Grid" && "none",
                   }}
                 >
                   <svg
@@ -198,10 +308,13 @@ const Appearance = () => {
               </div>
               <div className={styles.types}>
                 <button
-                  onClick={() => setSelectedLayout("carousel")}
+                  onClick={() =>
+                    setFormData({ ...formData, layout: "Carousel" })
+                  }
                   style={{
-                    backgroundColor: selectedlayout === "carousel" && "#FFFFFF",
-                    border: selectedlayout === "carousel" && "none",
+                    backgroundColor:
+                      formData.layout === "Carousel" && "#FFFFFF",
+                    border: formData.layout === "Carousel" && "none",
                   }}
                 >
                   <svg
@@ -243,8 +356,35 @@ const Appearance = () => {
               <div className={styles.btnStyle}>
                 <label>Fill</label>
                 <div className={styles.btnRow1}>
-                  <button></button>
                   <button
+                    onClick={() => {
+                      setFormData((prevData) => ({
+                        ...prevData,
+                        buttonStyle: {
+                          ...prevData.buttonStyle,
+                          bgColor: "#000000",
+                          boxShadow: "",
+                          border: "none",
+                          borderRadius: "",
+                          bgFontColor: "#ffffff",
+                        },
+                      }));
+                    }}
+                  ></button>
+                  <button
+                    onClick={() => {
+                      setFormData((prevData) => ({
+                        ...prevData,
+                        buttonStyle: {
+                          ...prevData.buttonStyle,
+                          bgColor: "#000000",
+                          boxShadow: "",
+                          border: "none",
+                          borderRadius: "0.3rem",
+                          bgFontColor: "#ffffff",
+                        },
+                      }));
+                    }}
                     style={{ borderRadius: "0.3rem", marginLeft: "0.2rem" }}
                   ></button>
                   <button
@@ -256,6 +396,19 @@ const Appearance = () => {
                       display: "flex",
                       alignItems: "center",
                       backgroundColor: "white",
+                    }}
+                    onClick={() => {
+                      setFormData((prevData) => ({
+                        ...prevData,
+                        buttonStyle: {
+                          ...prevData.buttonStyle,
+                          bgColor: "#000000",
+                          boxShadow: "",
+                          border: "none",
+                          borderRadius: "0.85rem",
+                          bgFontColor: "#ffffff",
+                        },
+                      }));
                     }}
                   >
                     <div
@@ -273,27 +426,157 @@ const Appearance = () => {
               <div className={styles.btnStyle}>
                 <label>Outline</label>
                 <div className={styles.btnRow2}>
-                  <button></button>
                   <button
+                    onClick={() => {
+                      setFormData((prevData) => ({
+                        ...prevData,
+                        buttonStyle: {
+                          ...prevData.buttonStyle,
+                          bgColor: "#ffffff",
+                          boxShadow: "",
+                          border: "0.56px solid #000000",
+                          borderRadius: "",
+                          bgFontColor: "#000000",
+                        },
+                      }));
+                    }}
+                  ></button>
+                  <button
+                    onClick={() => {
+                      setFormData((prevData) => ({
+                        ...prevData,
+                        buttonStyle: {
+                          ...prevData.buttonStyle,
+                          bgColor: "#ffffff",
+                          boxShadow: "",
+                          border: "0.56px solid #000000",
+                          borderRadius: "0.3rem",
+                          bgFontColor: "#000000",
+                        },
+                      }));
+                    }}
                     style={{ borderRadius: "0.3rem", marginLeft: "0.2rem" }}
                   ></button>
-                  <button style={{ borderRadius: "0.85rem" }}></button>
+                  <button
+                    onClick={() => {
+                      setFormData((prevData) => ({
+                        ...prevData,
+                        buttonStyle: {
+                          ...prevData.buttonStyle,
+                          bgColor: "#ffffff",
+                          boxShadow: "",
+                          border: "0.56px solid #000000",
+                          borderRadius: "0.85rem",
+                          bgFontColor: "#000000",
+                        },
+                      }));
+                    }}
+                    style={{ borderRadius: "0.85rem" }}
+                  ></button>
                 </div>
               </div>
               <div className={styles.btnStyle}>
                 <label>Hard Shadow</label>
                 <div className={styles.btnRow3}>
-                  <button></button>
-                  <button style={{ borderRadius: "0.3rem" }}></button>
-                  <button style={{ borderRadius: "0.85rem" }}></button>
+                  <button
+                    onClick={() => {
+                      setFormData((prevData) => ({
+                        ...prevData,
+                        buttonStyle: {
+                          ...prevData.buttonStyle,
+                          bgColor: "#ffffff",
+                          boxShadow: "2.23px 2.23px 0px 0px #000000",
+                          border: "0.56px solid #000000",
+                          borderRadius: "",
+                          bgFontColor: "#000000",
+                        },
+                      }));
+                    }}
+                  ></button>
+                  <button
+                    onClick={() => {
+                      setFormData((prevData) => ({
+                        ...prevData,
+                        buttonStyle: {
+                          ...prevData.buttonStyle,
+                          bgColor: "#ffffff",
+                          boxShadow: "2.23px 2.23px 0px 0px #000000",
+                          border: "0.56px solid #000000",
+                          borderRadius: "0.3rem",
+                          bgFontColor: "#000000",
+                        },
+                      }));
+                    }}
+                    style={{ borderRadius: "0.3rem" }}
+                  ></button>
+                  <button
+                    onClick={() => {
+                      setFormData((prevData) => ({
+                        ...prevData,
+                        buttonStyle: {
+                          ...prevData.buttonStyle,
+                          bgColor: "#ffffff",
+                          boxShadow: "2.23px 2.23px 0px 0px #000000",
+                          border: "0.56px solid #000000",
+                          borderRadius: "0.85rem",
+                          bgFontColor: "#000000",
+                        },
+                      }));
+                    }}
+                    style={{ borderRadius: "0.85rem" }}
+                  ></button>
                 </div>
               </div>
               <div className={styles.btnStyle}>
                 <label>Soft Shadow</label>
                 <div className={styles.btnRow4}>
-                  <button></button>
-                  <button style={{ borderRadius: "0.3rem" }}></button>
-                  <button style={{ borderRadius: "0.85rem" }}></button>
+                  <button
+                    onClick={() => {
+                      setFormData((prevData) => ({
+                        ...prevData,
+                        buttonStyle: {
+                          ...prevData.buttonStyle,
+                          bgColor: "#ffffff",
+                          boxShadow: "0px 2.23px 2.23px 0px #00000029",
+                          border: "none",
+                          borderRadius: "",
+                          bgFontColor: "#000000",
+                        },
+                      }));
+                    }}
+                  ></button>
+                  <button
+                    onClick={() => {
+                      setFormData((prevData) => ({
+                        ...prevData,
+                        buttonStyle: {
+                          ...prevData.buttonStyle,
+                          bgColor: "#ffffff",
+                          boxShadow: "0px 2.23px 2.23px 0px #00000029",
+                          border: "none",
+                          borderRadius: "0.3rem",
+                          bgFontColor: "#000000",
+                        },
+                      }));
+                    }}
+                    style={{ borderRadius: "0.3rem" }}
+                  ></button>
+                  <button
+                    onClick={() => {
+                      setFormData((prevData) => ({
+                        ...prevData,
+                        buttonStyle: {
+                          ...prevData.buttonStyle,
+                          bgColor: "#ffffff",
+                          boxShadow: "0px 2.23px 2.23px 0px #00000029",
+                          border: "none",
+                          borderRadius: "0.85rem",
+                          bgFontColor: "#000000",
+                        },
+                      }));
+                    }}
+                    style={{ borderRadius: "0.85rem" }}
+                  ></button>
                 </div>
               </div>
               <div className={styles.btnStyle}>
@@ -388,6 +671,19 @@ const Appearance = () => {
                   </div>
                   <div className={styles.btnRow52}>
                     <button
+                      onClick={() => {
+                        setFormData((prevData) => ({
+                          ...prevData,
+                          buttonStyle: {
+                            ...prevData.buttonStyle,
+                            bgColor: "#000000",
+                            boxShadow: "0px 2.23px 2.23px 0px #00000029",
+                            border: "none",
+                            borderRadius: "0.85rem",
+                            bgFontColor: "#ffffff",
+                          },
+                        }));
+                      }}
                       style={{
                         borderRadius: "0.85rem",
                         boxShadow: "0px 2.23px 4.47px 0px #00000029",
@@ -433,9 +729,21 @@ const Appearance = () => {
                       ></span>
                     </button>
                     <button
+                      onClick={() => {
+                        setFormData((prevData) => ({
+                          ...prevData,
+                          buttonStyle: {
+                            ...prevData.buttonStyle,
+                            bgColor: "#000000",
+                            boxShadow: "",
+                            border: "none",
+                            borderRadius: "0.85rem 0 0 0.85rem",
+                            bgFontColor: "#ffffff",
+                          },
+                        }));
+                      }}
                       style={{
-                        borderTopLeftRadius: "0.85rem",
-                        borderBottomLeftRadius: "0.85rem",
+                        borderRadius: "0.85rem 0 0 0.85rem",
                       }}
                     ></button>
                   </div>
@@ -445,14 +753,33 @@ const Appearance = () => {
                 <label style={{ fontWeight: "600" }}>Button color</label>
                 <div className={styles.selectColor}>
                   <div
-                    style={{ backgroundColor: "#000000" }}
+                    style={{
+                      backgroundColor:
+                        formData.buttonStyle.bgColor !== "#ffffff" &&
+                        formData.buttonStyle.bgColor !== ""
+                          ? formData.buttonStyle.bgColor
+                          : "#ffffff",
+                    }}
                     className={styles.bginputColor}
                   ></div>
                   <div className={styles.bgInput}>
                     <input
                       id="buttonBgCustomInput"
                       type="text"
-                      defaultValue="#ffffff"
+                      value={
+                        formData.buttonStyle.bgColor
+                          ? formData.buttonStyle.bgColor
+                          : "#ffffff"
+                      }
+                      onChange={(e) => {
+                        setFormData((prevData) => ({
+                          ...prevData,
+                          buttonStyle: {
+                            ...prevData.buttonStyle,
+                            bgColor: e.target.value,
+                          },
+                        }));
+                      }}
                     />
                     <label htmlFor="buttonBgCustomInput">Button color</label>
                   </div>
@@ -462,14 +789,33 @@ const Appearance = () => {
                 <label style={{ fontWeight: "600" }}>Button font color</label>
                 <div className={styles.selectColor}>
                   <div
-                    style={{ backgroundColor: "#888888" }}
+                    style={{
+                      backgroundColor:
+                        formData.buttonStyle.fontColor !== "#888888" &&
+                        formData.buttonStyle.fontColor !== ""
+                          ? formData.buttonStyle.fontColor
+                          : "#888888",
+                    }}
                     className={styles.bginputColor}
                   ></div>
                   <div className={styles.bgInput}>
                     <input
                       id="buttonFontColorCustomInput"
                       type="text"
-                      defaultValue="#888888"
+                      value={
+                        formData.buttonStyle.fontColor
+                          ? formData.buttonStyle.fontColor
+                          : "#888888"
+                      }
+                      onChange={(e) => {
+                        setFormData((prevData) => ({
+                          ...prevData,
+                          buttonStyle: {
+                            ...prevData.buttonStyle,
+                            fontColor: e.target.value,
+                          },
+                        }));
+                      }}
                     />
                     <label htmlFor="buttonFontColorCustomInput">
                       Button font color
@@ -485,10 +831,26 @@ const Appearance = () => {
               <div className={styles.btnStyle}>
                 <label style={{ fontWeight: "600" }}>Font</label>
                 <div className={styles.ffInput}>
-                  <input id="ffInput" defaultValue="DM Sans" />
+                  <input
+                    id="ffInput"
+                    defaultValue="DM Sans"
+                    onChange={(e) => {
+                      setFormData((prevData) => ({
+                        ...prevData,
+                        buttonStyle: {
+                          ...prevData.buttonStyle,
+                          fontFamily: e.target.value,
+                        },
+                      }));
+                    }}
+                  />
                   <div
                     htmlFor="ffInput"
-                    style={{ width: "1.7rem", height: "1.7rem" }}
+                    style={{
+                      width: "1.7rem",
+                      height: "1.7rem",
+                      fontFamily: formData.buttonStyle.fontFamily,
+                    }}
                   >
                     Aa
                   </div>
@@ -498,7 +860,7 @@ const Appearance = () => {
                 <label style={{ fontWeight: "600" }}>Color</label>
                 <div className={styles.selectColor}>
                   <div
-                    style={{ backgroundColor: "#ffffff" }}
+                    style={{ backgroundColor: formData.buttonStyle.fontColor }}
                     className={styles.bginputColor}
                   ></div>
                   <div className={styles.bgInput}>
@@ -506,7 +868,20 @@ const Appearance = () => {
                       id="fontColorCustomInput"
                       type="text"
                       style={{ backgroundColor: "#ffffff" }}
-                      defaultValue="#ffffff"
+                      value={
+                        formData.buttonStyle.fontColor !== ""
+                          ? formData.buttonStyle.fontColor
+                          : "#ffffff"
+                      }
+                      onChange={(e) => {
+                        setFormData((prevData) => ({
+                          ...prevData,
+                          buttonStyle: {
+                            ...prevData.buttonStyle,
+                            fontColor: e.target.value,
+                          },
+                        }));
+                      }}
                     />
                     <label htmlFor="fontColorCustomInput">Color</label>
                   </div>
@@ -519,7 +894,30 @@ const Appearance = () => {
             <div className={styles.styling}>
               <div className={styles.themecontent}>
                 {themes.map((theme, index) => (
-                  <div className={styles.themelist}>
+                  <div
+                    className={`${styles.themelist} ${
+                      selectedTheme === theme.title ? styles.selectedTheme : ""
+                    }`}
+                    onClick={() => {
+                      setSelectedTheme(theme.title);
+                      setFormData((prevData) => ({
+                        ...prevData,
+                        themes: {
+                          ...prevData.themes,
+                          bgColor: theme.bgColor,
+                        },
+                        buttonStyle: {
+                          ...prevData.buttonStyle,
+                          bgColor: theme.buttonColor,
+                          boxShadow: "",
+                          border: "none",
+                          borderRadius: theme.borderRadius,
+                          fontColor: theme.buttonFontColor,
+                        },
+                      }));
+                    }}
+                    key={index}
+                  >
                     <img src={theme.image} />
                     <span>{theme.title}</span>
                   </div>
@@ -528,7 +926,7 @@ const Appearance = () => {
             </div>
           </div>
           <div className={styles.saveBtn}>
-            <button>Save</button>
+            <button onClick={handleSubmit}>Save</button>
           </div>
         </div>
         <div className={styles.preview}>

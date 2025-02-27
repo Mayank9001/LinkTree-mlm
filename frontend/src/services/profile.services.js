@@ -20,3 +20,14 @@ export const getProfile = async () => {
     },
   });
 };
+
+export const setDesign = async (data) => {
+  return await fetch(`${URL}/api/profile/setdesign`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `${localStorage.getItem("token")}`,
+    },
+    body: JSON.stringify(data),
+  });
+};

@@ -338,13 +338,14 @@
     flex-direction: column;
     align-items: center;
     margin-right: 0.5rem;
+    border-radius: 0.3rem;
     margin-bottom: 0.5rem;
   }
   .themelist img {
     width: 100%;
     height: 90%;
     border-radius: 0.3rem;
-    border: 0.56px solid #e0e2d9;
+    /* border: 0.56px solid #e0e2d9; */
     object-fit: cover;
     margin-bottom: 0.3rem;
   }
@@ -357,5 +358,9 @@
     letter-spacing: 0%;
     color: #000000;
     text-align: center;
+  }
+  .selectedTheme{
+    border: 0.5px solid black;
+    background-color: #dcdcdc;
   }
 }

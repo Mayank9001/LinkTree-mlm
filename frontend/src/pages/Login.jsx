@@ -10,7 +10,6 @@ const Login = () => {
     username: "",
     password: "",
   });
-  console.log(formData);
   const [errors, setErrors] = useState({});
   const validateInput = () => {
     const newError = {};
