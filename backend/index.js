@@ -3,7 +3,6 @@ const app = express();
 const mongoose = require("mongoose");
 const cors = require("cors");
 const dotenv = require("dotenv");
-const multer = require("multer");
 const cloudinary = require("cloudinary").v2;
 const userRoutes = require("./routes/user");
 const profileRoutes = require("./routes/profile");

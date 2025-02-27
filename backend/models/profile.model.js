@@ -12,7 +12,11 @@ const profileSchema = new mongoose.Schema({
   profilePic: {
     type: String,
     default:
-      "https://res.cloudinary.com/dzoc66yv6/image/upload/v1740589747/Boy.png",
+      "https://res.cloudinary.com/dzoc66yv6/image/upload/v1740589747/Boy_cplghc.png",
+  },
+  profilePicId: {
+    type: String,
+    default: "Boy_cplghc",
   },
   banner: {
     profileBg: { type: String, default: "" },
