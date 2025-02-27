@@ -115,7 +115,6 @@ const Appearance = () => {
     const temp = await res.json();
     if (res.status === 200) {
       const profile = temp.profile;
-      // console.log(profile);
       setFormData({
         ...formData,
         layout: profile.layout,

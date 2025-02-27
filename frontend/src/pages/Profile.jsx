@@ -3,7 +3,12 @@ import Navbar from "../components/Navbar";
 import Spark from "../assets/Spark.png";
 import Boy from "../assets/Boy.png";
 import styles from "./styles/Profile.module.css";
+import { getProfile, setProfile } from "../services/profile.services";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+
 const Profile = () => {
+  const navigate = useNavigate();
   const active = {
     isLinks: true,
     isAppearance: false,
@@ -11,16 +16,21 @@ const Profile = () => {
     isSettings: false,
   };
   const [isLinkActive, setIsLinkActive] = useState(true);
-  const [profileimg, setProfileimg] = useState(Boy);
   const [isLinkToggle, setIsLinkToggle] = useState(false);
-  const [bio, setBio] = useState("Bio");
-  const [bgColor, setBgColor] = useState("#342b26");
-  const [bgInputColor, setBgInputColor] = useState("#000000");
-  const [color, setColor] = useState("#FFFFFF");
   const [logoutVisbile, setLogoutVisible] = useState(false);
-  const username = "bardrock";
-  const linkUrl = "https://www.instagram.com/opopo_08/";
-  const linkTitle = "Instagram";
+  const [data, setData] = useState(() => {
+    const savedData = localStorage.getItem("userData");
+    return savedData
+      ? JSON.parse(savedData)
+      : {
+          bio: "Bio",
+          profilePic: Boy,
+          banner: {
+            profileBg: "#342b26",
+            fontColor: "#FFFFFF",
+          },
+        };
+  });
   const Move = () => (
     <svg
       width="6"
@@ -158,7 +168,7 @@ const Profile = () => {
           fillRule="evenodd"
           clipRule="evenodd"
           d="M9.91381 4.01871C10.0265 4.00019 10.1416 4.03642 10.2237 4.11617C11.1777 5.04387 11.7032 6.2855 11.7032 7.6123C11.7032 10.3029 9.51435 12.4918 6.8239 12.4918C4.59836 12.4918 2.6569 10.9851 2.10262 8.82772C1.99759 8.41842 1.94434 8.00953 1.94434 7.6123C1.94434 6.83256 2.12649 6.08299 2.48574 5.38448C2.83929 4.69776 3.35916 4.09644 3.98922 3.64534L4.00036 3.63766C4.02357 3.62235 4.04837 3.60421 4.07462 3.585L4.07733 3.58301L4.11692 3.55416C5.11871 2.83729 5.7479 1.72599 5.8441 0.504482C5.85358 0.383929 5.92281 0.276153 6.02851 0.217368C6.13422 0.158607 6.26223 0.156658 6.36967 0.21217C7.60372 0.849995 8.50967 1.98673 8.85516 3.33089C8.96024 3.74012 9.01349 4.14901 9.01349 4.54636C9.01349 4.75344 8.99999 4.95997 8.97316 5.16527C9.24228 4.88107 9.47102 4.55957 9.6511 4.20972C9.70346 4.10803 9.80094 4.03717 9.91381 4.01871ZM6.54126 9.94066C7.49334 9.94066 8.26514 9.04022 8.26514 7.92947C8.26514 6.81872 7.49334 5.91827 6.54126 5.91827C5.58919 5.91827 4.81738 6.81872 4.81738 7.92947C4.81738 9.04022 5.58919 9.94066 6.54126 9.94066Z"
-          fill={bgColor === "#ffffff" ? "#000000b8" : "#ffffff"}
+          fill={data.banner.profileBg === "#ffffff" ? "#000000b8" : "#ffffff"}
           fillOpacity="0.72"
         />
       </g>
@@ -186,6 +196,58 @@ const Profile = () => {
       clicks: 0,
     },
   ];
+  const getDetails = async () => {
+    const res = await getProfile();
+    const temp = await res.json();
+    if (res.status === 200) {
+      setData({
+        ...data,
+        username: temp.profile.username,
+        profilePic: temp.profile.profilePic,
+        banner: {
+          profileBg: temp.profile.banner.profileBg,
+          fontColor: temp.profile.banner.fontColor,
+        },
+      });
+    }
+  };
+  
+  useEffect(() => {
+    getDetails();
+  }, []);
+  
+  useEffect(() => {
+    localStorage.setItem("userData", JSON.stringify(data));
+  }, [data]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    if (data.profilePic && typeof data.profilePic === "object") {
+      formData.append("profilePic", data.profilePic);
+    }
+    formData.append("bio", data.bio);
+    formData.append("bannerProfileBg", data.banner.profileBg);
+    formData.append("bannerFontColor", data.banner.fontColor);
+    try {
+      const res = await setProfile(formData);
+      const data = await res.json();
+      if (res.status === 200) {
+        getDetails();
+        toast.success(data.message);
+      }
+    } catch (error) {
+      toast.error(data.message);
+    }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userData");
+    toast.info("Logged Out Successfully!!!");
+    navigate("/login");
+  };
+  
   return (
     <>
       <Navbar active={active} />
@@ -193,7 +255,11 @@ const Profile = () => {
         <div className={styles.header}>
           <img src={Spark} className={styles.logo} alt="logo" />
           <img
-            src={profileimg}
+            src={
+              typeof data.profilePic === "object"
+                ? URL.createObjectURL(data.profilePic)
+                : data.profilePic
+            }
             alt="profile"
             className={styles.pic}
             onClick={() => setLogoutVisible((prev) => !prev)}
@@ -201,6 +267,7 @@ const Profile = () => {
           <div className={styles.logout}>
             {logoutVisbile && (
               <button
+                onClick={handleLogout}
                 style={{ visibility: logoutVisbile ? "visible" : "hidden" }}
               >
                 <svg
@@ -231,37 +298,60 @@ const Profile = () => {
             <span className={styles.protitle}>Profile</span>
             <div className={styles.bio}>
               <div className={styles.profilepic}>
-                <img src={profileimg} id="profilepic" />
+                <img
+                  src={
+                    typeof data.profilePic === "object"
+                      ? URL.createObjectURL(data.profilePic)
+                      : data.profilePic
+                  }
+                  id="profilepic"
+                />
                 <div className={styles.pick}>
                   <label htmlFor="pickimg">Pick an image</label>
                   <input
                     id="pickimg"
                     type="file"
                     accept="image/*"
-                    onChange={() =>
-                      setProfileimg(
-                        URL.createObjectURL(
-                          document.getElementById("pickimg").files[0]
-                        )
-                      )
+                    onChange={(e) =>
+                      setData({
+                        ...data,
+                        profilePic: e.target.files[0],
+                      })
                     }
                   />
-                  <span onClick={() => setProfileimg(Boy)}>Remove</span>
+                  <span
+                    onClick={() =>
+                      setData({
+                        ...data,
+                        profilePic: Boy,
+                      })
+                    }
+                  >
+                    Remove
+                  </span>
                 </div>
               </div>
               <span className={styles.title}>
                 <h4>Profile Title</h4>
-                <h5>@{username}</h5>
+                <h5>@{data.username}</h5>
               </span>
               <span className={styles.biobio}>
                 <label htmlFor="bio">Bio</label>
                 <input
                   id="bio"
-                  placeholder={bio}
-                  onChange={(e) => setBio(e.target.value)}
+                  placeholder={data.bio}
+                  defaultValue={data.bio}
+                  onChange={(e) => {
+                    const words = e.target.value.trim();
+                    if (words.length <= 80) {
+                      setData({ ...data, bio: e.target.value });
+                    } else {
+                      e.target.blur();
+                    }
+                  }}
                 />
               </span>
-              <span className={styles.wordcount}>{bio.length}/80</span>
+              <span className={styles.wordcount}>{data.bio.length}/80</span>
             </div>
           </div>
           <div className={styles.links}>
@@ -297,21 +387,13 @@ const Profile = () => {
                     <div className={styles.linkdes}>
                       <span className={styles.linkTitle}>
                         {link.title}{" "}
-                        <span
-                        // onClick={() =>
-                        //   console.log(`Clicked ${link.title} title Edit `)
-                        // }
-                        >
+                        <span>
                           <Edit />
                         </span>
                       </span>
                       <span className={styles.linkUrl}>
                         {link.url}{" "}
-                        <span
-                        // onClick={() =>
-                        //   console.log(`Clicked ${link.title} url Edit `)
-                        // }
-                        >
+                        <span>
                           <Edit />
                         </span>
                       </span>
@@ -325,16 +407,10 @@ const Profile = () => {
                           type="checkbox"
                           id={`toggle-${index}`}
                           name="checkbox"
-                          // onChange={() => console.log(`Toggled ${link.title}`)}
                         />
                         <label htmlFor={`toggle-${index}`}></label>
                       </span>
-                      <span
-                        className={styles.delBtn}
-                        // onClick={() =>
-                        //   console.log(`Clicked ${link.title} Delete ${index}`)
-                        // }
-                      >
+                      <span className={styles.delBtn}>
                         <Del />
                       </span>
                     </div>
@@ -348,22 +424,34 @@ const Profile = () => {
             <div className={styles.customize}>
               <div
                 className={styles.bannerdisplay}
-                style={{ backgroundColor: bgColor }}
+                style={{ backgroundColor: data.banner.profileBg }}
               >
-                <img src={profileimg} />
+                <img
+                  src={
+                    typeof data.profilePic === "object"
+                      ? URL.createObjectURL(data.profilePic)
+                      : data.profilePic
+                  }
+                />
                 <h5
                   style={{
-                    color: bgColor === "#ffffff" ? "#000000b8" : "#ffffffb8",
+                    color:
+                      data.banner.profileBg === "#ffffff"
+                        ? "#000000b8"
+                        : "#ffffffb8",
                   }}
                 >
-                  @{username}
+                  @{data.username}
                 </h5>
                 <h6
                   style={{
-                    color: bgColor === "#ffffff" ? "#000000b8" : "#ffffffb8",
+                    color:
+                      data.banner.profileBg === "#ffffff"
+                        ? "#000000b8"
+                        : "#ffffffb8",
                   }}
                 >
-                  <Icon />/{username}
+                  <Icon />/{data.username}
                 </h6>
               </div>
               <div className={styles.custombg}>
@@ -372,8 +460,14 @@ const Profile = () => {
                   <button
                     style={{ backgroundColor: "#342B26" }}
                     onClick={() => {
-                      setBgColor("#342B26");
-                      setColor("#ffffff");
+                      setData((prevData) => ({
+                        ...prevData,
+                        banner: {
+                          ...prevData.banner,
+                          profileBg: "#342B26",
+                          fontColor: "#ffffff",
+                        },
+                      }));
                     }}
                   ></button>
                   <button
@@ -382,25 +476,55 @@ const Profile = () => {
                       border: "0.46px solid #0000002E",
                     }}
                     onClick={() => {
-                      setBgColor("#ffffff");
-                      setColor("#000000");
+                      setData((prevData) => ({
+                        ...prevData,
+                        banner: {
+                          ...prevData.banner,
+                          profileBg: "#ffffff",
+                          fontColor: "#000000",
+                        },
+                      }));
                     }}
                   ></button>
                   <button
                     style={{ backgroundColor: "#000000" }}
                     onClick={() => {
-                      setBgColor("#000000");
+                      setData((prevData) => ({
+                        ...prevData,
+                        banner: {
+                          ...prevData.banner,
+                          profileBg: "#000000",
+                          fontColor: "#ffffff",
+                        },
+                      }));
                     }}
                   ></button>
                 </div>
                 <div className={styles.selectColor}>
-                  <div style={{ backgroundColor: bgInputColor }}></div>
+                  <div
+                    style={{
+                      backgroundColor:
+                        data.banner.profileBg !== "#000000"
+                          ? data.banner.profileBg
+                          : "#000000",
+                    }}
+                  ></div>
                   <input
                     type="text"
-                    defaultValue={bgInputColor}
+                    value={
+                      data.banner.profileBg !== "#000000"
+                        ? data.banner.profileBg
+                        : "#000000"
+                    }
                     onChange={(e) => {
-                      setBgColor(e.target.value);
-                      setBgInputColor(e.target.value);
+                      setData((prevData) => ({
+                        ...prevData,
+                        banner: {
+                          ...prevData.banner,
+                          profileBg: e.target.value,
+                          fontColor: "#ffffff",
+                        },
+                      }));
                     }}
                   />
                 </div>
@@ -408,7 +532,7 @@ const Profile = () => {
             </div>
           </div>
           <div className={styles.saveBtn}>
-            <button>Save</button>
+            <button onClick={handleSubmit}>Save</button>
           </div>
         </div>
         <div className={styles.preview}>

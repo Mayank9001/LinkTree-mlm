@@ -31,3 +31,13 @@ export const setDesign = async (data) => {
     body: JSON.stringify(data),
   });
 };
+
+export const setProfile = async (data) => {
+  return await fetch(`${URL}/api/profile/setprofile`, {
+    method: "POST",
+    headers: {
+      Authorization: `${localStorage.getItem("token")}`,
+    },
+    body: data,
+  });
+};
