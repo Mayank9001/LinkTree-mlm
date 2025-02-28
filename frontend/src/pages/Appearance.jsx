@@ -6,6 +6,7 @@ import AirGrey from "../assets/themes/AirGrey.png";
 import AirSmoke from "../assets/themes/AirSmoke.png";
 import AirSnow from "../assets/themes/AirSnow.png";
 import MineralBlue from "../assets/themes/MineralBlue.png";
+import Preview from "../components/Preview";
 import MineralGreen from "../assets/themes/MineralGreen.png";
 import MineralOrange from "../assets/themes/MineralOrange.png";
 import Spark from "../assets/Spark.png";
@@ -16,6 +17,7 @@ import { setDesign, getProfile } from "../services/profile.services";
 
 const Appearance = () => {
   const [logoutVisbile, setLogoutVisible] = useState(false);
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [selectedTheme, setSelectedTheme] = useState(() => {
     const theme = localStorage.getItem("theme");
     return theme ? theme : "";
@@ -931,7 +933,11 @@ const Appearance = () => {
           </div>
         </div>
         <div className={styles.preview}>
-          <button>
+          <button
+            onClick={() => {
+              setIsPreviewOpen(true);
+            }}
+          >
             <svg
               width="16"
               height="13"
@@ -958,6 +964,7 @@ const Appearance = () => {
           </button>
         </div>
       </div>
+      {isPreviewOpen && <Preview onClose={() => setIsPreviewOpen(false)} />}
     </>
   );
 };

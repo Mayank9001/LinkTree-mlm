@@ -9,7 +9,7 @@
   .header {
     display: flex;
     gap: 55vw;
-    z-index: 500;
+    z-index: 50;
     position: fixed;
     height: max-content;
     flex-direction: row;
@@ -39,7 +39,7 @@
     background-color: #f3f3f1;
     align-items: center;
     top: 0;
-    z-index: 501;
+    z-index: 51;
     border: none;
     border-radius: 1.5rem;
     display: flex;

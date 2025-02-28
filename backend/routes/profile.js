@@ -79,13 +79,6 @@ router.post(
         });
         imageUrl = cloudResult.secure_url;
         cloudinaryId = cloudResult.public_id;
-      } else {
-        if (cloudinaryId && cloudinaryId !== "Boy_cplghc") {
-          await cloudinary.uploader.destroy(cloudinaryId);
-        }
-        imageUrl =
-          "https://res.cloudinary.com/dzoc66yv6/image/upload/v1740589747/Boy_cplghc.png";
-        cloudinaryId = "Boy_cplghc";
       }
       await Profile.findByIdAndUpdate(profileId, {
         bio: bio,

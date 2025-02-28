@@ -8,7 +8,7 @@
     align-items: center;
     justify-content: space-evenly;
     bottom: 0;
-    z-index: 1000;
+    z-index: 50;
     background-color: #fcfcfc;
     border: 0.8px solid #00000033;
   }

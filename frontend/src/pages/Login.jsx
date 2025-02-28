@@ -33,7 +33,7 @@ const Login = () => {
       const data = await res.json();
       if (res.status === 200) {
         localStorage.setItem("token", data.token);
-        toast.success(data.message, { autoClose: 1000 });
+        toast.success(data.message);
         navigate("/profile");
       } else {
         toast.error(data.message);

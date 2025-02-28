@@ -11,7 +11,7 @@
   .header {
     display: flex;
     gap: 55vw;
-    z-index: 500;
+    z-index: 50;
     position: fixed;
     height: max-content;
     flex-direction: row;
@@ -41,7 +41,7 @@
     background-color: #f3f3f1;
     align-items: center;
     top: 0;
-    z-index: 501;
+    z-index: 51;
     border: none;
     border-radius: 1.5rem;
     display: flex;
@@ -300,6 +300,10 @@
     margin-bottom: 0.2rem;
     margin-right: 0.1rem;
   }
+  /* .addLinks {
+  }
+  .linksContainer{
+  } */
   .allLinks {
     width: 90%;
     height: 5rem;
@@ -559,7 +563,7 @@
     align-items: center;
     background-color: #ffffff;
     color: #404040;
-    z-index: 1000;
+    z-index: 100;
     line-height: 1.1rem;
     letter-spacing: 0%;
   }

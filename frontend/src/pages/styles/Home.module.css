@@ -12,7 +12,7 @@
     display: flex;
     width: 90vw;
     height: 9vh;
-    z-index: 1000;
+    z-index: 100;
     margin: auto 5vw;
     align-items: center;
     flex-direction: row;

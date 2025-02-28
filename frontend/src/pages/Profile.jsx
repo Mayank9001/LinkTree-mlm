@@ -6,6 +6,7 @@ import styles from "./styles/Profile.module.css";
 import { getProfile, setProfile } from "../services/profile.services";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import Preview from "../components/Preview";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -18,6 +19,7 @@ const Profile = () => {
   const [isLinkActive, setIsLinkActive] = useState(true);
   const [isLinkToggle, setIsLinkToggle] = useState(false);
   const [logoutVisbile, setLogoutVisible] = useState(false);
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [data, setData] = useState(() => {
     const savedData = localStorage.getItem("userData");
     return savedData
@@ -241,6 +243,7 @@ const Profile = () => {
       setData({
         ...data,
         username: temp.profile.username,
+        bio: temp.profile.bio,
         profilePic: temp.profile.profilePic,
         banner: {
           profileBg: temp.profile.banner.profileBg,
@@ -377,8 +380,7 @@ const Profile = () => {
                 <label htmlFor="bio">Bio</label>
                 <input
                   id="bio"
-                  placeholder={data.bio}
-                  defaultValue={data.bio}
+                  value={data.bio}
                   onChange={(e) => {
                     const words = e.target.value.trim();
                     if (words.length <= 80) {
@@ -416,46 +418,48 @@ const Profile = () => {
                   Add
                 </button>
               </div>
-              {(isLinkActive ? appLinks : shopLinks).map((link, index) => (
-                <div className={styles.allLinks} key={index}>
-                  <div className={styles.link}>
-                    <div className={styles.move}>
-                      <Move />
-                    </div>
-                    <div className={styles.linkdes}>
-                      <span className={styles.linkTitle}>
-                        {link.title}{" "}
-                        <span>
-                          <Edit />
+              <div className={styles.linksContainer}>
+                {(isLinkActive ? appLinks : shopLinks).map((link, index) => (
+                  <div className={styles.allLinks} key={index}>
+                    <div className={styles.link}>
+                      <div className={styles.move}>
+                        <Move />
+                      </div>
+                      <div className={styles.linkdes}>
+                        <span className={styles.linkTitle}>
+                          {link.title}{" "}
+                          <span>
+                            <Edit />
+                          </span>
                         </span>
-                      </span>
-                      <span className={styles.linkUrl}>
-                        {link.url}{" "}
-                        <span>
-                          <Edit />
+                        <span className={styles.linkUrl}>
+                          {link.url}{" "}
+                          <span>
+                            <Edit />
+                          </span>
                         </span>
-                      </span>
-                      <span className={styles.clicks}>
-                        {!isLinkActive && <ShopImg />}
-                        <Clickimg /> {link.clicks} clicks
-                      </span>
-                    </div>
-                    <div className={styles.delToggle}>
-                      <span className={styles.toggle}>
-                        <input
-                          type="checkbox"
-                          id={`toggle-${index}`}
-                          name="checkbox"
-                        />
-                        <label htmlFor={`toggle-${index}`}></label>
-                      </span>
-                      <span className={styles.delBtn}>
-                        <Del />
-                      </span>
+                        <span className={styles.clicks}>
+                          {!isLinkActive && <ShopImg />}
+                          <Clickimg /> {link.clicks} clicks
+                        </span>
+                      </div>
+                      <div className={styles.delToggle}>
+                        <span className={styles.toggle}>
+                          <input
+                            type="checkbox"
+                            id={`toggle-${index}`}
+                            name="checkbox"
+                          />
+                          <label htmlFor={`toggle-${index}`}></label>
+                        </span>
+                        <span className={styles.delBtn}>
+                          <Del />
+                        </span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
           <div className={styles.banner}>
@@ -577,7 +581,11 @@ const Profile = () => {
           </div>
         </div>
         <div className={styles.preview}>
-          <button>
+          <button
+            onClick={() => {
+              setIsPreviewOpen(true);
+            }}
+          >
             <svg
               width="16"
               height="13"
@@ -604,6 +612,7 @@ const Profile = () => {
           </button>
         </div>
       </div>
+      {isPreviewOpen && <Preview onClose={()=>setIsPreviewOpen(false)} />}
     </>
   );
 };
