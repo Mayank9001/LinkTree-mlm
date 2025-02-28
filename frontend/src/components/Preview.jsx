@@ -159,9 +159,9 @@ const Preview = ({ onClose }) => {
             style={{ backgroundColor: profile.banner.profileBg }}
           >
             <img src={profile.profilePic} />
-            <span style={{ color: profile.banner.fontColor }}>
+            <div style={{ color: profile.banner.fontColor }} className={styles.username}>
               @{profile.username}
-            </span>
+            </div>
             <div className={styles.openLink}>
               <svg
                 width="17"
@@ -243,7 +243,7 @@ const Preview = ({ onClose }) => {
               ))}
             </div>
           </div>
-          <div className={styles.connected}>Get Connected</div>
+          <button className={styles.connected}>Get Connected</button>
         </div>
         <div className={styles.cross} onClick={onClose}>
           <RxCross1 color="black" size={16} />
