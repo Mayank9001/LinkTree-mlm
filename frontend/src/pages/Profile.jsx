@@ -25,6 +25,7 @@ const Profile = () => {
     return savedData
       ? JSON.parse(savedData)
       : {
+          username: "",
           bio: "Bio",
           profilePic: Boy,
           banner: {
@@ -286,7 +287,6 @@ const Profile = () => {
     toast.info("Logged Out Successfully!!!");
     navigate("/login");
   };
-
   return (
     <>
       <Navbar active={active} />
@@ -610,7 +610,7 @@ const Profile = () => {
           </button>
         </div>
       </div>
-      {isPreviewOpen && <Preview onClose={()=>setIsPreviewOpen(false)} />}
+      {isPreviewOpen && <Preview onClose={() => setIsPreviewOpen(false)} />}
     </>
   );
 };

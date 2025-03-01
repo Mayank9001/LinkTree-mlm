@@ -8,7 +8,7 @@ const profileSchema = new mongoose.Schema({
   },
   username: { type: String, required: true, unique: true, immutable: true },
   category: { type: String, required: true },
-  bio: { type: String, maxlength: 80 },
+  bio: { type: String, default:"Bio", maxlength: 80 },
   profilePic: {
     type: String,
     default:
