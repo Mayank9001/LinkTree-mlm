@@ -10,6 +10,7 @@ import { ToastContainer, Bounce } from "react-toastify";
 import Appearance from "./pages/Appearance";
 import Analytics from "./pages/Analytics";
 import Settings from "./pages/Settings";
+import Visitprofile from "./pages/Visitprofile";
 function App() {
   return (
     <>
@@ -34,6 +35,7 @@ function App() {
           <Route path="/signup" element={<SignUp />}></Route>
           <Route path="/tellus" element={<TellUs />}></Route>
           <Route path="/profile" element={<Profile />}></Route>
+          <Route path="/profile/:username" element={<Visitprofile />}></Route>
           <Route path="/appearance" element={<Appearance />}></Route>
           <Route path="/analytics" element={<Analytics />}></Route>
           <Route path="/settings" element={<Settings />}></Route>
