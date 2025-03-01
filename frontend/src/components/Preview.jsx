@@ -5,10 +5,12 @@ import Boy from "../assets/Boy.png";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import Spark from "../assets/Spark.png";
-import { getProfile } from "../services/profile.services";
+import { getProfile, visitProfile } from "../services/profile.services";
+const URL = import.meta.env.VITE_FRONTEND_URL;
 const Preview = ({ onClose }) => {
   const [profile, setProfile] = useState({
     username: "",
+    profileId: "",
     profilePic: Boy,
     banner: {
       profileBg: "",
@@ -75,6 +77,7 @@ const Preview = ({ onClose }) => {
     const temp = await res.json();
     if (res.status === 200) {
       setProfile({
+        profileId: temp.profile._id,
         username: temp.profile.username,
         profilePic: temp.profile.profilePic,
         banner: {
@@ -100,12 +103,22 @@ const Preview = ({ onClose }) => {
     getDetails();
   }, []);
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("userData");
+    localStorage.clear();
     toast.info("Logged Out Successfully!!!");
     navigate("/login");
   };
-  console.log(profile);
+  const handleConnected = async () => {
+    const profileId = profile.profileId;
+    const res = await visitProfile({ profileId });
+    const data = await res.json();
+    if (res.status === 200) {
+      // localStorage.clear();
+      window.open(URL, "_blank");
+    }
+  };
+  const handleCopyLink = () => {
+    navigator.clipboard.writeText(URL + "/profile/" + profile.username);
+  };
   return (
     <>
       <div
@@ -159,10 +172,13 @@ const Preview = ({ onClose }) => {
             style={{ backgroundColor: profile.banner.profileBg }}
           >
             <img src={profile.profilePic} />
-            <div style={{ color: profile.banner.fontColor }} className={styles.username}>
+            <div
+              style={{ color: profile.banner.fontColor }}
+              className={styles.username}
+            >
               @{profile.username}
             </div>
-            <div className={styles.openLink}>
+            <div className={styles.openLink} onClick={handleCopyLink}>
               <svg
                 width="17"
                 height="17"
@@ -198,8 +214,9 @@ const Preview = ({ onClose }) => {
               className={styles.showLinks}
               style={{
                 height: `${Math.min(
-                  4.5 * (isLinkActive ? appLinks : shopLinks).length, 9)
-                }rem`,
+                  4.5 * (isLinkActive ? appLinks : shopLinks).length,
+                  9
+                )}rem`,
               }}
             >
               {(isLinkActive ? appLinks : shopLinks).map((link, key) => (
@@ -214,12 +231,17 @@ const Preview = ({ onClose }) => {
                     color: profile.buttonStyle.fontColor,
                     boxShadow: profile.buttonStyle.boxShadow,
                     border: profile.buttonStyle.border,
-                    borderRadius: profile.buttonStyle.borderRadius,
+                    borderRadius:
+                      profile.buttonStyle.borderRadius === "0.3rem"
+                        ? "1rem"
+                        : profile.buttonStyle.borderRadius !== "0.85rem"
+                        ? "0"
+                        : "",
                     fontFamily: profile.buttonStyle.fontFamily,
                   }}
                 >
                   <div style={{ backgroundColor: "" }}>
-                    {/* <svg
+                    <svg
                       width="28"
                       height="21"
                       viewBox="0 0 28 21"
@@ -227,8 +249,8 @@ const Preview = ({ onClose }) => {
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
+                        fillRule="evenodd"
+                        clipRule="evenodd"
                         d="M24.7946 1.4163C25.9755 1.73242 26.9037 2.66045 27.2197 3.84138C27.791 5.97968 27.7933 10.4437 27.7933 10.4437C27.7933 10.4437 27.7933 14.9078 27.2197 17.0461C26.9037 18.227 25.9755 19.155 24.7946 19.4711C22.6564 20.0447 14.0782 20.0447 14.0782 20.0447C14.0782 20.0447 5.50019 20.0447 3.36188 19.4711C2.18096 19.155 1.25293 18.227 0.936809 17.0461C0.363281 14.9078 0.363281 10.4437 0.363281 10.4437C0.363281 10.4437 0.363281 5.97968 0.936809 3.84138C1.25293 2.66045 2.18096 1.73242 3.36188 1.4163C5.50019 0.842774 14.0782 0.842773 14.0782 0.842773C14.0782 0.842773 22.6564 0.842774 24.7946 1.4163ZM18.4589 10.4441L11.3327 14.5581V6.33003L18.4589 10.4441Z"
                         fill="#FF0000"
                       />
@@ -236,14 +258,16 @@ const Preview = ({ onClose }) => {
                         d="M11.3327 14.5581L18.4589 10.4441L11.3327 6.33003V14.5581Z"
                         fill="white"
                       />
-                    </svg> */}
+                    </svg>
                   </div>
                   {link.title}
                 </div>
               ))}
             </div>
           </div>
-          <button className={styles.connected}>Get Connected</button>
+          <button className={styles.connected} onClick={handleConnected}>
+            Get Connected
+          </button>
         </div>
         <div className={styles.cross} onClick={onClose}>
           <RxCross1 color="black" size={16} />

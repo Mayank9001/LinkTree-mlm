@@ -55,7 +55,6 @@ router.post("/login", async (req, res) => {
   }
   try {
     const profile = await Profile.findOne({ username });
-    console.log(profile);
     if (!profile  ) {
       return res
         .status(400)

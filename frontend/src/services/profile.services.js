@@ -41,3 +41,22 @@ export const setProfile = async (data) => {
     body: data,
   });
 };
+
+export const visitProfile = async (data) => {
+  return await fetch(`${URL}/api/profile/visitprofile`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+};
+
+export const getGlobalProfile = async (username) => {
+  return await fetch(`${URL}/api/profile/getprofile/${username}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+};

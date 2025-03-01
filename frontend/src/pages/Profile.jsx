@@ -62,7 +62,6 @@ const Profile = () => {
       />
     </svg>
   );
-
   const Move = () => (
     <svg
       width="6"
@@ -283,8 +282,7 @@ const Profile = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("userData");
+    localStorage.clear();
     toast.info("Logged Out Successfully!!!");
     navigate("/login");
   };

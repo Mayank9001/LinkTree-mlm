@@ -2,6 +2,7 @@ const express = require("express");
 const auth = require("../middleware/auth");
 const cloudinary = require("cloudinary").v2;
 const router = express.Router();
+const mongoose = require("mongoose");
 const User = require("../models/user.model");
 const multer = require("multer");
 const storage = multer.memoryStorage();
@@ -158,6 +159,45 @@ router.get("/getprofile", auth, async (req, res) => {
     const temp = await Profile.findOne({ userId });
     const profileId = temp._id;
     const profile = await Profile.findById({ _id: profileId });
+    if (!profile) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Profile Not Found" });
+    }
+    res.status(200).json({
+      status: true,
+      message: "Data fetched successfully!",
+      profile: profile,
+    });
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(500)
+      .json({ success: "Error", message: "Internal Server Error !!" });
+  }
+});
+
+router.post("/visitprofile", async (req, res) => {
+  const { profileId } = req.body;
+  try {
+    await Profile.findByIdAndUpdate(new mongoose.Types.ObjectId(profileId), {
+      $inc: { clicks: 1 },
+    });
+    return res
+      .status(200)
+      .json({ status: true, message: "Clicks incremented successfully." });
+  } catch (error) {
+    console.error("Error incrementing clicks:", error);
+    return res
+      .status(500)
+      .json({ status: false, message: "Internal Server Error." });
+  }
+});
+
+router.get("/getprofile/:username", async (req, res) => {
+  const { username } = req.params;
+  try {
+    const profile = await Profile.findOne({ username: username });
     if (!profile) {
       return res
         .status(400)

@@ -18,6 +18,7 @@ import { setDesign, getProfile } from "../services/profile.services";
 const Appearance = () => {
   const [logoutVisbile, setLogoutVisible] = useState(false);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+  const [isButtonSelected, setIsButtonSelected] = useState(false);
   const [selectedTheme, setSelectedTheme] = useState(() => {
     const theme = localStorage.getItem("theme");
     return theme ? theme : "";
@@ -155,10 +156,7 @@ const Appearance = () => {
     }
   };
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("userData");
-    localStorage.removeItem("design");
-    localStorage.removeItem("theme");
+    localStorage.clear();
     toast.info("Logged Out Successfully!!!");
     navigate("/login");
   };
@@ -368,7 +366,7 @@ const Appearance = () => {
                           bgColor: "#000000",
                           boxShadow: "",
                           border: "none",
-                          borderRadius: "",
+                          borderRadius: "0",
                           bgFontColor: "#ffffff",
                         },
                       }));
@@ -388,7 +386,6 @@ const Appearance = () => {
                         },
                       }));
                     }}
-                    style={{ borderRadius: "0.3rem", marginLeft: "0.2rem" }}
                   ></button>
                   <button
                     style={{
@@ -438,7 +435,7 @@ const Appearance = () => {
                           bgColor: "#ffffff",
                           boxShadow: "",
                           border: "0.56px solid #000000",
-                          borderRadius: "",
+                          borderRadius: "0",
                           bgFontColor: "#000000",
                         },
                       }));
@@ -490,7 +487,7 @@ const Appearance = () => {
                           bgColor: "#ffffff",
                           boxShadow: "2.23px 2.23px 0px 0px #000000",
                           border: "0.56px solid #000000",
-                          borderRadius: "",
+                          borderRadius: "0",
                           bgFontColor: "#000000",
                         },
                       }));
@@ -542,7 +539,7 @@ const Appearance = () => {
                           bgColor: "#ffffff",
                           boxShadow: "0px 2.23px 2.23px 0px #00000029",
                           border: "none",
-                          borderRadius: "",
+                          borderRadius: "0",
                           bgFontColor: "#000000",
                         },
                       }));
@@ -908,14 +905,6 @@ const Appearance = () => {
                         themes: {
                           ...prevData.themes,
                           bgColor: theme.bgColor,
-                        },
-                        buttonStyle: {
-                          ...prevData.buttonStyle,
-                          bgColor: theme.buttonColor,
-                          boxShadow: "",
-                          border: "none",
-                          borderRadius: theme.borderRadius,
-                          fontColor: theme.buttonFontColor,
                         },
                       }));
                     }}

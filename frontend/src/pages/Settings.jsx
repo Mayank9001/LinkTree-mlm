@@ -76,10 +76,7 @@ const Settings = () => {
     }
   };
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("userData");
-    localStorage.removeItem("design");
-    localStorage.removeItem("theme");
+    localStorage.clear();
     toast.info("Logged Out Successfully!!!");
     navigate("/login");
   };
