@@ -386,6 +386,7 @@ const Appearance = () => {
                         },
                       }));
                     }}
+                    style={{ borderRadius: "0.3rem", marginLeft: "0.2rem" }}
                   ></button>
                   <button
                     style={{

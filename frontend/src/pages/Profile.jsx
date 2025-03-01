@@ -7,7 +7,7 @@ import { getProfile, setProfile } from "../services/profile.services";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import Preview from "../components/Preview";
-
+import AddLinkModal from "../modals/AddLinkModal";
 const Profile = () => {
   const navigate = useNavigate();
   const active = {
@@ -19,6 +19,7 @@ const Profile = () => {
   const [isLinkActive, setIsLinkActive] = useState(true);
   const [isLinkToggle, setIsLinkToggle] = useState(false);
   const [logoutVisbile, setLogoutVisible] = useState(false);
+  const [isAddLinkModalOpen, setIsAddLinkModalOpen] = useState(false);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [data, setData] = useState(() => {
     const savedData = localStorage.getItem("userData");
@@ -411,7 +412,10 @@ const Profile = () => {
             </div>
             <div className={styles.addLinks}>
               <div className={styles.addBtndiv}>
-                <button className={styles.addBtn}>
+                <button
+                  className={styles.addBtn}
+                  onClick={() => setIsAddLinkModalOpen(true)}
+                >
                   <span>+</span>
                   Add
                 </button>
@@ -611,6 +615,9 @@ const Profile = () => {
         </div>
       </div>
       {isPreviewOpen && <Preview onClose={() => setIsPreviewOpen(false)} />}
+      {isAddLinkModalOpen && (
+        <AddLinkModal onClose={() => setIsAddLinkModalOpen(false)} />
+      )}
     </>
   );
 };

@@ -20,18 +20,11 @@ const linkSchema = new mongoose.Schema({
     data: Buffer,
     contentType: String,
   },
-  userId: {
+  profileId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+    ref: "Profile",
     required: true,
   },
-});
-
-linkSchema.pre("save", function (next) {
-  if (this.linkType !== "shoplink") {
-    this.shopImg = undefined;
-  }
-  next();
 });
 
 const Link = mongoose.model("Link", linkSchema);
