@@ -130,12 +130,12 @@
   height: 2.5rem;
   border: none;
   border-radius: 2rem;
-  background-color: #E0E2D9;
+  background-color: #e0e2d9;
   font-family: "Inter";
   font-weight: 600;
   font-size: 1rem;
   line-height: 1.5rem;
-  color:#A8AAA2;
+  color: #a8aaa2;
   letter-spacing: -0.32px;
   cursor: pointer;
   transition: background-color 0.2s ease-in-out;
@@ -184,6 +184,7 @@
   .main {
     background-color: #ffffff;
     width: 100vw;
+    max-width: 100vw;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -199,7 +200,7 @@
     line-height: 2.25rem;
     color: #000000;
     letter-spacing: -1.22px;
-    margin-left: 1rem;
+    margin-left: -2rem;
     margin-top: 3rem;
   }
   .form {
@@ -208,7 +209,7 @@
     width: 100%;
     height: 40%;
     align-items: center;
-    margin-top: 3rem;
+    margin: 0;
   }
   .forminput {
     display: flex;
@@ -262,6 +263,7 @@
     font-size: 1rem;
     line-height: 1.5rem;
     letter-spacing: 0%;
+    color: #ffffff;
     text-align: center;
   }
   .formfoot {

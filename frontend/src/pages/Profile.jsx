@@ -5,9 +5,12 @@ import Boy from "../assets/Boy.png";
 import styles from "./styles/Profile.module.css";
 import { getProfile, setProfile } from "../services/profile.services";
 import { toast } from "react-toastify";
+import { userDetails } from "../services/user.services";
 import { useNavigate } from "react-router-dom";
 import Preview from "../components/Preview";
 import AddLinkModal from "../modals/AddLinkModal";
+import useIsMobile from "../components/hooks/useIsMobile";
+import { BsShare } from "react-icons/bs";
 const Profile = () => {
   const navigate = useNavigate();
   const active = {
@@ -16,11 +19,13 @@ const Profile = () => {
     isAnalytics: false,
     isSettings: false,
   };
+  const isMobile = useIsMobile();
   const [isLinkActive, setIsLinkActive] = useState(true);
   const [isLinkToggle, setIsLinkToggle] = useState(false);
   const [logoutVisbile, setLogoutVisible] = useState(false);
   const [isAddLinkModalOpen, setIsAddLinkModalOpen] = useState(false);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+  const [name, setName] = useState("");
   const [data, setData] = useState(() => {
     const savedData = localStorage.getItem("userData");
     return savedData
@@ -228,6 +233,16 @@ const Profile = () => {
       url: "https://www.youtube.com/opopo_08/",
       clicks: 0,
     },
+    {
+      title: "Instagram",
+      url: "https://www.instagram.com/opopo_08/",
+      clicks: 0,
+    },
+    {
+      title: "Youtube",
+      url: "https://www.youtube.com/opopo_08/",
+      clicks: 0,
+    },
   ];
   const shopLinks = [
     {
@@ -253,9 +268,18 @@ const Profile = () => {
       });
     }
   };
-
+  const getUserData = async () => {
+    const res = await userDetails();
+    const temp = await res.json();
+    if (res.status === 200) {
+      setName(
+        temp.user.userDetails.firstName + " " + temp.user.userDetails.lastName
+      );
+    }
+  };
   useEffect(() => {
     getDetails();
+    getUserData();
   }, []);
 
   useEffect(() => {
@@ -292,7 +316,10 @@ const Profile = () => {
     <>
       <Navbar active={active} />
       <div className={styles.container}>
-        <div className={styles.header}>
+        <div
+          className={styles.header}
+          style={{ display: !isMobile ? "none" : "" }}
+        >
           <img src={Spark} className={styles.logo} alt="logo" />
           <img
             src={
@@ -331,6 +358,18 @@ const Profile = () => {
                 Sign out
               </button>
             )}
+          </div>
+        </div>
+        <div
+          className={styles.deskHeader}
+          style={{ display: isMobile ? "none" : "" }}
+        >
+          <div>
+            Hi, <span>{name}</span>!
+            <h5>Congratulations . You got a great response today . </h5>
+          </div>
+          <div className={styles.deskHeadershare}>
+            <BsShare size={12} /> Share
           </div>
         </div>
         <div className={styles.content}>
@@ -455,7 +494,7 @@ const Profile = () => {
                           <label htmlFor={`toggle-${index}`}></label>
                         </span>
                         <span className={styles.delBtn}>
-                          <Del />
+                          <Del style={{ cursor: "pointer" }} />
                         </span>
                       </div>
                     </div>
@@ -582,7 +621,10 @@ const Profile = () => {
             <button onClick={handleSubmit}>Save</button>
           </div>
         </div>
-        <div className={styles.preview}>
+        <div
+          className={styles.preview}
+          style={{ display: !isMobile ? "none" : "" }}
+        >
           <button
             onClick={() => {
               setIsPreviewOpen(true);
