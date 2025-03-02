@@ -58,6 +58,7 @@
   width: 9.3rem;
   height: 3rem;
   border-radius: 7.5rem;
+  cursor: pointer;
 }
 .content {
   display: flex;
@@ -352,6 +353,10 @@
   width: 100%;
   height: 100%;
   object-fit: fill;
+}
+.group{
+  display: grid;
+  place-items: center;
 }
 @media screen and (max-width: 768px) {
   .mobilemain {
