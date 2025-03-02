@@ -177,6 +177,7 @@ const Navbar = ({ active }) => {
       >
         <div
           className={styles.lgbtn}
+          style={{border: !active.isLinks && "none"}}
           onClick={() => setLogoutVisible((prev) => !prev)}
         >
           <img

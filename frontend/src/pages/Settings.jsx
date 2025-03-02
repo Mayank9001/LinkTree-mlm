@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 import Spark from "../assets/Spark.png";
 import { userDetails, updateUser } from "../services/user.services";
 import Boy from "../assets/Boy.png";
+import useIsMobile from "../components/hooks/useIsMobile";
+
 const Settings = () => {
   const active = {
     isLinks: false,
@@ -14,9 +16,11 @@ const Settings = () => {
     isAnalytics: false,
     isSettings: true,
   };
+  const isMobile = useIsMobile();
   const navigate = useNavigate();
   const [logoutVisbile, setLogoutVisible] = useState(false);
   const [profilePic, setProfilePic] = useState(Boy);
+  const [name, setName] = useState("");
   const [formData, setFormData] = useState({
     newFirstName: "",
     newLastName: "",
@@ -36,6 +40,9 @@ const Settings = () => {
         newPassword: "",
         newConfirmPassword: "",
       });
+      setName(
+        data.user.userDetails.firstName + " " + data.user.userDetails.lastName
+      );
     }
   };
   const getProfilePic = async () => {
@@ -84,7 +91,10 @@ const Settings = () => {
     <>
       <Navbar active={active} />
       <div className={styles.container}>
-        <div className={styles.header}>
+        <div
+          className={styles.header}
+          style={{ display: !isMobile ? "none" : "" }}
+        >
           <img src={Spark} className={styles.logo} alt="logo" />
           <img
             src={profilePic}
@@ -121,8 +131,31 @@ const Settings = () => {
             )}
           </div>
         </div>
+        <div
+          className={styles.deskHeader}
+          style={{ display: isMobile ? "none" : "" }}
+        >
+          <div>
+            Hi, <span>{name}</span>!
+          </div>
+          <h5>Congratulations . You got a great response today . </h5>
+        </div>
         <div className={styles.form}>
           <form onSubmit={handleSubmit}>
+            <div
+              className={styles.header}
+              style={{ display: isMobile ? "none" : "" }}
+            >
+              Edit Profile
+            </div>
+            <div
+              className={styles.edithoriline}
+              style={{ display: isMobile ? "none" : "" }}
+            ></div>
+            <div
+              className={styles.horiline}
+              style={{ display: isMobile ? "none" : "" }}
+            ></div>
             <div className={styles.forminput}>
               <label>First name</label>
               <input
