@@ -1,8 +1,10 @@
-import React, { useState } from "react"
+import React, { useState } from "react";
 import { toast } from "react-toastify";
 import Spark from "../assets/Spark.png";
 import styles from "./styles/TellUs.module.css";
 import { useNavigate } from "react-router-dom";
+import image from "../assets/image.png";
+import useIsMobile from "../components/hooks/useIsMobile";
 import { setUserDetails } from "../services/profile.services";
 const categories = [
   {
@@ -55,6 +57,7 @@ const categories = [
   },
 ];
 const TellUs = () => {
+  const isMobile = useIsMobile();
   const [username, setUsername] = useState("");
   const [category, setCategory] = useState("");
   const navigate = useNavigate();
@@ -81,38 +84,47 @@ const TellUs = () => {
   };
   return (
     <div className={styles.main}>
-      <div className={styles.logo}>
-        <img src={Spark} alt="spark" />
-      </div>
-      <div className={styles.title}>Tell us about yourself</div>
-      <div className={styles.subtitle}>For a personalized Spark experience</div>
-      <div className={styles.username}>
-        <input
-          type="text"
-          placeholder="Tell us your username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value.toLowerCase())}
-        />
-      </div>
-      <div className={styles.cards}>
-        <span>Select one category that best describes your Linktree:</span>
-        <div className={styles.categories}>
-          {categories.map((item, index) => (
-            <button
-              key={index}
-              onClick={() => setCategory(item.name)}
-              className={`${
-                category === item.name ? styles.selected : styles.category
-              }`}
-            >
-              {item.icon} {item.name}
-            </button>
-          ))}
+      <div className={!isMobile ? styles.container : ""}>
+        <div className={styles.logo}>
+          <img src={Spark} alt="spark" />
         </div>
-      </div>
+        <div className={styles.title}>Tell us about yourself</div>
+        <div className={styles.subtitle}>
+          For a personalized Spark experience
+        </div>
+        <div className={styles.username}>
+          <input
+            type="text"
+            placeholder="Tell us your username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value.toLowerCase())}
+          />
+        </div>
+        <div className={styles.cards}>
+          <span>Select one category that best describes your Linktree:</span>
+          <div className={styles.categories}>
+            {categories.map((item, index) => (
+              <button
+                key={index}
+                onClick={() => setCategory(item.name)}
+                className={`${
+                  category === item.name ? styles.selected : styles.category
+                }`}
+              >
+                {item.icon} {item.name}
+              </button>
+            ))}
+          </div>
+        </div>
       <div className={styles.continue}>
         <button onClick={handleSubmit}>Continue</button>
       </div>
+      </div>
+      {!isMobile && (
+        <div className={styles.image}>
+          <img src={image} />
+        </div>
+      )}
     </div>
   );
 };

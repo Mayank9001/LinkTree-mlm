@@ -1,3 +1,146 @@
+.main {
+  display: grid;
+  grid-template-columns: 62.5% 37.5%;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: white;
+}
+.image img {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+}
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.logo {
+  margin-top: 3rem;
+  margin-left: 3rem;
+}
+.title {
+  font-family: "Inter";
+  font-weight: 800;
+  font-size: 3rem;
+  line-height: 3.5rem;
+  color: #000000;
+  letter-spacing: -2px;
+  margin-left: 10rem;
+  margin-top: 2.7rem;
+}
+.subtitle {
+  font-family: "Inter";
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  letter-spacing: -0.32px;
+  color: #676b5f;
+  margin-left: 10rem;
+  margin-top: 1rem;
+}
+.username {
+  width: 36.75rem;
+  height: 3rem;
+  margin-top: 3rem;
+}
+.username input {
+  margin-left: 10rem;
+  width: 100%;
+  height: 2.5rem;
+  border-radius: 0.5rem;
+  border: none;
+  padding-left: 1rem;
+  font-family: "Inter";
+  font-weight: 400;
+  font-size: 0.9rem;
+  line-height: 3rem;
+  letter-spacing: 0%;
+  color: #000000;
+  background-color: #f6f7f5;
+}
+.username input::placeholder {
+  color: #000000;
+  font-family: "Inter";
+  font-weight: 400;
+  font-size: 0.9rem;
+  line-height: 3rem;
+  letter-spacing: 0%;
+}
+.cards {
+  display: flex;
+  flex-direction: column;
+  width: 37.5rem;
+  margin-left: 10rem;
+  margin-top: 3rem;
+}
+.cards span {
+  color: #000000;
+  font-family: "Inter";
+  font-weight: 600;
+  font-size: 0.9rem;
+  line-height: 1.3rem;
+  letter-spacing: 0%;
+  margin-bottom: 1.2rem;
+}
+.categories {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+.categories button {
+  padding: 0 1rem;
+  margin-right: 0.4rem;
+}
+.category {
+  height: 2rem;
+  color: #000000;
+  border-radius: 1.08rem;
+  border: 1px solid #e0e2d9;
+  background-color: #ffffff;
+  font-family: "Inter";
+  font-weight: 400;
+  font-size: 0.9rem;
+  line-height: 1.3rem;
+  letter-spacing: 0%;
+  margin-bottom: 0.4rem;
+}
+.selected {
+  height: 2rem;
+  color: #ffffff;
+  border-radius: 1.08rem;
+  border: 0.71px solid #252523;
+  background-color: #28a263;
+  font-family: "Inter";
+  font-weight: 400;
+  font-size: 0.9rem;
+  line-height: 1.3rem;
+  letter-spacing: 0%;
+  margin-bottom: 0.4rem;
+}
+.continue {
+  width: 36.75rem;
+  height: 3rem;
+  margin-top: 3rem;
+  margin-left: 10rem;
+}
+.continue button {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  height: 3rem;
+  border: none;
+  border-radius: 2rem;
+  background-color: #28a263;
+  font-family: "Inter";
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  letter-spacing: -0.32px;
+  text-align: center;
+  color: #ffffff;
+}
 @media screen and (max-width: 768px) {
   .main {
     width: 100vw;
@@ -37,6 +180,7 @@
     margin-top: 1.8rem;
   }
   .username input {
+    margin-left: 0;
     width: 98%;
     height: 2.5rem;
     border-radius: 0.9rem;
@@ -111,6 +255,7 @@
   .continue {
     width: 90%;
     margin-left: 1rem;
+    margin-top: 1rem;
   }
   .continue button {
     width: 100%;
