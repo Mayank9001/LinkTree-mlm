@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
 import Spark from "../assets/Spark.png";
 import { visitProfile, getGlobalProfile } from "../services/profile.services";
-const URL = import.meta.env.VITE_FRONTEND_URL;
+const url = import.meta.env.VITE_FRONTEND_URL;
 
 const Visitprofile = () => {
   const { username } = useParams();
@@ -113,11 +113,11 @@ const Visitprofile = () => {
     const data = await res.json();
     if (res.status === 200) {
       localStorage.clear();
-      window.open(URL, "_blank");
+      window.open(url, "_blank");
     }
   };
   const handleCopyLink = () => {
-    navigator.clipboard.writeText(URL + "/profile/" + profile.username);
+    navigator.clipboard.writeText(url + "/profile/" + profile.username);
   };
   console.log("Profile", profile);
   return (

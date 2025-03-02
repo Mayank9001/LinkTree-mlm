@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import Spark from "../assets/Spark.png";
 import { getProfile, visitProfile } from "../services/profile.services";
-const URL = import.meta.env.VITE_FRONTEND_URL;
+const url = import.meta.env.VITE_FRONTEND_URL;
 const Preview = ({ onClose }) => {
   const [profile, setProfile] = useState({
     username: "",
@@ -113,11 +113,11 @@ const Preview = ({ onClose }) => {
     const data = await res.json();
     if (res.status === 200) {
       // localStorage.clear();
-      window.open(URL, "_blank");
+      window.open(url, "_blank");
     }
   };
   const handleCopyLink = () => {
-    navigator.clipboard.writeText(URL + "/profile/" + profile.username);
+    navigator.clipboard.writeText(url + "/profile/" + profile.username);
   };
   return (
     <>

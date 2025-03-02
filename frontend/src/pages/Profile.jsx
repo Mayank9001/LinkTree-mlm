@@ -11,7 +11,7 @@ import Preview from "../components/Preview";
 import AddLinkModal from "../modals/AddLinkModal";
 import useIsMobile from "../components/hooks/useIsMobile";
 import { BsShare } from "react-icons/bs";
-const URL = import.meta.env.VITE_FRONTEND_URL;
+const url = import.meta.env.VITE_FRONTEND_URL;
 const Profile = () => {
   const navigate = useNavigate();
   const active = {
@@ -369,7 +369,7 @@ const Profile = () => {
             Hi, <span>{name}</span>!
             <h5>Congratulations . You got a great response today . </h5>
           </div>
-          <div className={styles.deskHeadershare} onClick={()=>{navigator.clipboard.writeText(URL + "/profile/" + data.username)}}>
+          <div className={styles.deskHeadershare} onClick={()=>{navigator.clipboard.writeText(url + "/profile/" + data.username)}}>
             <BsShare size={12} /> Share
           </div>
         </div>
