@@ -213,6 +213,13 @@ const AddLinkModal = ({ onClose }) => {
       </defs>
     </svg>
   );
+  const [linkData, setLinkData] = useState({
+    linkTitle: "",
+    linkURL: "",
+    linkType: "",
+    appType: "",
+    show: false,
+  });
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (modalRef.current && !modalRef.current.contains(event.target)) {
@@ -224,6 +231,7 @@ const AddLinkModal = ({ onClose }) => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [onClose]);
+  console.log(linkData);
   return (
     <>
       <div className={styles.main}>
@@ -256,14 +264,26 @@ const AddLinkModal = ({ onClose }) => {
               <div className={styles.linkTitle}>
                 <div className={styles.inputtitle}>
                   {/* <label>Link Title</label> */}
-                  <input value="Link Title"></input>
+                  <input
+                    placeholder="Link Title"
+                    onChange={(e) =>
+                      setLinkData({ ...linkData, linkTitle: e.target.value })
+                    }
+                  ></input>
                 </div>
                 <div className={styles.togglediv}>
                   <span className={styles.toggle}>
                     <input
                       type="checkbox"
+                      checked={linkData.show}
                       id={`togglelinktitle`}
                       name="checkbox"
+                      onChange={() =>
+                        setLinkData((prevData) => ({
+                          ...prevData,
+                          show: !prevData.show,
+                        }))
+                      }
                     />
                     <label htmlFor={`togglelinktitle`}></label>
                   </span>
@@ -272,7 +292,12 @@ const AddLinkModal = ({ onClose }) => {
               <div className={styles.linkUrl}>
                 <div className={styles.inputurl}>
                   {/* <label>Link Title</label> */}
-                  <input value="Link URL"></input>
+                  <input
+                    placeholder="Link URL"
+                    onChange={(e) =>
+                      setLinkData({ ...linkData, linkURL: e.target.value })
+                    }
+                  ></input>
                 </div>
                 <div className={styles.deletediv}>
                   <svg
@@ -316,7 +341,13 @@ const AddLinkModal = ({ onClose }) => {
                       className={`${styles.appitems} ${
                         isAppSelected === app.title ? styles.selectedApp : ""
                       }`}
-                      onClick={() => setIsAppSelected(app.title)}
+                      onClick={() => {
+                        setIsAppSelected(app.title);
+                        setLinkData((prevData) => ({
+                          ...prevData,
+                          appType: app.title,
+                        }));
+                      }}
                     >
                       <div className={styles.svgdiv}>{app.svg}</div>
                       <div className={styles.titlediv}>{app.title}</div>

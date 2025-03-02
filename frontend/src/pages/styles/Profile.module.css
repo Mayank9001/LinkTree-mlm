@@ -44,6 +44,7 @@
   line-height: 1.2rem;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
   gap: 5px;
   letter-spacing: -1.12px;
   width: 5rem;
@@ -56,6 +57,7 @@
   height: 75vh;
   flex-direction: column;
   overflow-y: scroll;
+  overflow-x: hidden;
   margin-left: calc(86vw - 47rem);
   margin-top: 3rem;
 }
