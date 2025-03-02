@@ -14,8 +14,10 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import Boy from "../assets/Boy.png";
 import { setDesign, getProfile } from "../services/profile.services";
+import useIsMobile from "../components/hooks/useIsMobile";
 
 const Appearance = () => {
+  const isMobile = useIsMobile();
   const [logoutVisbile, setLogoutVisible] = useState(false);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [isButtonSelected, setIsButtonSelected] = useState(false);
@@ -164,7 +166,10 @@ const Appearance = () => {
     <>
       <Navbar active={active} />
       <div className={styles.container}>
-        <div className={styles.header}>
+        <div
+          className={styles.header}
+          style={{ display: !isMobile ? "none" : "" }}
+        >
           <img src={Spark} className={styles.logo} alt="logo" />
           <img
             src={formData.profilePic}
@@ -201,6 +206,15 @@ const Appearance = () => {
             )}
           </div>
         </div>
+        <div
+          className={styles.deskHeader}
+          style={{ display: isMobile ? "none" : "" }}
+        >
+          <div>
+            Hi, <span>{name}</span>!
+          </div>
+          <h5>Congratulations . You got a great response today . </h5>
+        </div>
         <div className={styles.content}>
           <div className={styles.layouts}>
             <label>Layout</label>
@@ -209,7 +223,12 @@ const Appearance = () => {
                 <button
                   onClick={() => setFormData({ ...formData, layout: "Stack" })}
                   style={{
-                    backgroundColor: formData.layout === "Stack" && "#FFFFFF",
+                    backgroundColor:
+                      formData.layout === "Stack"
+                        ? isMobile
+                          ? "#FFFFFF"
+                          : "#f3f3f1"
+                        : "#ffffff",
                     border: formData.layout === "Stack" && "none",
                   }}
                 >
@@ -252,7 +271,12 @@ const Appearance = () => {
                 <button
                   onClick={() => setFormData({ ...formData, layout: "Grid" })}
                   style={{
-                    backgroundColor: formData.layout === "Grid" && "#FFFFFF",
+                    backgroundColor:
+                      formData.layout === "Grid"
+                        ? isMobile
+                          ? "#FFFFFF"
+                          : "#f3f3f1"
+                        : "#ffffff",
                     border: formData.layout === "Grid" && "none",
                   }}
                 >
@@ -314,7 +338,10 @@ const Appearance = () => {
                   }
                   style={{
                     backgroundColor:
-                      formData.layout === "Carousel" && "#FFFFFF",
+                      formData.layout === "Carousel" ? isMobile
+                      ? "#FFFFFF"
+                      : "#f3f3f1"
+                    : "#ffffff",
                     border: formData.layout === "Carousel" && "none",
                   }}
                 >
@@ -868,7 +895,9 @@ const Appearance = () => {
                     <input
                       id="fontColorCustomInput"
                       type="text"
-                      style={{ backgroundColor: "#ffffff" }}
+                      style={{
+                        backgroundColor: !isMobile ? "#f3f3f1" : "#ffffff",
+                      }}
                       value={
                         formData.buttonStyle.fontColor !== ""
                           ? formData.buttonStyle.fontColor
@@ -922,7 +951,10 @@ const Appearance = () => {
             <button onClick={handleSubmit}>Save</button>
           </div>
         </div>
-        <div className={styles.preview}>
+        <div
+          className={styles.preview}
+          style={{ display: !isMobile ? "none" : "" }}
+        >
           <button
             onClick={() => {
               setIsPreviewOpen(true);

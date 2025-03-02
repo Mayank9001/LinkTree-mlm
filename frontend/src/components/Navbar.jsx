@@ -56,8 +56,6 @@ const Navbar = ({ active }) => {
         style={{
           borderBottomRightRadius:
             !isMobile && active.isAppearance ? "1.25rem" : "",
-          borderTopRightRadius:
-            !isMobile && active.isAppearance ? "1.25rem" : "",
         }}
         onClick={() => navigate("/profile")}
       >
@@ -143,8 +141,6 @@ const Navbar = ({ active }) => {
           !isMobile && active.isSettings ? styles.active : styles.inactive
         }`}
         style={{
-          borderBottomRightRadius:
-            !isMobile && active.isAppearance ? "1.25rem" : "",
           borderTopRightRadius:
             !isMobile && active.isAnalytics ? "1.25rem" : "",
         }}
@@ -177,7 +173,7 @@ const Navbar = ({ active }) => {
       >
         <div
           className={styles.lgbtn}
-          style={{border: !active.isLinks && "none"}}
+          style={{ border: !active.isLinks && "none" }}
           onClick={() => setLogoutVisible((prev) => !prev)}
         >
           <img
