@@ -1,5 +1,360 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: fit-content;
+  overflow-y: auto;
+  overflow-x: hidden;
+  color: black;
+  background-color: #fafafa;
+}
+.navbar {
+  display: flex;
+  width: 95%;
+  flex-direction: row;
+  height: 8.5vh;
+  z-index: 100;
+  margin: auto 2.5rem;
+  align-items: center;
+  position: fixed;
+  top: 2vh;
+  border: 0.5px solid #e0e2d9;
+  border-radius: 7.5rem;
+  background-color: #ffffff;
+}
+.icon {
+  display: flex;
+  width: 50%;
+  flex-direction: row;
+  align-items: center;
+  font-family: "Plus Jakarta Sans";
+  font-weight: 500;
+  font-size: 1.5rem;
+  line-height: 1.8rem;
+  letter-spacing: 0%;
+  margin-left: 3rem;
+  color: #000000;
+}
+.icon span:nth-child(3) {
+  position: relative;
+  top: -10px;
+  font-size: 3.36px;
+  line-height: 4.24px;
+  letter-spacing: 0%;
+}
+.adminBtns {
+  margin-right: 1rem;
+  width: 50%;
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+}
+.signupBtn {
+  background: #28a263;
+  border: none;
+  color: #ffffff;
+  width: 9.3rem;
+  height: 3rem;
+  border-radius: 7.5rem;
+}
+.content {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  top: 12vh;
+  width: 100vw;
+  height: fit-content;
+  font-family: "Poppins";
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+.row1,
+.row2,
+.row3,
+.row4 {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 31rem;
+}
+.blk1 {
+  display: flex;
+  width: 50vw;
+  height: 28rem;
+  margin-left: 5vw;
+  flex-direction: column;
+}
+.blk1 h1 {
+  font-family: "Poppins";
+  font-weight: 700;
+  font-size: 3.5rem;
+  color: #1e2330;
+  line-height: 4.4rem;
+  letter-spacing: 0px;
+  margin-bottom: 0;
+}
+.blk1 h3 {
+  margin-top: 0.5rem;
+  color: #1e2330;
+  font-family: "Poppins";
+  font-weight: 500;
+  font-size: 1.3rem;
+  line-height: 1.8rem;
+  letter-spacing: 0px;
+  width: 80%;
+}
+.getStarted {
+  background: #28a263;
+  margin-top: 1rem;
+  color: #ffffff;
+  border: none;
+  width: 14rem;
+  height: 4rem;
+  border-radius: 2rem;
+  font-family: "Poppins";
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  letter-spacing: 0px;
+}
+.analyticsImg {
+  width: 38rem;
+  margin-top: 1rem;
+  height: 28rem;
+}
+.analyticsImg img {
+  box-shadow: 0px 1px 80px 0px #28a26333;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  border-radius: 1rem;
+  margin-top: 1.5rem;
+}
+.blk3 {
+  width: 47.5rem;
+  height: 30rem;
+  background-color: #ffffff;
+  border-radius: 2rem;
+  margin-left: 5.5rem;
+  margin-top: 2rem;
+}
+.blk3 img {
+  width: 34rem;
+  height: 13.5rem;
+  margin-top: 5.5rem;
+  margin-left: 6.5rem;
+}
+.blk3 p {
+  width: 65%;
+  color: #1e2330;
+  margin-top: 4rem;
+  font-family: "Poppins";
+  font-weight: 400;
+  font-size: 1.6rem;
+  line-height: 2.3rem;
+  letter-spacing: -0.28px;
+  margin-left: 2.5rem;
+}
+.blk4 {
+  width: 32rem;
+  height: 23rem;
+  margin-left: 2.4rem;
+  margin-top: 2rem;
+}
+.blk4 h1 {
+  width: 100%;
+  color: #1e2330;
+  font-family: "Poppins";
+  font-weight: 700;
+  font-size: 2.5rem;
+  line-height: 3.7rem;
+  letter-spacing: -1.12px;
+}
+.blk4 h3 {
+  color: #1e2330;
+  font-family: "Poppins";
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.9rem;
+  letter-spacing: -0.4px;
+}
+.pic1 {
+  width: 80rem;
+  height: 25rem;
+  margin: auto 5vw;
+  margin-top: 3rem;
+}
+.pic1 img {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+}
+.blk5 {
+  width: 65rem;
+  height: 25rem;
+  margin-left: 5.5rem;
+  margin-top: 8rem;
+}
+.blk5 h1 {
+  width: 100%;
+  color: #1e2330;
+  font-family: "Poppins";
+  font-weight: 700;
+  font-size: 2.5rem;
+  line-height: 3.6rem;
+  letter-spacing: -1.12px;
+}
+.blk5 h3 {
+  color: #1e2330;
+  font-family: "Poppins";
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.9rem;
+  letter-spacing: -0.4px;
+}
+.row4 {
+  height: 10rem;
+}
+.blk6 {
+  font-family: "Poppins";
+  line-height: 2.5rem;
+  font-weight: 400;
+  width: 45%;
+  font-size: 2.5rem;
+  letter-spacing: 0%;
+  margin-left: 5.5rem;
+}
+.blk6 h1 {
+  font-weight: 400;
+  margin: 0;
+  font-size: 2.5rem;
+  color: #000000;
+}
+.blk6 span {
+  color: #1da35e;
+}
+.stories {
+  width: 90vw;
+  height: 10vh;
+  margin-top: 1rem;
+}
+.storyBtn {
+  width: 15rem;
+  height: 3rem;
+  background-color: #fafafa;
+  border: 2px solid #28a263;
+  border-radius: 6rem;
+  color: #349f68;
+  font-family: "Poppins";
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  letter-spacing: 0%;
+}
+.star {
+  margin-left: 12rem;
+  display: flex;
+  flex-direction: row;
+}
+.star svg {
+  width: 2rem;
+  height: 2rem;
+  margin-right: 0.5rem;
+}
+.star span {
+  width: 18rem;
+  font-family: "Poppins";
+  font-weight: 500;
+  font-size: 0.9rem;
+  line-height: 1rem;
+  letter-spacing: 0%;
+}
+.griddisplay {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  width: 90%;
+  margin-left: 5.5rem;
+  margin-top: 5rem;
+}
+.tile {
+  width: 38rem;
+  border-radius: 2rem;
+  background-color: white;
+  font-family: "Poppins";
+  margin-bottom: 1rem;
+}
+.tile h1 {
+  font-weight: 300;
+  font-size: 1.5rem;
+  line-height: 1.5rem;
+  letter-spacing: 0%;
+  color: #000000;
+  margin-left: 1rem;
+  width: 80.5%;
+}
+.tile h3 {
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  margin-left: 1rem;
+  width: 90%;
+  letter-spacing: 0%;
+}
+.tile span {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 3rem;
+  margin-left: 1rem;
+  margin-bottom: 2rem;
+}
+.greenball {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background-color: #28a263;
+  border: 2px solid #e3e3e3;
+}
+.tile span div h5 {
+  font-weight: 300;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  letter-spacing: 0%;
+  margin: 0 0 0 1rem;
+  color: #000000;
+}
+.tile span div h4 {
+  margin: 0 0 0 1rem;
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.1rem;
+  letter-spacing: 0%;
+}
+.tit {
+  font-family: "Poppins";
+  font-weight: 700;
+  font-size: 3rem;
+  line-height: 3.5rem;
+  letter-spacing: -1.12px;
+  color: #1e2330;
+  margin-top: 1.5rem;
+  margin-left: 5.5rem;
+  margin-bottom: 4.5rem;
+}
+.frame {
+  width: 90%;
+  height: 21.5rem;
+  margin-left: 5.5rem;
+}
+.frame img{
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+}
 @media screen and (max-width: 768px) {
-  .main {
+  .mobilemain {
     margin: 0;
     padding: 0;
     max-width: 100vw;
@@ -8,7 +363,7 @@
     background-color: #fafafa;
     overflow-x: hidden;
   }
-  .navbar {
+  .mobilenavbar {
     display: flex;
     width: 90vw;
     height: 9vh;
@@ -23,12 +378,12 @@
     border-radius: 2.5rem;
     background-color: #ffffff;
   }
-  .adminBtns {
+  .mobileadminBtns {
     display: flex;
     flex-direction: row;
     gap: 1rem;
   }
-  .adminBtn {
+  .mobileadminBtn {
     background: #eff0ec;
     color: #28a263;
     border: none;
@@ -37,7 +392,7 @@
     border-radius: 2rem;
     height: 2.8rem;
   }
-  .signupBtn {
+  .mobilesignupBtn {
     background: #28a263;
     border: none;
     color: #ffffff;
@@ -45,10 +400,10 @@
     height: 2.8rem;
     border-radius: 2rem;
   }
-  .signupBtn::hover {
+  .mobilesignupBtn::hover {
     cursor: pointer;
   }
-  .content {
+  .mobilecontent {
     display: flex;
     flex-direction: column;
     position: relative;
@@ -59,28 +414,30 @@
     overflow-y: scroll;
     overflow-x: hidden;
   }
-  .blk1 {
+  .mobileblk1 {
     display: flex;
     width: 90vw;
     margin: auto 5vw;
     flex-direction: column;
   }
-  .blk1 h1 {
+  .mobileblk1 h1 {
     font-weight: 700;
+    font-family: "Poppins";
     font-size: 2.5rem;
     font-style: bold;
     color: #1e2330;
     margin-bottom: 0;
     line-height: 2.5rem;
   }
-  .blk1 h3 {
+  .mobileblk1 h3 {
+    font-family: "Poppins";
     font-weight: 500;
     margin-top: 0.5rem;
     color: #1e2330;
     font-size: 1.4rem;
     line-height: 1.4rem;
   }
-  .getStarted {
+  .mobilegetStarted {
     background: #28a263;
     margin-top: 0.5rem;
     color: #ffffff;
@@ -94,11 +451,11 @@
     line-height: 1.5rem;
     letter-spacing: 0px;
   }
-  .analyticsImg {
+  .mobileanalyticsImg {
     width: 90vw;
     margin-left: 5vw;
   }
-  .analyticsImg img {
+  .mobileanalyticsImg img {
     box-shadow: 0px 1px 80px 0px #28a26333;
     width: 100%;
     height: 100%;
@@ -106,38 +463,38 @@
     border-radius: 1rem;
     margin-top: 1.5rem;
   }
-  .blk2 {
+  .mobileblk2 {
     display: flex;
     flex-direction: column;
     width: 90vw;
     margin: auto 5vw;
   }
-  .blk2 h1 {
+  .mobileblk2 h1 {
     font-weight: 700;
     font-size: 2.5rem;
     color: #000000;
     font-style: bold;
     line-height: 2.5rem;
   }
-  .blk2 h3 {
+  .mobileblk2 h3 {
     font-weight: 500;
     margin-top: 0.5rem;
     color: #2f2f2f;
     font-size: 1.3rem;
     line-height: 1.3rem;
   }
-  .blk3 {
+  .mobileblk3 {
     width: 90vw;
     height: 32vh;
     margin: auto 5vw;
     background-color: #ffffff;
     border-radius: 1rem;
   }
-  .blk3 img {
+  .mobileblk3 img {
     margin-left: 15vw;
     margin-top: 5vh;
   }
-  .blk3 p {
+  .mobileblk3 p {
     width: 65%;
     color: #1e2330;
     margin-top: 0;
@@ -148,12 +505,12 @@
     margin-left: 1.5rem;
     letter-spacing: -0.13px;
   }
-  .blk4 {
+  .mobileblk4 {
     width: 90vw;
     margin: auto 5vw;
     margin-top: 1rem;
   }
-  .blk4 h1 {
+  .mobileblk4 h1 {
     font-family: "Poppins";
     width: 90%;
     font-weight: 700;
@@ -162,28 +519,28 @@
     line-height: 2.5rem;
     letter-spacing: 0px;
   }
-  .blk4 h3 {
+  .mobileblk4 h3 {
     color: #1e2330;
     font-family: "Poppins";
     font-weight: 500;
     font-size: 1.3rem;
     line-height: 1.5rem;
   }
-  .pic1 {
+  .mobilepic1 {
     width: 95vw;
     height: 30vh;
     margin: auto 5vw;
     margin-top: 1rem;
   }
-  .pic1 img {
+  .mobilepic1 img {
     width: 100%;
   }
-  .blk5 {
+  .mobileblk5 {
     width: 90vw;
     margin: auto 5vw;
     margin-top: 2rem;
   }
-  .blk5 h1 {
+  .mobileblk5 h1 {
     width: 90%;
     color: #1e2330;
     font-family: "Poppins";
@@ -192,7 +549,7 @@
     line-height: 2.5rem;
     letter-spacing: 0px;
   }
-  .blk5 h3 {
+  .mobileblk5 h3 {
     color: #1e2330;
     font-family: "Poppins";
     font-weight: 500;
@@ -200,7 +557,7 @@
     line-height: 1.45rem;
     letter-spacing: -0.4px;
   }
-  .blk6 {
+  .mobileblk6 {
     text-align: center;
     font-family: "Poppins";
     line-height: 2.5rem;
@@ -209,16 +566,16 @@
     letter-spacing: 0%;
     margin-top: 1rem;
   }
-  .blk6 h1 {
+  .mobileblk6 h1 {
     font-weight: 400;
     margin: 0;
     font-size: 2.5rem;
     color: #000000;
   }
-  .blk6 span {
+  .mobileblk6 span {
     color: #1da35e;
   }
-  .stories {
+  .mobilestories {
     width: 90vw;
     display: grid;
     place-items: center;
@@ -226,7 +583,7 @@
     margin: auto 5vw;
     margin-top: 1rem;
   }
-  .storyBtn {
+  .mobilestoryBtn {
     width: 15rem;
     height: 3rem;
     background-color: #fafafa;
@@ -239,7 +596,7 @@
     line-height: 1.5rem;
     letter-spacing: 0%;
   }
-  .carousel {
+  .mobilecarousel {
     display: flex;
     flex-direction: row;
     width: 95vw;
@@ -247,14 +604,14 @@
     gap: 1rem;
     margin: 1rem 0 auto 5vw;
   }
-  .tile {
+  .mobiletile {
     width: 70vw;
     border-radius: 2rem;
     background-color: white;
     flex: 0 0 70vw;
     font-family: "Poppins";
   }
-  .tile h1 {
+  .mobiletile h1 {
     font-weight: 500;
     font-size: 1.5rem;
     line-height: 1.5rem;
@@ -263,7 +620,7 @@
     margin-left: 1rem;
     width: 80.5%;
   }
-  .tile h3 {
+  .mobiletile h3 {
     font-weight: 300;
     font-size: 1rem;
     line-height: 1.5rem;
@@ -271,7 +628,7 @@
     width: 85%;
     letter-spacing: 0%;
   }
-  .tile span {
+  .mobiletile span {
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -279,14 +636,14 @@
     margin-left: 1rem;
     margin-bottom: 2rem;
   }
-  .greenball {
+  .mobilegreenball {
     width: 3rem;
     height: 3rem;
     border-radius: 50%;
     background-color: #28a263;
     border: 2px solid #e3e3e3;
   }
-  .tile span div h5 {
+  .mobiletile span div h5 {
     font-weight: 300;
     font-size: 1rem;
     line-height: 1.5rem;
@@ -294,14 +651,14 @@
     margin: 0 0 0 1rem;
     color: #000000;
   }
-  .tile span div h4 {
+  .mobiletile span div h4 {
     margin: 0 0 0 1rem;
     font-weight: 500;
     font-size: 1rem;
     line-height: 1.1rem;
     letter-spacing: 0%;
   }
-  .tit {
+  .mobiletit {
     font-family: "Poppins";
     font-weight: 700;
     font-size: 2.5rem;
@@ -311,16 +668,16 @@
     color: #1e2330;
     margin-top: 1.5rem;
   }
-  .frame {
+  .mobileframe {
     margin: 4rem 5vw;
     margin-bottom: 0;
   }
-  .group {
+  .mobilegroup {
     width: 100%;
     margin: auto;
     margin-bottom: 5rem;
   }
-  .group img {
+  .mobilegroup img {
     width: 100%;
     height: 100%;
     object-fit: cover;
