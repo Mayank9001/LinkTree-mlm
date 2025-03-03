@@ -111,13 +111,13 @@ const Preview = ({ onClose }) => {
     navigate("/login");
   };
   const handleConnected = async () => {
-    const profileId = profile.profileId;
-    const res = await visitProfile({ profileId });
-    const data = await res.json();
-    if (res.status === 200) {
-      // localStorage.clear();
-      window.open(url, "_blank");
-    }
+    // const profileId = profile.profileId;
+    // const res = await visitProfile({ profileId });
+    // const data = await res.json();
+    // if (res.status === 200) {
+    // localStorage.clear();
+    window.open(url, "_blank");
+    // }
   };
   const handleCopyLink = () => {
     navigator.clipboard.writeText(url + "/profile/" + profile.username);

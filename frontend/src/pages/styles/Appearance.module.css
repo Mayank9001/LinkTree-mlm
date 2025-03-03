@@ -42,12 +42,25 @@
   width: 18rem;
   height: 35rem;
   border-radius: 2.5rem;
-  margin-top: 2rem;
+  margin-top: 1rem;
   border: 1rem solid black;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 }
 .liveview::-webkit-scrollbar{
   width: 0rem;
+}
+.astrik{
+  color: #000000;
+  position: absolute;
+  top: 44rem;
+  font-family: "Inter";
+  font-weight: 300;
+  font-style: italic;
+  font-size: 0.8rem;
+  line-height: 1.5rem;
+  letter-spacing: -0.22px;
 }
 .content {
   width: 35rem;

@@ -384,6 +384,7 @@ const Profile = () => {
             style={{ display: !isMobile ? "" : "none" }}
           >
             <Preview data={data} />
+            <div className={styles.astrik}>*To watch for changes, Click on Save</div>
           </div>
           <div className={styles.content}>
             <div className={styles.profile}>
