@@ -90,6 +90,7 @@
   border: none;
   border-radius: 1.5rem;
   display: flex;
+  cursor: pointer;
   flex-direction: row;
 }
 .logout button svg {

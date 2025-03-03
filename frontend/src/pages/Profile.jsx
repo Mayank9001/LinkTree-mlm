@@ -369,262 +369,275 @@ const Profile = () => {
             Hi, <span>{name}</span>!
             <h5>Congratulations . You got a great response today . </h5>
           </div>
-          <div className={styles.deskHeadershare} onClick={()=>{navigator.clipboard.writeText(url + "/profile/" + data.username)}}>
+          <div
+            className={styles.deskHeadershare}
+            onClick={() => {
+              navigator.clipboard.writeText(url + "/profile/" + data.username);
+            }}
+          >
             <BsShare size={12} /> Share
           </div>
         </div>
-        <div className={styles.preview}>
-          {/* <Preview data={data} /> */}
-        </div>
-        <div className={styles.content}>
-          <div className={styles.profile}>
-            <span className={styles.protitle}>Profile</span>
-            <div className={styles.bio}>
-              <div className={styles.profilepic}>
-                <img
-                  src={
-                    typeof data.profilePic === "object"
-                      ? URL.createObjectURL(data.profilePic)
-                      : data.profilePic
-                  }
-                  id="profilepic"
-                />
-                <div className={styles.pick}>
-                  <label htmlFor="pickimg">Pick an image</label>
-                  <input
-                    id="pickimg"
-                    type="file"
-                    accept="image/*"
-                    onChange={(e) =>
-                      setData({
-                        ...data,
-                        profilePic: e.target.files[0],
-                      })
-                    }
-                  />
-                  <span
-                    onClick={() =>
-                      setData({
-                        ...data,
-                        profilePic: Boy,
-                      })
-                    }
-                  >
-                    Remove
-                  </span>
-                </div>
-              </div>
-              <span className={styles.title}>
-                <h4>Profile Title</h4>
-                <h5>@{data.username}</h5>
-              </span>
-              <span className={styles.biobio}>
-                <label htmlFor="bio">Bio</label>
-                <input
-                  id="bio"
-                  value={data.bio}
-                  onChange={(e) => {
-                    const words = e.target.value.trim();
-                    if (words.length <= 80) {
-                      setData({ ...data, bio: e.target.value });
-                    } else {
-                      e.target.blur();
-                    }
-                  }}
-                />
-              </span>
-              <span className={styles.wordcount}>{data.bio.length}/80</span>
-            </div>
+        <div className={isMobile?"":styles.deskcontent}>
+          <div
+            className={styles.liveview}
+            style={{ display: !isMobile ? "" : "none" }}
+          >
+            <Preview data={data} />
           </div>
-          <div className={styles.links}>
-            <div className={styles.toggleContainer}>
-              <span
-                onClick={() => setIsLinkActive(true)}
-                className={isLinkActive ? styles.active : styles.inactive}
-              >
-                <ToggleIcon isActive={isLinkActive} />
-                Add Link
-              </span>
-              <span
-                onClick={() => setIsLinkActive(false)}
-                className={!isLinkActive ? styles.active : styles.inactive}
-              >
-                <ToggleIcon isActive={!isLinkActive} />
-                Add Shop
-              </span>
-            </div>
-            <div className={styles.addLinks}>
-              <div className={styles.addBtndiv}>
-                <button
-                  className={styles.addBtn}
-                  onClick={() => setIsAddLinkModalOpen(true)}
-                >
-                  <span>+</span>
-                  Add
-                </button>
+          <div className={styles.content}>
+            <div className={styles.profile}>
+              <span className={styles.protitle}>Profile</span>
+              <div className={styles.bio}>
+                <div className={styles.profilepic}>
+                  <img
+                    src={
+                      typeof data.profilePic === "object"
+                        ? URL.createObjectURL(data.profilePic)
+                        : data.profilePic
+                    }
+                    id="profilepic"
+                  />
+                  <div className={styles.pick}>
+                    <label htmlFor="pickimg">Pick an image</label>
+                    <input
+                      id="pickimg"
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) =>
+                        setData({
+                          ...data,
+                          profilePic: e.target.files[0],
+                        })
+                      }
+                    />
+                    <span
+                      onClick={() =>
+                        setData({
+                          ...data,
+                          profilePic: Boy,
+                        })
+                      }
+                    >
+                      Remove
+                    </span>
+                  </div>
+                </div>
+                <span className={styles.title}>
+                  <h4>Profile Title</h4>
+                  <h5>@{data.username}</h5>
+                </span>
+                <span className={styles.biobio}>
+                  <label htmlFor="bio">Bio</label>
+                  <input
+                    id="bio"
+                    value={data.bio}
+                    onChange={(e) => {
+                      const words = e.target.value.trim();
+                      if (words.length <= 80) {
+                        setData({ ...data, bio: e.target.value });
+                      } else {
+                        e.target.blur();
+                      }
+                    }}
+                  />
+                </span>
+                <span className={styles.wordcount}>{data.bio.length}/80</span>
               </div>
-              <div className={styles.linksContainer}>
-                {(isLinkActive ? appLinks : shopLinks).map((link, index) => (
-                  <div className={styles.allLinks} key={index}>
-                    <div className={styles.link}>
-                      <div className={styles.move}>
-                        <Move />
-                      </div>
-                      <div className={styles.linkdes}>
-                        <span className={styles.linkTitle}>
-                          {link.title}{" "}
-                          <span>
-                            <Edit />
+            </div>
+            <div className={styles.links}>
+              <div className={styles.toggleContainer}>
+                <span
+                  onClick={() => setIsLinkActive(true)}
+                  className={isLinkActive ? styles.active : styles.inactive}
+                >
+                  <ToggleIcon isActive={isLinkActive} />
+                  Add Link
+                </span>
+                <span
+                  onClick={() => setIsLinkActive(false)}
+                  className={!isLinkActive ? styles.active : styles.inactive}
+                >
+                  <ToggleIcon isActive={!isLinkActive} />
+                  Add Shop
+                </span>
+              </div>
+              <div className={styles.addLinks}>
+                <div className={styles.addBtndiv}>
+                  <button
+                    className={styles.addBtn}
+                    onClick={() => setIsAddLinkModalOpen(true)}
+                  >
+                    <span>+</span>
+                    Add
+                  </button>
+                </div>
+                <div className={styles.linksContainer}>
+                  {(isLinkActive ? appLinks : shopLinks).map((link, index) => (
+                    <div className={styles.allLinks} key={index}>
+                      <div className={styles.link}>
+                        <div className={styles.move}>
+                          <Move />
+                        </div>
+                        <div className={styles.linkdes}>
+                          <span className={styles.linkTitle}>
+                            {link.title}{" "}
+                            <span>
+                              <Edit />
+                            </span>
                           </span>
-                        </span>
-                        <span className={styles.linkUrl}>
-                          {link.url}{" "}
-                          <span>
-                            <Edit />
+                          <span className={styles.linkUrl}>
+                            {link.url}{" "}
+                            <span>
+                              <Edit />
+                            </span>
                           </span>
-                        </span>
-                        <span className={styles.clicks}>
-                          {!isLinkActive && <ShopImg />}
-                          <Clickimg /> {link.clicks} clicks
-                        </span>
-                      </div>
-                      <div className={styles.delToggle}>
-                        <span className={styles.toggle}>
-                          <input
-                            type="checkbox"
-                            id={`toggle-${index}`}
-                            name="checkbox"
-                          />
-                          <label htmlFor={`toggle-${index}`}></label>
-                        </span>
-                        <span className={styles.delBtn}>
-                          <Del style={{ cursor: "pointer" }} />
-                        </span>
+                          <span className={styles.clicks}>
+                            {!isLinkActive && <ShopImg />}
+                            <Clickimg /> {link.clicks} clicks
+                          </span>
+                        </div>
+                        <div className={styles.delToggle}>
+                          <span className={styles.toggle}>
+                            <input
+                              type="checkbox"
+                              id={`toggle-${index}`}
+                              name="checkbox"
+                            />
+                            <label htmlFor={`toggle-${index}`}></label>
+                          </span>
+                          <span className={styles.delBtn}>
+                            <Del style={{ cursor: "pointer" }} />
+                          </span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
-          <div className={styles.banner}>
-            <span className={styles.bannerTitle}>Banner</span>
-            <div className={styles.customize}>
-              <div
-                className={styles.bannerdisplay}
-                style={{ backgroundColor: data.banner.profileBg }}
-              >
-                <img
-                  src={
-                    typeof data.profilePic === "object"
-                      ? URL.createObjectURL(data.profilePic)
-                      : data.profilePic
-                  }
-                />
-                <h5
-                  style={{
-                    color:
-                      data.banner.profileBg === "#ffffff"
-                        ? "#000000b8"
-                        : "#ffffffb8",
-                  }}
+            <div className={styles.banner}>
+              <span className={styles.bannerTitle}>Banner</span>
+              <div className={styles.customize}>
+                <div
+                  className={styles.bannerdisplay}
+                  style={{ backgroundColor: data.banner.profileBg }}
                 >
-                  @{data.username}
-                </h5>
-                <h6
-                  style={{
-                    color:
-                      data.banner.profileBg === "#ffffff"
-                        ? "#000000b8"
-                        : "#ffffffb8",
-                  }}
-                >
-                  <Icon />/{data.username}
-                </h6>
-              </div>
-              <div className={styles.custombg}>
-                <span className={styles.bgtitle}>Custom Background Color</span>
-                <div className={styles.bgBtns}>
-                  <button
-                    style={{ backgroundColor: "#342B26" }}
-                    onClick={() => {
-                      setData((prevData) => ({
-                        ...prevData,
-                        banner: {
-                          ...prevData.banner,
-                          profileBg: "#342B26",
-                          fontColor: "#ffffff",
-                        },
-                      }));
-                    }}
-                  ></button>
-                  <button
+                  <img
+                    src={
+                      typeof data.profilePic === "object"
+                        ? URL.createObjectURL(data.profilePic)
+                        : data.profilePic
+                    }
+                  />
+                  <h5
                     style={{
-                      backgroundColor: "#FFFFFF",
-                      border: "0.46px solid #0000002E",
+                      color:
+                        data.banner.profileBg === "#ffffff"
+                          ? "#000000b8"
+                          : "#ffffffb8",
                     }}
-                    onClick={() => {
-                      setData((prevData) => ({
-                        ...prevData,
-                        banner: {
-                          ...prevData.banner,
-                          profileBg: "#ffffff",
-                          fontColor: "#000000",
-                        },
-                      }));
+                  >
+                    @{data.username}
+                  </h5>
+                  <h6
+                    style={{
+                      color:
+                        data.banner.profileBg === "#ffffff"
+                          ? "#000000b8"
+                          : "#ffffffb8",
                     }}
-                  ></button>
-                  <button
-                    style={{ backgroundColor: "#000000" }}
-                    onClick={() => {
-                      setData((prevData) => ({
-                        ...prevData,
-                        banner: {
-                          ...prevData.banner,
-                          profileBg: "#000000",
-                          fontColor: "#ffffff",
-                        },
-                      }));
-                    }}
-                  ></button>
+                  >
+                    <Icon />/{data.username}
+                  </h6>
                 </div>
-                <div className={styles.selectColor}>
-                  <div
-                    style={{
-                      backgroundColor:
+                <div className={styles.custombg}>
+                  <span className={styles.bgtitle}>
+                    Custom Background Color
+                  </span>
+                  <div className={styles.bgBtns}>
+                    <button
+                      style={{ backgroundColor: "#342B26" }}
+                      onClick={() => {
+                        setData((prevData) => ({
+                          ...prevData,
+                          banner: {
+                            ...prevData.banner,
+                            profileBg: "#342B26",
+                            fontColor: "#ffffff",
+                          },
+                        }));
+                      }}
+                    ></button>
+                    <button
+                      style={{
+                        backgroundColor: "#FFFFFF",
+                        border: "0.46px solid #0000002E",
+                      }}
+                      onClick={() => {
+                        setData((prevData) => ({
+                          ...prevData,
+                          banner: {
+                            ...prevData.banner,
+                            profileBg: "#ffffff",
+                            fontColor: "#000000",
+                          },
+                        }));
+                      }}
+                    ></button>
+                    <button
+                      style={{ backgroundColor: "#000000" }}
+                      onClick={() => {
+                        setData((prevData) => ({
+                          ...prevData,
+                          banner: {
+                            ...prevData.banner,
+                            profileBg: "#000000",
+                            fontColor: "#ffffff",
+                          },
+                        }));
+                      }}
+                    ></button>
+                  </div>
+                  <div className={styles.selectColor}>
+                    <div
+                      style={{
+                        backgroundColor:
+                          data.banner.profileBg &&
+                          data.banner.profileBg !== "#000000"
+                            ? data.banner.profileBg
+                            : "#000000",
+                      }}
+                    ></div>
+                    <input
+                      type="text"
+                      value={
                         data.banner.profileBg &&
                         data.banner.profileBg !== "#000000"
                           ? data.banner.profileBg
-                          : "#000000",
-                    }}
-                  ></div>
-                  <input
-                    type="text"
-                    value={
-                      data.banner.profileBg &&
-                      data.banner.profileBg !== "#000000"
-                        ? data.banner.profileBg
-                        : "#000000"
-                    }
-                    onChange={(e) => {
-                      setData((prevData) => ({
-                        ...prevData,
-                        banner: {
-                          ...prevData.banner,
-                          profileBg: e.target.value,
-                          fontColor: "#ffffff",
-                        },
-                      }));
-                    }}
-                  />
+                          : "#000000"
+                      }
+                      onChange={(e) => {
+                        setData((prevData) => ({
+                          ...prevData,
+                          banner: {
+                            ...prevData.banner,
+                            profileBg: e.target.value,
+                            fontColor: "#ffffff",
+                          },
+                        }));
+                      }}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div className={styles.saveBtn}>
-            <button onClick={handleSubmit}>Save</button>
+            <div className={styles.saveBtn}>
+              <button onClick={handleSubmit}>Save</button>
+            </div>
           </div>
         </div>
+
         <div
           className={styles.preview}
           style={{ display: !isMobile ? "none" : "" }}
@@ -660,7 +673,7 @@ const Profile = () => {
           </button>
         </div>
       </div>
-      {isPreviewOpen && <Preview onClose={() => setIsPreviewOpen(false)} />}
+      {isPreviewOpen && isMobile && <Preview onClose={() => setIsPreviewOpen(false)} />}
       {isAddLinkModalOpen && (
         <AddLinkModal onClose={() => setIsAddLinkModalOpen(false)} />
       )}

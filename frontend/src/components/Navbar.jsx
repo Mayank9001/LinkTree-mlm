@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./styles/Navbar.module.css";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo.svg";
+import { toast } from "react-toastify";
 import { getProfile } from "../services/profile.services";
 import { userDetails } from "../services/user.services";
 import useIsMobile from "../components/hooks/useIsMobile";
@@ -47,7 +48,7 @@ const Navbar = ({ active }) => {
         }}
       >
         <img src={logo} />
-        SPARK
+        Spark
       </div>
       <a
         className={`${styles.blocks} ${

@@ -32,6 +32,23 @@
   font-size: 0.85rem;
   font-weight: 400;
 }
+.deskcontent{
+  display: flex;
+  flex-direction: row;
+  gap: 10rem;
+  justify-content: space-evenly;
+}
+.liveview{
+  width: 18rem;
+  height: 35rem;
+  border-radius: 2.5rem;
+  margin-top: 2rem;
+  border: 1rem solid black;
+  overflow-y: auto;
+}
+.liveview::-webkit-scrollbar{
+  width: 0rem;
+}
 .pic {
   background-color: #f3f3f1;
   border-radius: 50%;
@@ -67,7 +84,6 @@
   flex-direction: column;
   overflow-y: scroll;
   overflow-x: hidden;
-  margin-left: calc(86vw - 47rem);
   margin-top: 3rem;
 }
 .content::-webkit-scrollbar {
@@ -114,7 +130,7 @@
   text-align: center;
   font-family: "Inter";
   font-weight: 600;
-  font-size: 0.5rem;
+  font-size: 0.7rem;
   line-height: 2rem;
   letter-spacing: 0%;
   margin-left: 0;
@@ -138,6 +154,9 @@
 }
 .types button svg {
   z-index: 0;
+}
+.layout{
+  gap: 2rem;
 }
 .layout button {
   width: 5rem;
