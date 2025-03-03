@@ -23,6 +23,7 @@ const Appearance = () => {
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [isButtonSelected, setIsButtonSelected] = useState(false);
   const [name, setName] = useState("");
+  const [saveBtnClicked, setSaveBtnClicked] = useState(false);
   const [selectedTheme, setSelectedTheme] = useState(() => {
     const theme = localStorage.getItem("theme");
     return theme ? theme : "";
@@ -232,8 +233,10 @@ const Appearance = () => {
             className={styles.liveview}
             style={{ display: !isMobile ? "" : "none" }}
           >
-            <Preview data={formData} />
-            <div className={styles.astrik}>*To watch for changes, Click on Save</div>
+            <Preview saveBtnClicked={saveBtnClicked} />
+            <div className={styles.astrik}>
+              *To watch for changes, Click on Save. If no changes seen, please refresh the page.
+            </div>
           </div>
           <div className={styles.content}>
             <div className={styles.layouts}>
@@ -975,7 +978,14 @@ const Appearance = () => {
               </div>
             </div>
             <div className={styles.saveBtn}>
-              <button onClick={handleSubmit}>Save</button>
+              <button
+                onClick={(e) => {
+                  handleSubmit(e);
+                  setSaveBtnClicked(true);
+                }}
+              >
+                Save
+              </button>
             </div>
           </div>
         </div>

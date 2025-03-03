@@ -55,6 +55,7 @@
   color: #000000;
   position: absolute;
   top: 44rem;
+  left: 3rem;
   font-family: "Inter";
   font-weight: 300;
   font-style: italic;
@@ -77,7 +78,7 @@
 .saveBtn {
   width: 90%;
   margin-bottom: 2rem;
-  margin-left: 25rem;
+  margin-left: 20rem;
 }
 .saveBtn button {
   background-color: #29a263;

@@ -9,7 +9,7 @@ import Spark from "../assets/Spark.png";
 import { getProfile, visitProfile } from "../services/profile.services";
 import useIsMobile from "../components/hooks/useIsMobile";
 const url = import.meta.env.VITE_FRONTEND_URL;
-const Preview = ({ onClose }) => {
+const Preview = ({ onClose, saveBtnClicked }) => {
   const [profile, setProfile] = useState({
     username: "",
     profileId: "",
@@ -104,7 +104,7 @@ const Preview = ({ onClose }) => {
   };
   useEffect(() => {
     getDetails();
-  }, []);
+  }, [saveBtnClicked]);
   const handleLogout = () => {
     localStorage.clear();
     toast.info("Logged Out Successfully!!!");
@@ -232,7 +232,7 @@ const Preview = ({ onClose }) => {
             >
               {(isLinkActive ? appLinks : shopLinks).map((link, key) => (
                 <div
-                  className={styles.link}
+                  className={profile.layout === "Stack" ? styles.link : ""}
                   key={key}
                   style={{
                     backgroundColor:

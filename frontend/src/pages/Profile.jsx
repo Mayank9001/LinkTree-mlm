@@ -27,6 +27,7 @@ const Profile = () => {
   const [isAddLinkModalOpen, setIsAddLinkModalOpen] = useState(false);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [name, setName] = useState("");
+  const [saveBtnClicked, setSaveBtnClicked] = useState(false);
   const [data, setData] = useState(() => {
     const savedData = localStorage.getItem("userData");
     return savedData
@@ -281,7 +282,7 @@ const Profile = () => {
   useEffect(() => {
     getDetails();
     getUserData();
-  }, []);
+  }, [saveBtnClicked]);
 
   useEffect(() => {
     localStorage.setItem("userData", JSON.stringify(data));
@@ -378,13 +379,15 @@ const Profile = () => {
             <BsShare size={12} /> Share
           </div>
         </div>
-        <div className={isMobile?"":styles.deskcontent}>
+        <div className={isMobile ? "" : styles.deskcontent}>
           <div
             className={styles.liveview}
             style={{ display: !isMobile ? "" : "none" }}
           >
-            <Preview data={data} />
-            <div className={styles.astrik}>*To watch for changes, Click on Save</div>
+            <Preview saveBtnClicked={saveBtnClicked} />
+            <div className={styles.astrik}>
+              *To watch for changes, Click on Save. If no changes seen, please refresh the page.
+            </div>
           </div>
           <div className={styles.content}>
             <div className={styles.profile}>
@@ -634,7 +637,14 @@ const Profile = () => {
               </div>
             </div>
             <div className={styles.saveBtn}>
-              <button onClick={handleSubmit}>Save</button>
+              <button
+                onClick={(e) => {
+                  handleSubmit(e);
+                  setSaveBtnClicked(true);
+                }}
+              >
+                Save
+              </button>
             </div>
           </div>
         </div>
@@ -674,7 +684,9 @@ const Profile = () => {
           </button>
         </div>
       </div>
-      {isPreviewOpen && isMobile && <Preview onClose={() => setIsPreviewOpen(false)} />}
+      {isPreviewOpen && isMobile && (
+        <Preview onClose={() => setIsPreviewOpen(false)} />
+      )}
       {isAddLinkModalOpen && (
         <AddLinkModal onClose={() => setIsAddLinkModalOpen(false)} />
       )}
