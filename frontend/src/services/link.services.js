@@ -41,3 +41,13 @@ export const editLink = async (id, data) => {
     body: JSON.stringify(data),
   });
 };
+
+export const deleteLink = async (id) => {
+  return await fetch(`${URL}/api/link/delete/${id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `${localStorage.getItem("token")}`,
+    },
+  });
+};

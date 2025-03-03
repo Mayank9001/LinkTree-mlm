@@ -120,4 +120,21 @@ router.put("/editlink/:id", auth, async (req, res) => {
   }
 });
 
+router.delete("/delete/:id", auth, async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const deletedLink = await Link.findByIdAndDelete(id);
+
+    if (!deletedLink) {
+      return res.status(404).json({ message: "Link not found" });
+    }
+
+    res.json({ message: "Link deleted successfully", deletedLink });
+  } catch (error) {
+    console.error("Error deleting link:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 module.exports = router;

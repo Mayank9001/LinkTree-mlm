@@ -295,10 +295,12 @@ const Profile = () => {
       const data = await res.json();
       if (res.status === 200) {
         getDetails();
-        toast.success(data.message);
+        toast.success("succesfully saved");
+      } else {
+        toast.error("failed to save try again");
       }
     } catch (error) {
-      toast.error(data.message);
+      console.log(error);
     }
   };
   const handleLogout = () => {

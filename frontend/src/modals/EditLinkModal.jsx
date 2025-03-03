@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./styles/AddLinkModal.module.css";
-import { getSingleLink, editLink } from "../services/link.services";
+import { toast } from "react-toastify";
+import { getSingleLink, editLink, deleteLink } from "../services/link.services";
 const EditLinkModal = ({ onClose, linkId }) => {
   const modalRef = useRef(null);
   const [isLinkActive, setIsLinkActive] = useState(true);
@@ -267,7 +268,14 @@ const EditLinkModal = ({ onClose, linkId }) => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [onClose, linkData]);
-
+  const handleDelete = async () => {
+    const res = await deleteLink(linkId);
+    const data = await res.json();
+    if (res.status === 200) {
+      toast.success("link deleted successfully");
+      onClose();
+    }
+  };
   return (
     <>
       <div
@@ -355,6 +363,10 @@ const EditLinkModal = ({ onClose, linkId }) => {
                     width="9"
                     height="10"
                     viewBox="0 0 9 10"
+                    onClick={() => {
+                      navigator.clipboard.writeText(linkData.linkUrl);
+                      toast.success("Copied to clipboard");
+                    }}
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
                   >
@@ -369,6 +381,7 @@ const EditLinkModal = ({ onClose, linkId }) => {
                     width="10"
                     height="10"
                     viewBox="0 0 10 10"
+                    onClick={handleDelete}
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
                   >

@@ -164,7 +164,7 @@ const Appearance = () => {
         toast.success(data.message);
         getDetails();
       } else {
-        toast.error(data.message);
+        toast.error("failed to save try again");
       }
     } catch (error) {
       console.log(error);
@@ -235,7 +235,8 @@ const Appearance = () => {
           >
             {!isMobile && <Preview saveBtnClicked={saveBtnClicked} />}
             <div className={styles.astrik}>
-              *To watch for changes, Click on Save. If no changes seen, please refresh the page.
+              *To watch for changes, Click on Save. If no changes seen, please
+              refresh the page.
             </div>
           </div>
           <div className={styles.content}>
