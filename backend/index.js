@@ -6,6 +6,7 @@ const dotenv = require("dotenv");
 const cloudinary = require("cloudinary").v2;
 const userRoutes = require("./routes/user");
 const profileRoutes = require("./routes/profile");
+const linkRoutes = require("./routes/link");
 dotenv.config({});
 const port = process.env.PORT || 3000;
 app.set("trust proxy", true);
@@ -24,6 +25,7 @@ cloudinary.config({
 
 app.use("/api/user", userRoutes);
 app.use("/api/profile", profileRoutes);
+app.use("/api/link", linkRoutes);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

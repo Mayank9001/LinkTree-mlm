@@ -9,6 +9,7 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage });
 const Profile = require("../models/profile.model");
 const streamifier = require("streamifier");
+const Link = require("../models/link.model");
 
 router.post("/setdetails", auth, async (req, res) => {
   const userId = req.user.id;
@@ -203,10 +204,12 @@ router.get("/getprofile/:username", async (req, res) => {
         .status(400)
         .json({ success: false, message: "Profile Not Found" });
     }
+    const links = await Link.find({ profileId: profile._id });
     res.status(200).json({
       status: true,
       message: "Data fetched successfully!",
       profile: profile,
+      links: links,
     });
   } catch (error) {
     console.log(error);
