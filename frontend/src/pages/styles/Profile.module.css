@@ -176,7 +176,7 @@
   margin: 0.2rem 0 0 0.5rem;
   font-family: "Inter";
   font-weight: 400;
-  font-size: 0.5rem;
+  font-size: 0.7rem;
   line-height: 1.4rem;
   letter-spacing: 0%;
   color: #676b5f;
@@ -303,6 +303,7 @@
 .addBtn {
   width: 100%;
   height: 2.5rem;
+  cursor: pointer;
   border: none;
   display: flex;
   justify-content: center;
@@ -483,14 +484,14 @@
   align-items: center;
 }
 .bannerdisplay img {
-  width: 4.5rem;
-  height: 4.5rem;
+  width: 5rem;
+  height: 5rem;
   margin-top: 3rem;
   border-radius: 50%;
   background-color: #d9d9d9;
 }
 .bannerdisplay h5 {
-  margin-top: 2px;
+  margin-top: 1rem;
   font-family: "Poppins";
   font-weight: 700;
   font-size: 1.5rem;

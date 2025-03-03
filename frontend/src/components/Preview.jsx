@@ -276,7 +276,10 @@ const Preview = ({ onClose }) => {
               ))}
             </div>
           </div>
-          <button className={isMobile?styles.connected:styles.deskconnected} onClick={handleConnected}>
+          <button
+            className={isMobile ? styles.connected : styles.deskconnected}
+            onClick={handleConnected}
+          >
             Get Connected
           </button>
           <div
