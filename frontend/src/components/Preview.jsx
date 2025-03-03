@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import Spark from "../assets/Spark.png";
 import { getProfile, visitProfile } from "../services/profile.services";
 import useIsMobile from "../components/hooks/useIsMobile";
+import { getLinks } from "../services/link.services";
 const url = import.meta.env.VITE_FRONTEND_URL;
 const Preview = ({ onClose, saveBtnClicked }) => {
   const [profile, setProfile] = useState({
@@ -32,49 +33,11 @@ const Preview = ({ onClose, saveBtnClicked }) => {
     },
   });
   const isMobile = useIsMobile();
+  const [appLinks, setAppLinks] = useState([]);
+  const [shopLinks, setShopLinks] = useState([]);
   const [logoutVisbile, setLogoutVisible] = useState(false);
   const [isLinkActive, setIsLinkActive] = useState(true);
   const navigate = useNavigate();
-  const appLinks = [
-    {
-      title: "Instagram",
-      url: "https://www.instagram.com/opopo_08/",
-      clicks: 0,
-    },
-    {
-      title: "Youtube",
-      url: "https://www.youtube.com/opopo_08/",
-      clicks: 0,
-    },
-    {
-      title: "Instagram",
-      url: "https://www.instagram.com/opopo_08/",
-      clicks: 0,
-    },
-    {
-      title: "Youtube",
-      url: "https://www.youtube.com/opopo_08/",
-      clicks: 0,
-    },
-    {
-      title: "Instagram",
-      url: "https://www.instagram.com/opopo_08/",
-      clicks: 0,
-    },
-    {
-      title: "Youtube",
-      url: "https://www.youtube.com/opopo_08/",
-      clicks: 0,
-    },
-  ];
-  const shopLinks = [
-    {
-      title: "Amazon",
-      url: "https://www.instagram.com/opopo_08/",
-      clicks: 0,
-      imageUrl: "",
-    },
-  ];
   const getDetails = async () => {
     const res = await getProfile();
     const temp = await res.json();
@@ -102,8 +65,19 @@ const Preview = ({ onClose, saveBtnClicked }) => {
       });
     }
   };
+  const getLink = async () => {
+    const res = await getLinks();
+    const data = await res.json();
+    if (res.status === 200) {
+      const apps = data.links.filter((link) => link.linkType === "app");
+      const shops = data.links.filter((link) => link.linkType === "shop");
+      setAppLinks(apps);
+      setShopLinks(shops);
+    }
+  };
   useEffect(() => {
     getDetails();
+    getLink();
   }, [saveBtnClicked]);
   const handleLogout = () => {
     localStorage.clear();
@@ -230,10 +204,11 @@ const Preview = ({ onClose, saveBtnClicked }) => {
                     )}rem`,
               }}
             >
-              {(isLinkActive ? appLinks : shopLinks).map((link, key) => (
+              {(isLinkActive ? appLinks : shopLinks).map((link, index) => (
                 <div
                   className={profile.layout === "Stack" ? styles.link : ""}
-                  key={key}
+                  key={link._id}
+                  onClick={()=>window.open(link.linkUrl, "_blank")}
                   style={{
                     backgroundColor:
                       profile.themes.bgColor !== "#ffffff"
@@ -271,7 +246,7 @@ const Preview = ({ onClose, saveBtnClicked }) => {
                       />
                     </svg>
                   </div>
-                  {link.title}
+                  {link.linkTitle}
                 </div>
               ))}
             </div>

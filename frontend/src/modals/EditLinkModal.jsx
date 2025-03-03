@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./styles/AddLinkModal.module.css";
-import { createLink } from "../services/link.services";
-const AddLinkModal = ({ onClose, profileId }) => {
+import { getSingleLink, editLink } from "../services/link.services";
+const EditLinkModal = ({ onClose, linkId }) => {
   const modalRef = useRef(null);
   const [isLinkActive, setIsLinkActive] = useState(true);
   const [isAppSelected, setIsAppSelected] = useState("");
@@ -220,21 +220,45 @@ const AddLinkModal = ({ onClose, profileId }) => {
     linkType: "app",
     appType: "",
     show: false,
-    profileId: profileId,
+    profileId: "",
   });
-  const saveLink = async () => {
-    const res = await createLink(linkData);
+  const edit = async () => {
+    const res = await editLink(linkId, linkData);
     const data = await res.json();
     if (data.status === 200) {
-      // console.log(data);
       return true;
     }
     return false;
   };
   useEffect(() => {
-    const handleClickOutside =  (event) => {
+    const fetchLink = async () => {
+      if (!linkId) return;
+      try {
+        const res = await getSingleLink(linkId);
+        const data = await res.json();
+        if (res.status === 200) {
+          setLinkData({
+            linkTitle: data.link.linkTitle,
+            linkUrl: data.link.linkUrl,
+            linkType: data.link.linkType,
+            appType: data.link.appType,
+            show: data.link.show,
+            profileId: data.link.profileId,
+          });
+        }
+      } catch (error) {
+        console.error("Failed to fetch link:", error);
+      }
+    };
+    fetchLink();
+  }, [linkId]);
+  useEffect(() => {
+    setIsAppSelected(linkData.appType);
+  }, [linkData]);
+  useEffect(() => {
+    const handleClickOutside = (event) => {
       if (modalRef.current && !modalRef.current.contains(event.target)) {
-        saveLink();
+        edit();
         onClose();
       }
     };
@@ -243,9 +267,13 @@ const AddLinkModal = ({ onClose, profileId }) => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [onClose, linkData]);
+
   return (
     <>
-      <div className={styles.main}>
+      <div
+        className={styles.main}
+        style={{ width: "100vw", zIndex: "1000", marginLeft: "0" }}
+      >
         <div
           className={styles.container}
           ref={modalRef}
@@ -287,6 +315,7 @@ const AddLinkModal = ({ onClose, profileId }) => {
                   {/* <label>Link Title</label> */}
                   <input
                     placeholder="Link Title"
+                    value={linkData.linkTitle}
                     onChange={(e) =>
                       setLinkData({ ...linkData, linkTitle: e.target.value })
                     }
@@ -315,6 +344,7 @@ const AddLinkModal = ({ onClose, profileId }) => {
                   {/* <label>Link Title</label> */}
                   <input
                     placeholder="Link URL"
+                    value={linkData.linkUrl}
                     onChange={(e) =>
                       setLinkData({ ...linkData, linkUrl: e.target.value })
                     }
@@ -384,4 +414,4 @@ const AddLinkModal = ({ onClose, profileId }) => {
   );
 };
 
-export default AddLinkModal;
+export default EditLinkModal;

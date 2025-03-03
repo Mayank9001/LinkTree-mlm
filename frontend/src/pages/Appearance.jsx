@@ -233,7 +233,7 @@ const Appearance = () => {
             className={styles.liveview}
             style={{ display: !isMobile ? "" : "none" }}
           >
-            <Preview saveBtnClicked={saveBtnClicked} />
+            {!isMobile && <Preview saveBtnClicked={saveBtnClicked} />}
             <div className={styles.astrik}>
               *To watch for changes, Click on Save. If no changes seen, please refresh the page.
             </div>

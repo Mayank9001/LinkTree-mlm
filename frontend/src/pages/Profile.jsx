@@ -9,7 +9,9 @@ import { userDetails } from "../services/user.services";
 import { useNavigate } from "react-router-dom";
 import Preview from "../components/Preview";
 import AddLinkModal from "../modals/AddLinkModal";
+import EditLinkModal from "../modals/EditLinkModal";
 import useIsMobile from "../components/hooks/useIsMobile";
+import { getLinks } from "../services/link.services";
 import { BsShare } from "react-icons/bs";
 const url = import.meta.env.VITE_FRONTEND_URL;
 const Profile = () => {
@@ -28,11 +30,16 @@ const Profile = () => {
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [name, setName] = useState("");
   const [saveBtnClicked, setSaveBtnClicked] = useState(false);
+  const [isEditLinkModalOpen, setIsEditLinkModalOpen] = useState(false);
+  const [linkId, setLinkId] = useState(null);
+  const [appLink, setAppLink] = useState([]);
+  const [shopLink, setShopLink] = useState([]);
   const [data, setData] = useState(() => {
     const savedData = localStorage.getItem("userData");
     return savedData
       ? JSON.parse(savedData)
       : {
+          profileId: "",
           username: "",
           bio: "Bio",
           profilePic: Boy,
@@ -52,18 +59,18 @@ const Profile = () => {
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M5.5 3.5H15.5C16.0304 3.5 16.5391 3.71071 16.9142 4.08579C17.2893 4.46086 17.5 4.96957 17.5 5.5V15.5C17.5 16.0304 17.2893 16.5391 16.9142 16.9142C16.5391 17.2893 16.0304 17.5 15.5 17.5H5.5C4.96957 17.5 4.46086 17.2893 4.08579 16.9142C3.71071 16.5391 3.5 16.0304 3.5 15.5V5.5C3.5 4.96957 3.71071 4.46086 4.08579 4.08579C4.46086 3.71071 4.96957 3.5 5.5 3.5Z"
         stroke="#9EA099"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M17.5 13.5L14.5 10.5L11.5 13.485M15.5 17.5L6.5 8.5L3.5 11.5"
         stroke="#9EA099"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M14 8C14.5523 8 15 7.55228 15 7C15 6.44772 14.5523 6 14 6C13.4477 6 13 6.44772 13 7C13 7.55228 13.4477 8 14 8Z"
@@ -224,42 +231,14 @@ const Profile = () => {
       </defs>
     </svg>
   );
-  const appLinks = [
-    {
-      title: "Instagram",
-      url: "https://www.instagram.com/opopo_08/",
-      clicks: 0,
-    },
-    {
-      title: "Youtube",
-      url: "https://www.youtube.com/opopo_08/",
-      clicks: 0,
-    },
-    {
-      title: "Instagram",
-      url: "https://www.instagram.com/opopo_08/",
-      clicks: 0,
-    },
-    {
-      title: "Youtube",
-      url: "https://www.youtube.com/opopo_08/",
-      clicks: 0,
-    },
-  ];
-  const shopLinks = [
-    {
-      title: "Amazon",
-      url: "https://www.instagram.com/opopo_08/",
-      clicks: 0,
-      imageUrl: "",
-    },
-  ];
+  const [links, setLinks] = useState([]);
   const getDetails = async () => {
     const res = await getProfile();
     const temp = await res.json();
     if (res.status === 200) {
       setData({
         ...data,
+        profileId: temp.profile._id,
         username: temp.profile.username,
         bio: temp.profile.bio,
         profilePic: temp.profile.profilePic,
@@ -279,6 +258,20 @@ const Profile = () => {
       );
     }
   };
+  const getallLinks = async () => {
+    const res = await getLinks();
+    const data = await res.json();
+    if (res.status === 200) {
+      setLinks(data.links);
+      const apps = data.links.filter((link) => link.linkType === "app");
+      const shops = data.links.filter((link) => link.linkType === "shop");
+      setAppLink(apps);
+      setShopLink(shops);
+    }
+  };
+  useEffect(() => {
+    getallLinks();
+  }, []);
   useEffect(() => {
     getDetails();
     getUserData();
@@ -308,7 +301,6 @@ const Profile = () => {
       toast.error(data.message);
     }
   };
-
   const handleLogout = () => {
     localStorage.clear();
     toast.info("Logged Out Successfully!!!");
@@ -384,9 +376,10 @@ const Profile = () => {
             className={styles.liveview}
             style={{ display: !isMobile ? "" : "none" }}
           >
-            <Preview saveBtnClicked={saveBtnClicked} />
+            {!isMobile && <Preview saveBtnClicked={saveBtnClicked} />}
             <div className={styles.astrik}>
-              *To watch for changes, Click on Save. If no changes seen, please refresh the page.
+              *To watch for changes, Click on Save. If no changes seen, please
+              refresh the page.
             </div>
           </div>
           <div className={styles.content}>
@@ -477,22 +470,32 @@ const Profile = () => {
                   </button>
                 </div>
                 <div className={styles.linksContainer}>
-                  {(isLinkActive ? appLinks : shopLinks).map((link, index) => (
-                    <div className={styles.allLinks} key={index}>
+                  {(isLinkActive ? appLink : shopLink).map((link, id) => (
+                    <div className={styles.allLinks} key={id}>
                       <div className={styles.link}>
                         <div className={styles.move}>
                           <Move />
                         </div>
                         <div className={styles.linkdes}>
                           <span className={styles.linkTitle}>
-                            {link.title}{" "}
-                            <span>
+                            {link.linkTitle}{" "}
+                            <span
+                              onClick={() => {
+                                setIsEditLinkModalOpen(true);
+                                setLinkId(link._id);
+                              }}
+                            >
                               <Edit />
                             </span>
                           </span>
                           <span className={styles.linkUrl}>
-                            {link.url}{" "}
-                            <span>
+                            {link.linkUrl}{" "}
+                            <span
+                              onClick={() => {
+                                setIsEditLinkModalOpen(true);
+                                setLinkId(link._id);
+                              }}
+                            >
                               <Edit />
                             </span>
                           </span>
@@ -505,10 +508,12 @@ const Profile = () => {
                           <span className={styles.toggle}>
                             <input
                               type="checkbox"
-                              id={`toggle-${index}`}
+                              id={`toggle-${id}`}
                               name="checkbox"
+                              checked={link.show}
+                              onChange={() => {}}
                             />
-                            <label htmlFor={`toggle-${index}`}></label>
+                            <label htmlFor={`toggle-${id}`}></label>
                           </span>
                           <span className={styles.delBtn}>
                             <Del style={{ cursor: "pointer" }} />
@@ -688,7 +693,16 @@ const Profile = () => {
         <Preview onClose={() => setIsPreviewOpen(false)} />
       )}
       {isAddLinkModalOpen && (
-        <AddLinkModal onClose={() => setIsAddLinkModalOpen(false)} />
+        <AddLinkModal
+          onClose={() => setIsAddLinkModalOpen(false)}
+          profileId={data.profileId}
+        />
+      )}
+      {isEditLinkModalOpen && (
+        <EditLinkModal
+          onClose={() => setIsEditLinkModalOpen(false)}
+          linkId={linkId}
+        />
       )}
     </>
   );
