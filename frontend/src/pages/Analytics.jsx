@@ -162,107 +162,119 @@ const Analytics = () => {
             </div>
           </div>
           <div className={styles.monthlychart}>
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart
-                data={monthlyData}
-                margin={{ top: 40, right: 30, left: 0, bottom: 10 }}
-              >
-                <XAxis
-                  dataKey="month"
-                  stroke="#8884d8"
-                  axisLine={false}
-                  tickLine={false}
-                  padding={{ left: 20, right: 20 }}
-                />
-                <YAxis axisLine={false} tickLine={false} />
-                <Tooltip />
-                <Line
-                  type="monotone"
-                  dataKey="clicks"
-                  stroke="#00000080"
-                  strokeWidth={1}
-                  dot={false}
-                />
-              </LineChart>
-            </ResponsiveContainer>
+            {monthlyData.length ? (
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart
+                  data={monthlyData}
+                  margin={{ top: 40, right: 30, left: 0, bottom: 10 }}
+                >
+                  <XAxis
+                    dataKey="month"
+                    stroke="#8884d8"
+                    axisLine={false}
+                    tickLine={false}
+                    padding={{ left: 20, right: 20 }}
+                  />
+                  <YAxis axisLine={false} tickLine={false} />
+                  <Tooltip />
+                  <Line
+                    type="monotone"
+                    dataKey="clicks"
+                    stroke="#00000080"
+                    strokeWidth={1}
+                    dot={false}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            ) : (
+              <div className={styles.title}>No data available</div>
+            )}
           </div>
           <div className={styles.deviceandapp}>
             <div className={styles.devicechart}>
               <div className={styles.devicetitle}>Traffic by Device</div>
-              <ResponsiveContainer
-                width={!isMobile ? "100%" : "90%"}
-                height={!isMobile ? "90%" : "80%"}
-              >
-                <BarChart
-                  width={!isMobile ? 500 : 300}
-                  height={!isMobile ? 300 : 160}
-                  data={deviceData}
-                  margin={
-                    !isMobile
-                      ? {
-                          top: 20,
-                          right: 30,
-                          left: 20,
-                          bottom: 20,
-                        }
-                      : { left: 0, right: 0, top: 0, bottom: 0 }
-                  }
-                >
-                  <XAxis
-                    dataKey="device"
-                    axisLine={false}
-                    tickLine={false}
-                    padding={!isMobile ? 10 : 0}
-                    tick={{ fontSize: !isMobile ? 20 : 12 }}
-                    interval={0}
-                  />
-                  <YAxis axisLine={false} tickLine={false} />
-                  <Tooltip />
-                  <Bar
-                    dataKey="clicks"
-                    radius={!isMobile ? 12 : 6}
-                    scale="band"
-                  >
-                    {deviceData?.map((entry, index) => (
-                      <Cell
-                        key={`cell-${index}`}
-                        fill={colors[index % colors.length]}
-                      />
-                    ))}
-                  </Bar>
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-            <div className={styles.appchart}>
-              <div className={styles.pies}>
-                <div className={styles.piestitle}>Sites</div>
+              {deviceData.length ? (
                 <ResponsiveContainer
-                  width="100%"
-                  height={!isMobile ? "86%" : "80%"}
+                  width={!isMobile ? "100%" : "90%"}
+                  height={!isMobile ? "90%" : "80%"}
                 >
-                  <PieChart>
-                    <Pie
-                      data={appData}
+                  <BarChart
+                    width={!isMobile ? 500 : 300}
+                    height={!isMobile ? 300 : 160}
+                    data={deviceData}
+                    margin={
+                      !isMobile
+                        ? {
+                            top: 20,
+                            right: 30,
+                            left: 20,
+                            bottom: 20,
+                          }
+                        : { left: 0, right: 0, top: 0, bottom: 0 }
+                    }
+                  >
+                    <XAxis
+                      dataKey="device"
+                      axisLine={false}
+                      tickLine={false}
+                      padding={!isMobile ? 10 : 0}
+                      tick={{ fontSize: !isMobile ? 20 : 12 }}
+                      interval={0}
+                    />
+                    <YAxis axisLine={false} tickLine={false} />
+                    <Tooltip />
+                    <Bar
                       dataKey="clicks"
-                      nameKey="appType"
-                      cx="50%"
-                      cy="50%"
-                      innerRadius={!isMobile ? 60 : 35}
-                      outerRadius={!isMobile ? 100 : 60}
-                      label
-                      paddingAngle={5}
-                      cornerRadius={!isMobile ? 12 : 8}
+                      radius={!isMobile ? 12 : 6}
+                      scale="band"
                     >
-                      {appData?.map((entry, index) => (
+                      {deviceData?.map((entry, index) => (
                         <Cell
                           key={`cell-${index}`}
                           fill={colors[index % colors.length]}
                         />
                       ))}
-                    </Pie>
-                    <Tooltip />
-                  </PieChart>
+                    </Bar>
+                  </BarChart>
                 </ResponsiveContainer>
+              ) : (
+                <div className={styles.title}>No data available</div>
+              )}
+            </div>
+            <div className={styles.appchart}>
+              <div className={styles.pies}>
+                <div className={styles.piestitle}>Sites</div>
+                {appData.length ? (
+                  <ResponsiveContainer
+                    width="100%"
+                    height={!isMobile ? "86%" : "80%"}
+                  >
+                    <PieChart>
+                      <Pie
+                        data={appData}
+                        dataKey="clicks"
+                        nameKey="appType"
+                        cx="50%"
+                        cy="50%"
+                        innerRadius={!isMobile ? 60 : 35}
+                        outerRadius={!isMobile ? 100 : 60}
+                        label
+                        paddingAngle={5}
+                        cornerRadius={!isMobile ? 12 : 8}
+                      >
+                        {appData?.map((entry, index) => (
+                          <Cell
+                            key={`cell-${index}`}
+                            fill={colors[index % colors.length]}
+                          />
+                        ))}
+                      </Pie>
+                      <Tooltip />
+                    </PieChart>
+                  </ResponsiveContainer>
+                ) : (
+                  <div className={styles.title}>No data available</div>
+                )}
               </div>
               <div className={styles.piesdesc}>
                 {appData?.map((data, index) => (
@@ -289,46 +301,50 @@ const Analytics = () => {
           </div>
           <div className={styles.linkChart}>
             <div className={styles.linktitle}>Traffic by Links</div>
-            <ResponsiveContainer
-              width={!isMobile ? "100%" : "90%"}
-              height={!isMobile ? "90%" : "80%"}
-            >
-              <BarChart
-                width={500}
-                height={300}
-                data={linksData}
-                margin={
-                  !isMobile
-                    ? {
-                        top: 20,
-                        right: 30,
-                        left: 20,
-                        bottom: 20,
-                      }
-                    : { left: 0, right: 0, top: 0, bottom: 0 }
-                }
-                padding={0}
+            {linksData.length ? (
+              <ResponsiveContainer
+                width={!isMobile ? "100%" : "90%"}
+                height={!isMobile ? "90%" : "80%"}
               >
-                <XAxis
-                  dataKey="title"
-                  axisLine={false}
-                  tickLine={false}
-                  tick={{ fontSize: !isMobile ? 20 : 9 }}
-                  interval={0}
-                  padding={!isMobile ? 10 : 0}
-                />
-                <YAxis axisLine={false} tickLine={false} />
-                <Tooltip />
-                <Bar dataKey="clicks" radius={!isMobile ? 12 : 8}>
-                  {deviceData?.map((entry, index) => (
-                    <Cell
-                      key={`cell-${index}`}
-                      fill={colors[index % colors.length]}
-                    />
-                  ))}
-                </Bar>
-              </BarChart>
-            </ResponsiveContainer>
+                <BarChart
+                  width={500}
+                  height={300}
+                  data={linksData}
+                  margin={
+                    !isMobile
+                      ? {
+                          top: 20,
+                          right: 30,
+                          left: 20,
+                          bottom: 20,
+                        }
+                      : { left: 0, right: 0, top: 0, bottom: 0 }
+                  }
+                  padding={0}
+                >
+                  <XAxis
+                    dataKey="title"
+                    axisLine={false}
+                    tickLine={false}
+                    tick={{ fontSize: !isMobile ? 20 : 9 }}
+                    interval={0}
+                    padding={!isMobile ? 10 : 0}
+                  />
+                  <YAxis axisLine={false} tickLine={false} />
+                  <Tooltip />
+                  <Bar dataKey="clicks" radius={!isMobile ? 12 : 8}>
+                    {deviceData?.map((entry, index) => (
+                      <Cell
+                        key={`cell-${index}`}
+                        fill={colors[index % colors.length]}
+                      />
+                    ))}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            ) : (
+              <div className={styles.title}>No data available</div>
+            )}
           </div>
         </div>
       </div>
