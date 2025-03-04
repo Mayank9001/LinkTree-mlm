@@ -155,6 +155,7 @@ const Appearance = () => {
     getUserData();
     getDetails();
   }, []);
+  useEffect(() => {}, [saveBtnClicked]);
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {

@@ -109,7 +109,86 @@
   margin-top: 1rem;
   overflow-x: hidden;
 }
-.showLinks::-webkit-scrollbar{
+.stack {
+  display: flex;
+  flex-direction: column;
+}
+.gridlayout {
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+.gridlink {
+  background-color: #c9c9c9;
+  width: 90%;
+  height: 6rem;
+  position: relative;
+  left: 50%;
+  padding-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(-50%);
+  align-items: center;
+  border-radius: 6.25rem;
+  margin-bottom: 0.6rem;
+  font-family: "Poppins";
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  letter-spacing: 0%;
+  color: #1e1e20;
+}
+.gridlink div {
+  width: 80%;
+  margin: 0.5rem 5px 0.5rem 0.5rem;
+  height: 2rem;
+  background-color: white;
+  display: grid;
+  place-items: center;
+  border-radius: 4rem;
+}
+.carousel {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  width: 100%;
+}
+.carousellink {
+  background-color: #c9c9c9;
+  width: 40%;
+  height: 11rem;
+  display: flex;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 6.25rem;
+  font-family: "Poppins";
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  letter-spacing: 0%;
+  text-align: left;
+  color: #1e1e20;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+.carousellink div{
+  width: 4rem;
+  margin: 0.5rem 5px 0.5rem 0.5rem;
+  height: 4rem;
+  background-color: white;
+  display: grid;
+  place-items: center;
+  border-radius: 4rem;
+}
+.carousellink span{
+  width: 100%;
+  flex-wrap: wrap;
+  text-align: center;
+}
+.showLinks::-webkit-scrollbar {
   width: 0;
 }
 .link {
@@ -117,6 +196,8 @@
   width: 90%;
   height: 3.5rem;
   position: relative;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
   left: 50%;
   display: flex;
   transform: translateX(-50%);
@@ -132,10 +213,10 @@
   color: #1e1e20;
 }
 .link div {
-  width: 3rem;
+  width: 2.5rem;
+  height: 2.5rem;
   margin-left: 0.5rem;
   margin-right: 5px;
-  height: 3rem;
   border-radius: 50%;
   background-color: white;
   display: grid;
@@ -187,7 +268,7 @@
   line-height: 1.4rem;
   letter-spacing: 0%;
   color: #000000;
-  position:absolute;
+  position: absolute;
   top: 95%;
   left: 50%;
   transform: translateX(-30%);
@@ -205,7 +286,7 @@
     left: 0;
     top: 0;
     display: flex;
-    overflow-x: auto;
+    overflow-y: auto;
     flex-direction: column;
     background-color: white;
     z-index: 1000;
@@ -396,8 +477,8 @@
   .connected {
     position: relative;
     left: 50%;
+    top: -5%;
     transform: translateX(-50%);
-    margin-top: 2rem;
     background-color: #35ca7d;
     box-shadow: 0px 4px 12.8px 0px #00000026;
     width: 9.5rem;

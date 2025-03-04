@@ -228,6 +228,7 @@ const Preview = ({ onClose, saveBtnClicked }) => {
     getDetails();
     getLink();
   }, [saveBtnClicked]);
+  useEffect(() => {}, [saveBtnClicked]);
   const handleLogout = () => {
     localStorage.clear();
     toast.info("Logged Out Successfully!!!");
@@ -340,22 +341,26 @@ const Preview = ({ onClose, saveBtnClicked }) => {
               </span>
             </div>
             <div
-              className={styles.showLinks}
+              className={`${styles.showLinks} ${
+                profile.layout === "Grid"
+                  ? styles.gridlayout
+                  : profile.layout === "Carousel"
+                  ? styles.carousel
+                  : styles.stack
+              }`}
               style={{
-                height: isMobile
-                  ? `${Math.min(
-                      4.5 * (isLinkActive ? appLinks : shopLinks).length,
-                      9
-                    )}rem`
-                  : `${Math.min(
-                      4 * (isLinkActive ? appLinks : shopLinks).length,
-                      12.5
-                    )}rem`,
+                height: `13rem`,
               }}
             >
               {(isLinkActive ? appLinks : shopLinks).map((link, index) => (
                 <div
-                  className={profile.layout === "Stack" ? styles.link : ""}
+                  className={`${
+                    profile.layout === "Grid"
+                      ? styles.gridlink
+                      : profile.layout === "Carousel"
+                      ? styles.carousellink
+                      : styles.link
+                  }`}
                   key={link._id}
                   onClick={() => window.open(link.linkUrl, "_blank")}
                   style={{
@@ -373,7 +378,6 @@ const Preview = ({ onClose, saveBtnClicked }) => {
                         ? "0"
                         : "",
                     fontFamily: profile.buttonStyle.fontFamily,
-                    alignItems: "center",
                     justifyContent: link.linkType === "shop" ? "center" : "",
                   }}
                 >
@@ -388,7 +392,7 @@ const Preview = ({ onClose, saveBtnClicked }) => {
                   >
                     {appIcons[link.appType]}
                   </div>
-                  {link.linkTitle}
+                  <span>{link.linkTitle}</span>
                 </div>
               ))}
             </div>

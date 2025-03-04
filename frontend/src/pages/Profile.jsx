@@ -272,6 +272,7 @@ const Profile = () => {
   useEffect(() => {
     getallLinks();
   }, []);
+  useEffect(() => {}, [saveBtnClicked]);
   useEffect(() => {
     getDetails();
     getUserData();
