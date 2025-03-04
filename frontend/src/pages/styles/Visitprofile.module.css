@@ -237,10 +237,8 @@
   place-items: center;
 }
 .deskconnected {
-  position: absolute;
-  left: 50%;
-  bottom: calc(100vh - 40rem);
-  transform: translateX(-50%);
+  margin: 4rem auto;
+  margin-bottom: 0;
   background-color: #35ca7d;
   box-shadow: 0px 4px 12.8px 0px #00000026;
   width: 9.5rem;
@@ -267,11 +265,10 @@
   font-size: 1.1rem;
   line-height: 1.4rem;
   letter-spacing: 0%;
+  justify-content: center;
   color: #000000;
-  position: absolute;
-  bottom: calc(100vh - 42rem);
-  left: 50%;
-  transform: translateX(-6%);
+  margin: 1rem auto;
+  margin-bottom: 0;
 }
 .deskicon span:nth-child(3) {
   position: relative;
