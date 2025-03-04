@@ -223,7 +223,7 @@ const Analytics = () => {
                     radius={!isMobile ? 12 : 6}
                     scale="band"
                   >
-                    {deviceData.map((entry, index) => (
+                    {deviceData?.map((entry, index) => (
                       <Cell
                         key={`cell-${index}`}
                         fill={colors[index % colors.length]}
@@ -253,7 +253,7 @@ const Analytics = () => {
                       paddingAngle={5}
                       cornerRadius={!isMobile ? 12 : 8}
                     >
-                      {appData.map((entry, index) => (
+                      {appData?.map((entry, index) => (
                         <Cell
                           key={`cell-${index}`}
                           fill={colors[index % colors.length]}
@@ -265,7 +265,7 @@ const Analytics = () => {
                 </ResponsiveContainer>
               </div>
               <div className={styles.piesdesc}>
-                {appData.map((data, index) => (
+                {appData?.map((data, index) => (
                   <div key={index} className={styles.piesdescdata}>
                     <GoDotFill
                       color={colors[index % colors.length]}
@@ -289,7 +289,10 @@ const Analytics = () => {
           </div>
           <div className={styles.linkChart}>
             <div className={styles.linktitle}>Traffic by Links</div>
-            <ResponsiveContainer width={!isMobile?"100%":"90%"} height={!isMobile?"90%":"80%"}>
+            <ResponsiveContainer
+              width={!isMobile ? "100%" : "90%"}
+              height={!isMobile ? "90%" : "80%"}
+            >
               <BarChart
                 width={500}
                 height={300}
@@ -316,8 +319,8 @@ const Analytics = () => {
                 />
                 <YAxis axisLine={false} tickLine={false} />
                 <Tooltip />
-                <Bar dataKey="clicks" radius={!isMobile?12:8}>
-                  {deviceData.map((entry, index) => (
+                <Bar dataKey="clicks" radius={!isMobile ? 12 : 8}>
+                  {deviceData?.map((entry, index) => (
                     <Cell
                       key={`cell-${index}`}
                       fill={colors[index % colors.length]}
