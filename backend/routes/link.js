@@ -155,7 +155,7 @@ router.patch("/setshow/:id", auth, async (req, res) => {
     if (!updatedLink) {
       return res.status(404).json({ error: "Link not found" });
     }
-    console.log(updatedLink);
+
     res.status(200).json(updatedLink);
   } catch (error) {
     res.status(500).json({ error: "Server error", details: error.message });

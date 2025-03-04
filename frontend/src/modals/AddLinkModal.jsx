@@ -226,6 +226,7 @@ const AddLinkModal = ({ onClose, profileId }) => {
     profileId: profileId,
   });
   const saveLink = async () => {
+    console.log(linkData);
     const res = await createLink(linkData);
     const data = await res.json();
     if (data.status === 200) {
@@ -299,13 +300,13 @@ const AddLinkModal = ({ onClose, profileId }) => {
                   <span className={styles.toggle}>
                     <input
                       type="checkbox"
-                      checked={linkData.show}
+                      defaultChecked={linkData.show}
                       id={`togglelinktitle`}
                       name="checkbox"
-                      onChange={() =>
+                      onChange={(e) =>
                         setLinkData((prevData) => ({
                           ...prevData,
-                          show: !prevData.show,
+                          show: e.target.checked,
                         }))
                       }
                     />

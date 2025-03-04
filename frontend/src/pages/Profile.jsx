@@ -319,7 +319,7 @@ const Profile = () => {
     formData.append("bannerFontColor", data.banner.fontColor);
     try {
       const res = await setProfile(formData);
-      const data = await res.json();  
+      const data = await res.json();
       if (res.status === 200) {
         getDetails();
         toast.success("succesfully saved");
@@ -330,6 +330,9 @@ const Profile = () => {
       console.log(error);
     }
   };
+  const PreviewComp = () => (
+    <Preview />
+  );
   const handleLogout = () => {
     localStorage.clear();
     toast.info("Logged Out Successfully!!!");
@@ -406,10 +409,7 @@ const Profile = () => {
             style={{ display: !isMobile ? "" : "none" }}
           >
             {!isMobile && (
-              <Preview
-                saveBtnClicked={saveBtnClicked}
-                isShowClicked={isShowClicked}
-              />
+              <PreviewComp />
             )}
             <div className={styles.astrik}>
               *To watch for changes, Click on Save. If no changes seen, please

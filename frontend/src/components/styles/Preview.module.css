@@ -124,6 +124,7 @@
   align-items: center;
   height: 6rem;
   margin: 0 auto;
+  margin-bottom: 1rem;
   cursor: pointer;
 }
 .gridlink {

@@ -10,7 +10,7 @@ import { getProfile, visitProfile } from "../services/profile.services";
 import useIsMobile from "../components/hooks/useIsMobile";
 import { getLinks } from "../services/link.services";
 const url = import.meta.env.VITE_FRONTEND_URL;
-const Preview = ({ onClose, saveBtnClicked, isShowClicked }) => {
+const Preview = ({ onClose }) => {
   const [profile, setProfile] = useState({
     username: "",
     profileId: "",
@@ -231,8 +231,7 @@ const Preview = ({ onClose, saveBtnClicked, isShowClicked }) => {
   useEffect(() => {
     getDetails();
     getLink();
-  }, [saveBtnClicked]);
-  useEffect(() => {}, [saveBtnClicked, isShowClicked]);
+  }, []);
   const handleLogout = () => {
     localStorage.clear();
     toast.info("Logged Out Successfully!!!");
@@ -399,7 +398,11 @@ const Preview = ({ onClose, saveBtnClicked, isShowClicked }) => {
                       display: link.linkType === "shop" ? "none" : "",
                     }}
                   >
-                    {appIcons[link.appType]}
+                    {!isLinkActive ? (
+                      <img src={link.shopImg} alt="shopImage" />
+                    ) : (
+                      appIcons[link.appType]
+                    )}
                   </div>
                   <span>{link.linkTitle}</span>
                 </div>

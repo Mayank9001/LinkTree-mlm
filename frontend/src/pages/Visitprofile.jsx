@@ -313,7 +313,7 @@ const Visitprofile = () => {
                     : styles.stack
                 }`}
                 style={{
-                  height: `13rem`,
+                  height: `14rem`,
                 }}
               >
                 {(isLinkActive ? appLinks : shopLinks).map((link, key) => (

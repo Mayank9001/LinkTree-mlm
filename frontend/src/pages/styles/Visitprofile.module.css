@@ -124,6 +124,8 @@
   justify-content: center;
   height: 6rem;
   margin: 0 auto;
+  cursor: pointer;
+  margin-bottom: 1rem !important;
 }
 .gridlink {
   background-color: #c9c9c9;
