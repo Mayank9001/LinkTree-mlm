@@ -52,9 +52,9 @@ const Analytics = () => {
       setDeviceData(data.defaultTrafficData);
       setAppData(data.clickData);
       setLinksData(data.trafficbylinks);
-      setCta(data.cta);
-      setCol(data.appClicks);
-      setCos(data.shopClicks);
+      setCta(data.cta || 0);
+      setCol(data.appClicks || 0);
+      setCos(data.shopClicks || 0);
     }
   };
   const getDetails = async () => {
