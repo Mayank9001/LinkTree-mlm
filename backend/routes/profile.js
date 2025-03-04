@@ -83,6 +83,9 @@ router.post(
         imageUrl = cloudResult.secure_url;
         cloudinaryId = cloudResult.public_id;
       }
+      if (!req.file && req.body.profilePic) {
+        imageUrl = req.body.profilePic; 
+      }
       await Profile.findByIdAndUpdate(profileId, {
         bio: bio,
         profilePic: imageUrl,

@@ -108,6 +108,94 @@
 .deskshowLinks::-webkit-scrollbar {
   width: 0;
 }
+.stack {
+  display: flex;
+  flex-direction: column;
+}
+.gridlayout {
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+.shoplink{
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 6rem;
+  margin: 0 auto;
+}
+.gridlink {
+  background-color: #c9c9c9;
+  width: 90%;
+  height: 6rem;
+  position: relative;
+  left: 50%;
+  padding-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(-50%);
+  align-items: center;
+  border-radius: 6.25rem;
+  margin-bottom: 0.6rem;
+  font-family: "Poppins";
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  letter-spacing: 0%;
+  color: #1e1e20;
+}
+.gridlink div {
+  width: 80%;
+  margin: 0.5rem 5px 0.5rem 0.5rem;
+  height: 2rem;
+  background-color: white;
+  display: grid;
+  place-items: center;
+  border-radius: 4rem;
+}
+.carousel {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  width: 100%;
+}
+.carousellink {
+  background-color: #c9c9c9;
+  width: 40%;
+  height: 11rem;
+  display: flex;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 6.25rem;
+  font-family: "Poppins";
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  letter-spacing: 0%;
+  text-align: left;
+  color: #1e1e20;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+.carousellink div{
+  width: 4rem;
+  margin: 0.5rem 5px 0.5rem 0.5rem;
+  height: 4rem;
+  background-color: white;
+  display: grid;
+  place-items: center;
+  border-radius: 4rem;
+}
+.carousellink span{
+  width: 100%;
+  flex-wrap: wrap;
+  text-align: center;
+}
 .desklink {
   background-color: #c9c9c9;
   width: 90%;
@@ -126,6 +214,15 @@
   line-height: 1.5rem;
   letter-spacing: 0%;
   color: #1e1e20;
+}
+.shoplink{
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 6rem;
+  cursor: pointer;
+  margin: 0 auto;
 }
 .desklink div {
   width: 3rem;

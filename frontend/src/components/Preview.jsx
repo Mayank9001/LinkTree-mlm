@@ -218,8 +218,12 @@ const Preview = ({ onClose, saveBtnClicked, isShowClicked }) => {
     const res = await getLinks();
     const data = await res.json();
     if (res.status === 200) {
-      const apps = data.links.filter((link) => link.linkType === "app").filter((link)=>link.show===true);
-      const shops = data.links.filter((link) => link.linkType === "shop").filter((link)=>link.show===true);
+      const apps = data.links
+        .filter((link) => link.linkType === "app")
+        .filter((link) => link.show === true);
+      const shops = data.links
+        .filter((link) => link.linkType === "shop")
+        .filter((link) => link.show === true);
       setAppLinks(apps);
       setShopLinks(shops);
     }
@@ -244,7 +248,7 @@ const Preview = ({ onClose, saveBtnClicked, isShowClicked }) => {
     // }
   };
   const handleCopyLink = () => {
-    toast.success("copied to clipboard")
+    toast.success("copied to clipboard");
     navigator.clipboard.writeText(url + "/profile/" + profile.username);
   };
   return (
@@ -343,10 +347,12 @@ const Preview = ({ onClose, saveBtnClicked, isShowClicked }) => {
             </div>
             <div
               className={`${styles.showLinks} ${
-                profile.layout === "Grid"
-                  ? styles.gridlayout
-                  : profile.layout === "Carousel"
-                  ? styles.carousel
+                isLinkActive
+                  ? profile.layout === "Grid"
+                    ? styles.gridlayout
+                    : profile.layout === "Carousel"
+                    ? styles.carousel
+                    : styles.stack
                   : styles.stack
               }`}
               style={{
@@ -356,11 +362,13 @@ const Preview = ({ onClose, saveBtnClicked, isShowClicked }) => {
               {(isLinkActive ? appLinks : shopLinks).map((link, index) => (
                 <div
                   className={`${
-                    profile.layout === "Grid"
-                      ? styles.gridlink
-                      : profile.layout === "Carousel"
-                      ? styles.carousellink
-                      : styles.link
+                    isLinkActive
+                      ? profile.layout === "Grid"
+                        ? styles.gridlink
+                        : profile.layout === "Carousel"
+                        ? styles.carousellink
+                        : styles.link
+                      : styles.shoplink
                   }`}
                   key={link._id}
                   onClick={() => window.open(link.linkUrl, "_blank")}

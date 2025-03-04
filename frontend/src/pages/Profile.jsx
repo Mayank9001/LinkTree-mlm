@@ -52,10 +52,10 @@ const Profile = () => {
   });
   const ShopImg = () => (
     <svg
-      width={!isMobile? "14" : "9"}
-      height={!isMobile? "14" : "9"}
+      width={!isMobile ? "14" : "9"}
+      height={!isMobile ? "14" : "9"}
       viewBox="0 0 21 21"
-      style={{ marginBottom: "-2px", marginRight: "5px", cursor:"pointer" }}
+      style={{ marginBottom: "-2px", marginRight: "5px", cursor: "pointer" }}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -81,8 +81,8 @@ const Profile = () => {
   );
   const Move = () => (
     <svg
-      width={!isMobile? "10" : "6"}
-      height={!isMobile? "12" : "10"}
+      width={!isMobile ? "10" : "6"}
+      height={!isMobile ? "12" : "10"}
       viewBox="0 0 4 7"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -95,9 +95,9 @@ const Profile = () => {
   );
   const Del = () => (
     <svg
-      width={!isMobile? "14" : "8"}
-      height={!isMobile? "15" : "9"}
-      style={{ cursor:"pointer"}}
+      width={!isMobile ? "14" : "8"}
+      height={!isMobile ? "15" : "9"}
+      style={{ cursor: "pointer" }}
       viewBox="0 0 6 7"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -110,8 +110,8 @@ const Profile = () => {
   );
   const Clickimg = () => (
     <svg
-      width={isMobile? "18" : "11"}
-      height={!isMobile? "18" : "11"}
+      width={isMobile ? "18" : "11"}
+      height={!isMobile ? "18" : "11"}
       style={{ marginRight: "5px" }}
       viewBox="0 0 12 12"
       fill="none"
@@ -143,7 +143,7 @@ const Profile = () => {
       width="9"
       height="9"
       viewBox="0 0 9 9"
-      style={{ marginLeft: "5px", cursor:"pointer" }}
+      style={{ marginLeft: "5px", cursor: "pointer" }}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -311,13 +311,15 @@ const Profile = () => {
     const formData = new FormData();
     if (data.profilePic && typeof data.profilePic === "object") {
       formData.append("profilePic", data.profilePic);
+    } else {
+      formData.append("profilePic", data.profilePic);
     }
     formData.append("bio", data.bio);
     formData.append("bannerProfileBg", data.banner.profileBg);
     formData.append("bannerFontColor", data.banner.fontColor);
     try {
       const res = await setProfile(formData);
-      const data = await res.json();
+      const data = await res.json();  
       if (res.status === 200) {
         getDetails();
         toast.success("succesfully saved");
@@ -444,7 +446,8 @@ const Profile = () => {
                       onClick={() =>
                         setData({
                           ...data,
-                          profilePic: Boy,
+                          profilePic:
+                            "https://res.cloudinary.com/dzoc66yv6/image/upload/v1740589747/Boy_cplghc.png",
                         })
                       }
                     >

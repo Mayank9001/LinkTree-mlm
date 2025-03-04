@@ -303,17 +303,30 @@ const Visitprofile = () => {
                 </span>
               </div>
               <div
-                className={!isMobile ? styles.deskshowLinks : styles.showLinks}
+                className={`${styles.deskshowLinks} ${
+                  isLinkActive
+                    ? profile.layout === "Grid"
+                      ? styles.gridlayout
+                      : profile.layout === "Carousel"
+                      ? styles.carousel
+                      : styles.stack
+                    : styles.stack
+                }`}
                 style={{
-                  height: `${Math.min(
-                    4.5 * (isLinkActive ? appLinks : shopLinks).length,
-                    13.5
-                  )}rem`,
+                  height: `13rem`,
                 }}
               >
                 {(isLinkActive ? appLinks : shopLinks).map((link, key) => (
                   <div
-                    className={!isMobile ? styles.desklink : styles.link}
+                    className={`${
+                      isLinkActive
+                        ? profile.layout === "Grid"
+                          ? styles.gridlink
+                          : profile.layout === "Carousel"
+                          ? styles.carousellink
+                          : styles.link
+                        : styles.shoplink
+                    }`}
                     key={key}
                     onClick={() => handleLinkOpen(link)}
                     style={{
@@ -333,10 +346,18 @@ const Visitprofile = () => {
                       fontFamily: profile.buttonStyle.fontFamily,
                     }}
                   >
-                    <div style={{ backgroundColor: "" }}>
+                    <div
+                      style={{
+                        backgroundColor:
+                          profile.buttonStyle.backgroundColor === "#ffffff"
+                            ? "#f3f3f1"
+                            : "#ffffff",
+                        display: link.linkType === "shop" ? "none" : "",
+                      }}
+                    >
                       {appIcons[link.appType]}
                     </div>
-                    {link.linkTitle}
+                    <span>{link.linkTitle}</span>
                   </div>
                 ))}
               </div>

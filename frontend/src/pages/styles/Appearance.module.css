@@ -202,6 +202,7 @@
   width: 30%;
   height: 1.3rem;
   background-color: #000000;
+  cursor: pointer;
   border: none;
 }
 .btnRow2 button,
