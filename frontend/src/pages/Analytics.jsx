@@ -162,7 +162,7 @@ const Analytics = () => {
             </div>
           </div>
           <div className={styles.monthlychart}>
-            {monthlyData.length ? (
+            {monthlyData?.length ? (
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart
                   data={monthlyData}
@@ -193,7 +193,7 @@ const Analytics = () => {
           <div className={styles.deviceandapp}>
             <div className={styles.devicechart}>
               <div className={styles.devicetitle}>Traffic by Device</div>
-              {deviceData.length ? (
+              {deviceData?.length ? (
                 <ResponsiveContainer
                   width={!isMobile ? "100%" : "90%"}
                   height={!isMobile ? "90%" : "80%"}
@@ -244,7 +244,7 @@ const Analytics = () => {
             <div className={styles.appchart}>
               <div className={styles.pies}>
                 <div className={styles.piestitle}>Sites</div>
-                {appData.length ? (
+                {appData?.length ? (
                   <ResponsiveContainer
                     width="100%"
                     height={!isMobile ? "86%" : "80%"}
@@ -301,7 +301,7 @@ const Analytics = () => {
           </div>
           <div className={styles.linkChart}>
             <div className={styles.linktitle}>Traffic by Links</div>
-            {linksData.length ? (
+            {linksData?.length ? (
               <ResponsiveContainer
                 width={!isMobile ? "100%" : "90%"}
                 height={!isMobile ? "90%" : "80%"}
