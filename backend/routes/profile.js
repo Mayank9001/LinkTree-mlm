@@ -268,8 +268,8 @@ router.get("/getanalytics", auth, async (req, res) => {
       return res.json({ message: "No links found for this profile", data: {} });
     }
 
-    const standardApps = ["Instagram", "Facebook", "YouTube"];
-    let clickData = { Instagram: 0, Facebook: 0, YouTube: 0, Other: 0 };
+    const standardApps = ["Instagram", "FaceBook", "YouTube"];
+    let clickData = { Instagram: 0, FaceBook: 0, YouTube: 0, Other: 0 };
     let nonStandardApps = [];
 
     apps.forEach((link) => {
