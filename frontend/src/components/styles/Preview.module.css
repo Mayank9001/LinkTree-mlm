@@ -482,10 +482,8 @@
     z-index: 100;
   }
   .connected {
-    position: relative;
-    left: 50%;
-    top: -5%;
-    transform: translateX(-50%);
+    margin: 4rem auto;
+    margin-bottom: 0;
     background-color: #35ca7d;
     box-shadow: 0px 4px 12.8px 0px #00000026;
     width: 9.5rem;
