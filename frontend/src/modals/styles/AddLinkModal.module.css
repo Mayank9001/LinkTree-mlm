@@ -217,7 +217,7 @@
   color: #000000bf;
 }
 .selectedApp {
-  background-color: #bebebe;
+  background-color: #dddddd;
   border-radius: 0.3rem;
   border: 1px solid black;
   transform: scale(0.9);

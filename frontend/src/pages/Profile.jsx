@@ -55,7 +55,7 @@ const Profile = () => {
       width={!isMobile? "14" : "9"}
       height={!isMobile? "14" : "9"}
       viewBox="0 0 21 21"
-      style={{ marginBottom: "-2px", marginRight: "5px" }}
+      style={{ marginBottom: "-2px", marginRight: "5px", cursor:"pointer" }}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -97,6 +97,7 @@ const Profile = () => {
     <svg
       width={!isMobile? "14" : "8"}
       height={!isMobile? "15" : "9"}
+      style={{ cursor:"pointer"}}
       viewBox="0 0 6 7"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -142,7 +143,7 @@ const Profile = () => {
       width="9"
       height="9"
       viewBox="0 0 9 9"
-      style={{ marginLeft: "5px" }}
+      style={{ marginLeft: "5px", cursor:"pointer" }}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >

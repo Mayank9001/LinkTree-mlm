@@ -583,6 +583,7 @@
 }
 .saveBtn button {
   background-color: #29a263;
+  cursor: pointer;
   border: none;
   width: 8rem;
   height: 2rem;
