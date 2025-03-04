@@ -1,8 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./styles/AddLinkModal.module.css";
 import { createLink } from "../services/link.services";
+import { toast } from "react-toastify";
+import useMobile from '../components/hooks/useIsMobile'
 const AddLinkModal = ({ onClose, profileId }) => {
   const modalRef = useRef(null);
+  const isMobile = useMobile();
   const [isLinkActive, setIsLinkActive] = useState(true);
   const [isAppSelected, setIsAppSelected] = useState("");
   const apps = [
@@ -226,15 +229,15 @@ const AddLinkModal = ({ onClose, profileId }) => {
     const res = await createLink(linkData);
     const data = await res.json();
     if (data.status === 200) {
-      // console.log(data);
       return true;
     }
     return false;
   };
   useEffect(() => {
-    const handleClickOutside =  (event) => {
+    const handleClickOutside = (event) => {
       if (modalRef.current && !modalRef.current.contains(event.target)) {
         saveLink();
+        toast.success("link added succesfully");
         onClose();
       }
     };
@@ -322,8 +325,8 @@ const AddLinkModal = ({ onClose, profileId }) => {
                 </div>
                 <div className={styles.deletediv}>
                   <svg
-                    width="9"
-                    height="10"
+                    width={!isMobile? "14" : "9"}
+                    height={!isMobile? "15" : "10"}
                     viewBox="0 0 9 10"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -336,8 +339,8 @@ const AddLinkModal = ({ onClose, profileId }) => {
                     />
                   </svg>
                   <svg
-                    width="10"
-                    height="10"
+                    width={!isMobile? "14" : "8"}
+                    height={!isMobile? "15" : "9"}
                     viewBox="0 0 10 10"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"

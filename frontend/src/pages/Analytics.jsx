@@ -1,22 +1,85 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import styles from "./styles/Analytics.module.css";
 import Spark from "../assets/Spark.png";
 import Boy from "../assets/Boy.png";
+import { userDetails } from "../services/user.services";
+import useIsMobile from "../components/hooks/useIsMobile";
+import { getAnalytics } from "../services/profile.services";
+import { GoDotFill } from "react-icons/go";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
+import { BarChart, Bar, Rectangle } from "recharts";
+import { PieChart, Pie, Sector, Cell } from "recharts";
+
 const Analytics = () => {
+  const isMobile = useIsMobile();
+  const [name, setName] = useState("");
   const [logoutVisbile, setLogoutVisible] = useState(false);
+  const [monthlyData, setMonthlyData] = useState([]);
+  const [deviceData, setDeviceData] = useState([]);
+  const [appData, setAppData] = useState([]);
+  const [selectedClickBox, setSelectedClickBox] = useState("COL");
+  const [linksData, setLinksData] = useState([]);
+  const [cta, setCta] = useState(0);
+  const [cos, setCos] = useState(0);
+  const [col, setCol] = useState(0);
+  const colors = [
+    "#92FFC6",
+    "#9BEBC1",
+    "#165534",
+    "#3EE58F",
+    "#A1D4BA",
+    "#21AF66",
+  ];
   const active = {
     isLinks: false,
     isAppearance: false,
     isAnalytics: true,
     isSettings: false,
   };
-
+  const analytics = async () => {
+    const res = await getAnalytics();
+    const data = await res.json();
+    if (res.status === 200) {
+      setMonthlyData(data.monthlyData);
+      setDeviceData(data.defaultTrafficData);
+      setAppData(data.clickData);
+      setLinksData(data.trafficbylinks);
+      setCta(data.cta);
+      setCol(data.appClicks);
+      setCos(data.shopClicks);
+    }
+  };
+  const getDetails = async () => {
+    const res = await userDetails();
+    const data = await res.json();
+    if (res.status === 200) {
+      setName(
+        data.user.userDetails.firstName + " " + data.user.userDetails.lastName
+      );
+    }
+  };
+  useEffect(() => {
+    getDetails();
+  }, []);
+  useEffect(() => {
+    analytics();
+  }, []);
   return (
     <>
       <Navbar active={active} />
       <div className={styles.container}>
-        <div className={styles.header}>
+        <div
+          className={styles.header}
+          style={{ display: !isMobile ? "none" : "" }}
+        >
           <img src={Spark} className={styles.logo} alt="logo" />
           <img
             src={Boy}
@@ -52,7 +115,218 @@ const Analytics = () => {
             )}
           </div>
         </div>
-        <div>
+        <div
+          className={styles.deskHeader}
+          style={{ display: isMobile ? "none" : "" }}
+        >
+          <div>
+            Hi, <span>{name}</span>!
+          </div>
+          <h5>Congratulations . You got a great response today . </h5>
+        </div>
+        <div className={styles.content}>
+          <div className={styles.title}>Overview</div>
+          <div className={styles.clicksData}>
+            <div
+              className={
+                selectedClickBox === "COL"
+                  ? styles.selected
+                  : styles.clicksboxes
+              }
+              onClick={() => setSelectedClickBox("COL")}
+            >
+              <h5>Clicks on Links</h5>
+              <span>{col}</span>
+            </div>
+            <div
+              className={
+                selectedClickBox === "COS"
+                  ? styles.selected
+                  : styles.clicksboxes
+              }
+              onClick={() => setSelectedClickBox("COS")}
+            >
+              <h5>Clicks on Shop</h5>
+              <span>{cos}</span>
+            </div>
+            <div
+              className={
+                selectedClickBox === "CTA"
+                  ? styles.selected
+                  : styles.clicksboxes
+              }
+              onClick={() => setSelectedClickBox("CTA")}
+            >
+              <h5>CTA</h5>
+              <span>{cta}</span>
+            </div>
+          </div>
+          <div className={styles.monthlychart}>
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart
+                data={monthlyData}
+                margin={{ top: 40, right: 30, left: 0, bottom: 10 }}
+              >
+                <XAxis
+                  dataKey="month"
+                  stroke="#8884d8"
+                  axisLine={false}
+                  tickLine={false}
+                  padding={{ left: 20, right: 20 }}
+                />
+                <YAxis axisLine={false} tickLine={false} />
+                <Tooltip />
+                <Line
+                  type="monotone"
+                  dataKey="clicks"
+                  stroke="#00000080"
+                  strokeWidth={1}
+                  dot={false}
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+          <div className={styles.deviceandapp}>
+            <div className={styles.devicechart}>
+              <div className={styles.devicetitle}>Traffic by Device</div>
+              <ResponsiveContainer
+                width={!isMobile ? "100%" : "90%"}
+                height={!isMobile ? "90%" : "80%"}
+              >
+                <BarChart
+                  width={!isMobile ? 500 : 300}
+                  height={!isMobile ? 300 : 160}
+                  data={deviceData}
+                  margin={
+                    !isMobile
+                      ? {
+                          top: 20,
+                          right: 30,
+                          left: 20,
+                          bottom: 20,
+                        }
+                      : { left: 0, right: 0, top: 0, bottom: 0 }
+                  }
+                >
+                  <XAxis
+                    dataKey="device"
+                    axisLine={false}
+                    tickLine={false}
+                    padding={!isMobile ? 10 : 0}
+                    tick={{ fontSize: !isMobile ? 20 : 12 }}
+                    interval={0}
+                  />
+                  <YAxis axisLine={false} tickLine={false} />
+                  <Tooltip />
+                  <Bar
+                    dataKey="clicks"
+                    radius={!isMobile ? 12 : 6}
+                    scale="band"
+                  >
+                    {deviceData.map((entry, index) => (
+                      <Cell
+                        key={`cell-${index}`}
+                        fill={colors[index % colors.length]}
+                      />
+                    ))}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+            <div className={styles.appchart}>
+              <div className={styles.pies}>
+                <div className={styles.piestitle}>Sites</div>
+                <ResponsiveContainer
+                  width="100%"
+                  height={!isMobile ? "86%" : "80%"}
+                >
+                  <PieChart>
+                    <Pie
+                      data={appData}
+                      dataKey="clicks"
+                      nameKey="appType"
+                      cx="50%"
+                      cy="50%"
+                      innerRadius={!isMobile ? 60 : 35}
+                      outerRadius={!isMobile ? 100 : 60}
+                      label
+                      paddingAngle={5}
+                      cornerRadius={!isMobile ? 12 : 8}
+                    >
+                      {appData.map((entry, index) => (
+                        <Cell
+                          key={`cell-${index}`}
+                          fill={colors[index % colors.length]}
+                        />
+                      ))}
+                    </Pie>
+                    <Tooltip />
+                  </PieChart>
+                </ResponsiveContainer>
+              </div>
+              <div className={styles.piesdesc}>
+                {appData.map((data, index) => (
+                  <div key={index} className={styles.piesdescdata}>
+                    <GoDotFill
+                      color={colors[index % colors.length]}
+                      size={24}
+                      style={{ marginLeft: "1rem", marginRight: "1rem" }}
+                    />
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        width: "100%",
+                      }}
+                    >
+                      <span>{data.app}</span>
+                      <span>{data.clicks}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div className={styles.linkChart}>
+            <div className={styles.linktitle}>Traffic by Links</div>
+            <ResponsiveContainer width={!isMobile?"100%":"90%"} height={!isMobile?"90%":"80%"}>
+              <BarChart
+                width={500}
+                height={300}
+                data={linksData}
+                margin={
+                  !isMobile
+                    ? {
+                        top: 20,
+                        right: 30,
+                        left: 20,
+                        bottom: 20,
+                      }
+                    : { left: 0, right: 0, top: 0, bottom: 0 }
+                }
+                padding={0}
+              >
+                <XAxis
+                  dataKey="title"
+                  axisLine={false}
+                  tickLine={false}
+                  tick={{ fontSize: !isMobile ? 20 : 9 }}
+                  interval={0}
+                  padding={!isMobile ? 10 : 0}
+                />
+                <YAxis axisLine={false} tickLine={false} />
+                <Tooltip />
+                <Bar dataKey="clicks" radius={!isMobile?12:8}>
+                  {deviceData.map((entry, index) => (
+                    <Cell
+                      key={`cell-${index}`}
+                      fill={colors[index % colors.length]}
+                    />
+                  ))}
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
         </div>
       </div>
     </>

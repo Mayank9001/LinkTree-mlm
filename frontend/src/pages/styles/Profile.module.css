@@ -267,7 +267,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  width: 9rem;
+  width: 10rem;
   height: 2rem;
   background-color: #f3f3f1;
   border-radius: 3.5rem;
@@ -286,11 +286,13 @@
   text-align: center;
 }
 .toggleContainer span {
-  width: 4.3rem;
+  width: 4.8rem;
   display: flex;
   justify-content: center;
   gap: 0.2rem;
-  height: 100%;
+  height: 90%;
+  margin-left: 0.1rem;
+  margin-right: 0.1rem;
   border-radius: 3.5rem;
 }
 .active {
@@ -378,8 +380,8 @@
   height: 1rem;
   font-family: "Poppins";
   font-weight: 600;
-  font-size: 0.5rem;
-  line-height: 0.75rem;
+  font-size: 0.7rem;
+  line-height: 1rem;
   color: #575757;
   letter-spacing: 0%;
 }
@@ -398,21 +400,21 @@
   font-family: "Poppins";
   height: 1rem;
   font-weight: 600;
-  font-size: 0.48rem;
-  line-height: 0.68rem;
+  font-size: 0.6rem;
+  line-height: 0.8rem;
   letter-spacing: 0%;
   color: #767676;
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.4rem;
 }
 .clicks {
   display: flex;
   align-items: center;
   font-family: "Inter";
-  height: 1rem;
+  height: 1.5rem;
   font-weight: 600;
-  font-size: 0.45rem;
+  font-size: 0.6rem;
   color: #9ea099;
-  line-height: 0.51rem;
+  line-height: 0.8rem;
   letter-spacing: 0%;
 }
 .delToggle {

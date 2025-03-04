@@ -60,3 +60,13 @@ export const getGlobalProfile = async (username) => {
     },
   });
 };
+
+export const getAnalytics = async () => {
+  return await fetch(`${URL}/api/profile/getanalytics`, {
+    metthod: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `${localStorage.getItem("token")}`,
+    },
+  });
+};

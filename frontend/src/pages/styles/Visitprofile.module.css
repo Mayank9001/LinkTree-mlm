@@ -52,6 +52,7 @@
   border: 0.2px solid #b0b0b0;
   position: relative;
   bottom: 6rem;
+  cursor: pointer;
   left: 1rem;
 }
 .desktoggleContainer {

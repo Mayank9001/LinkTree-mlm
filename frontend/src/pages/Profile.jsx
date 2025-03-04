@@ -11,7 +11,7 @@ import Preview from "../components/Preview";
 import AddLinkModal from "../modals/AddLinkModal";
 import EditLinkModal from "../modals/EditLinkModal";
 import useIsMobile from "../components/hooks/useIsMobile";
-import { getLinks } from "../services/link.services";
+import { getLinks, deleteLink, setShow } from "../services/link.services";
 import { BsShare } from "react-icons/bs";
 const url = import.meta.env.VITE_FRONTEND_URL;
 const Profile = () => {
@@ -32,6 +32,7 @@ const Profile = () => {
   const [saveBtnClicked, setSaveBtnClicked] = useState(false);
   const [isEditLinkModalOpen, setIsEditLinkModalOpen] = useState(false);
   const [linkId, setLinkId] = useState(null);
+  const [isShowClicked, setIsShowClicked] = useState(false);
   const [appLink, setAppLink] = useState([]);
   const [shopLink, setShopLink] = useState([]);
   const [data, setData] = useState(() => {
@@ -51,8 +52,8 @@ const Profile = () => {
   });
   const ShopImg = () => (
     <svg
-      width="9"
-      height="9"
+      width={!isMobile? "14" : "9"}
+      height={!isMobile? "14" : "9"}
       viewBox="0 0 21 21"
       style={{ marginBottom: "-2px", marginRight: "5px" }}
       fill="none"
@@ -80,8 +81,8 @@ const Profile = () => {
   );
   const Move = () => (
     <svg
-      width="6"
-      height="10"
+      width={!isMobile? "10" : "6"}
+      height={!isMobile? "12" : "10"}
       viewBox="0 0 4 7"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -94,8 +95,8 @@ const Profile = () => {
   );
   const Del = () => (
     <svg
-      width="8"
-      height="9"
+      width={!isMobile? "14" : "8"}
+      height={!isMobile? "15" : "9"}
       viewBox="0 0 6 7"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -108,8 +109,8 @@ const Profile = () => {
   );
   const Clickimg = () => (
     <svg
-      width="11"
-      height="11"
+      width={isMobile? "18" : "11"}
+      height={!isMobile? "18" : "11"}
       style={{ marginRight: "5px" }}
       viewBox="0 0 12 12"
       fill="none"
@@ -269,19 +270,41 @@ const Profile = () => {
       setShopLink(shops);
     }
   };
+  const handleDelete = async (id) => {
+    const res = await deleteLink(id);
+    const temp = await res.json();
+    if (res.status === 200) {
+      getallLinks();
+      toast.success("Link Deleted Successfully");
+    }
+  };
   useEffect(() => {
     getallLinks();
   }, []);
-  useEffect(() => {}, [saveBtnClicked]);
+  useEffect(() => {}, [
+    saveBtnClicked,
+    isEditLinkModalOpen,
+    isAddLinkModalOpen,
+    isShowClicked,
+  ]);
   useEffect(() => {
     getDetails();
     getUserData();
   }, [saveBtnClicked]);
-
   useEffect(() => {
     localStorage.setItem("userData", JSON.stringify(data));
   }, [data]);
 
+  const handleSetShow = async (linkId, show) => {
+    const res = await setShow(linkId, { show });
+    const temp = await res.json();
+    if (res.status === 200) {
+      getallLinks();
+      toast.success("Profile Updated Successfully");
+    } else {
+      toast.error("failed to update profile");
+    }
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -379,7 +402,12 @@ const Profile = () => {
             className={styles.liveview}
             style={{ display: !isMobile ? "" : "none" }}
           >
-            {!isMobile && <Preview saveBtnClicked={saveBtnClicked} />}
+            {!isMobile && (
+              <Preview
+                saveBtnClicked={saveBtnClicked}
+                isShowClicked={isShowClicked}
+              />
+            )}
             <div className={styles.astrik}>
               *To watch for changes, Click on Save. If no changes seen, please
               refresh the page.
@@ -503,7 +531,11 @@ const Profile = () => {
                             </span>
                           </span>
                           <span className={styles.clicks}>
-                            {!isLinkActive && <ShopImg />}
+                            {!isLinkActive && (
+                              <div>
+                                <ShopImg />
+                              </div>
+                            )}
                             <Clickimg /> {link.clicks} clicks
                           </span>
                         </div>
@@ -513,12 +545,27 @@ const Profile = () => {
                               type="checkbox"
                               id={`toggle-${id}`}
                               name="checkbox"
-                              checked={link.show}
-                              onChange={() => {}}
+                              defaultChecked={link.show}
+                              onChange={(e) => {
+                                setLinks((prevLinks) =>
+                                  prevLinks.map((prevLink) =>
+                                    prevLink._id === link._id
+                                      ? { ...prevLink, show: e.target.checked }
+                                      : prevLink
+                                  )
+                                );
+                                setIsShowClicked(e.target.checked);
+                                handleSetShow(link._id, e.target.checked);
+                              }}
                             />
                             <label htmlFor={`toggle-${id}`}></label>
                           </span>
-                          <span className={styles.delBtn}>
+                          <span
+                            className={styles.delBtn}
+                            onClick={() => {
+                              handleDelete(link._id);
+                            }}
+                          >
                             <Del style={{ cursor: "pointer" }} />
                           </span>
                         </div>

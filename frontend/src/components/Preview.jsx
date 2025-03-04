@@ -10,7 +10,7 @@ import { getProfile, visitProfile } from "../services/profile.services";
 import useIsMobile from "../components/hooks/useIsMobile";
 import { getLinks } from "../services/link.services";
 const url = import.meta.env.VITE_FRONTEND_URL;
-const Preview = ({ onClose, saveBtnClicked }) => {
+const Preview = ({ onClose, saveBtnClicked, isShowClicked }) => {
   const [profile, setProfile] = useState({
     username: "",
     profileId: "",
@@ -218,8 +218,8 @@ const Preview = ({ onClose, saveBtnClicked }) => {
     const res = await getLinks();
     const data = await res.json();
     if (res.status === 200) {
-      const apps = data.links.filter((link) => link.linkType === "app");
-      const shops = data.links.filter((link) => link.linkType === "shop");
+      const apps = data.links.filter((link) => link.linkType === "app").filter((link)=>link.show===true);
+      const shops = data.links.filter((link) => link.linkType === "shop").filter((link)=>link.show===true);
       setAppLinks(apps);
       setShopLinks(shops);
     }
@@ -228,7 +228,7 @@ const Preview = ({ onClose, saveBtnClicked }) => {
     getDetails();
     getLink();
   }, [saveBtnClicked]);
-  useEffect(() => {}, [saveBtnClicked]);
+  useEffect(() => {}, [saveBtnClicked, isShowClicked]);
   const handleLogout = () => {
     localStorage.clear();
     toast.info("Logged Out Successfully!!!");
@@ -244,6 +244,7 @@ const Preview = ({ onClose, saveBtnClicked }) => {
     // }
   };
   const handleCopyLink = () => {
+    toast.success("copied to clipboard")
     navigator.clipboard.writeText(url + "/profile/" + profile.username);
   };
   return (

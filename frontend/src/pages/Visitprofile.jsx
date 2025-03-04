@@ -4,6 +4,8 @@ import Boy from "../assets/Boy.png";
 import { useParams } from "react-router-dom";
 import { visitProfile, getGlobalProfile } from "../services/profile.services";
 import useIsMobile from "../components/hooks/useIsMobile";
+import { visitLogs } from "../services/logs.services";
+import { toast } from "react-toastify";
 const url = import.meta.env.VITE_FRONTEND_URL;
 
 const Visitprofile = () => {
@@ -220,6 +222,13 @@ const Visitprofile = () => {
   useEffect(() => {
     getDetails();
   }, []);
+  const handleLinkOpen = async (link) => {
+    const res = await visitLogs(link._id);
+    const data = await res.json();
+    if (res.status === 200) {
+      window.open(link.linkUrl, "_blank");
+    }
+  };
   const handleConnected = async () => {
     const profileId = profile.profileId;
     const res = await visitProfile({ profileId });
@@ -230,6 +239,7 @@ const Visitprofile = () => {
     }
   };
   const handleCopyLink = () => {
+    toast.success("copied to clipboard");
     navigator.clipboard.writeText(url + "/profile/" + profile.username);
   };
   return (
@@ -305,7 +315,7 @@ const Visitprofile = () => {
                   <div
                     className={!isMobile ? styles.desklink : styles.link}
                     key={key}
-                    onClick={() => window.open(link.linkUrl, "_blank")}
+                    onClick={() => handleLinkOpen(link)}
                     style={{
                       backgroundColor:
                         profile.themes.bgColor !== "#ffffff"

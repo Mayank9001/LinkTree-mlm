@@ -137,4 +137,29 @@ router.delete("/delete/:id", auth, async (req, res) => {
   }
 });
 
+router.patch("/setshow/:id", auth, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { show } = req.body;
+
+    if (typeof show !== "boolean") {
+      return res.status(400).json({ error: "Invalid show value" });
+    }
+
+    const updatedLink = await Link.findByIdAndUpdate(
+      id,
+      { show: show },
+      { new: true }
+    );
+
+    if (!updatedLink) {
+      return res.status(404).json({ error: "Link not found" });
+    }
+    console.log(updatedLink);
+    res.status(200).json(updatedLink);
+  } catch (error) {
+    res.status(500).json({ error: "Server error", details: error.message });
+  }
+});
+
 module.exports = router;

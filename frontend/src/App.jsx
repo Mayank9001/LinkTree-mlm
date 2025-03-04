@@ -24,6 +24,7 @@ function App() {
         rtl={false}
         pauseOnFocusLoss
         draggable
+        limit={1}
         pauseOnHover
         theme="colored"
         transition={Bounce}
