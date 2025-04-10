@@ -226,7 +226,12 @@ const Visitprofile = () => {
     const res = await visitLogs(link._id);
     const data = await res.json();
     if (res.status === 200) {
-      window.open(link.linkUrl, "_blank");
+      window.open(
+        !link.linkUrl.includes("https://")
+          ? "https://" + link.linkUrl
+          : link.linkUrl,
+        "_blank"
+      ); 
     }
   };
   const handleConnected = async () => {
@@ -324,7 +329,7 @@ const Visitprofile = () => {
                           ? styles.gridlink
                           : profile.layout === "Carousel"
                           ? styles.carousellink
-                          : styles.link
+                          : styles.desklink
                         : styles.shoplink
                     }`}
                     key={key}

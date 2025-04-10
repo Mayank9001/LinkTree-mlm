@@ -10,7 +10,7 @@ import { getProfile, visitProfile } from "../services/profile.services";
 import useIsMobile from "../components/hooks/useIsMobile";
 import { getLinks } from "../services/link.services";
 const url = import.meta.env.VITE_FRONTEND_URL;
-const Preview = ({ onClose }) => {
+const Preview = ({ onClose, profileData, isLinkChanged, designData }) => {
   const [profile, setProfile] = useState({
     username: "",
     profileId: "",
@@ -231,7 +231,7 @@ const Preview = ({ onClose }) => {
   useEffect(() => {
     getDetails();
     getLink();
-  }, []);
+  }, [isLinkChanged]);
   const handleLogout = () => {
     localStorage.clear();
     toast.info("Logged Out Successfully!!!");
@@ -250,6 +250,12 @@ const Preview = ({ onClose }) => {
     toast.success("copied to clipboard");
     navigator.clipboard.writeText(url + "/profile/" + profile.username);
   };
+  if (profileData) {
+    console.log("data", profileData);
+  }
+  if (designData) {
+    console.log("designData", designData);
+  }
   return (
     <>
       <div

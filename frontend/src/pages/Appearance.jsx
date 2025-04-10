@@ -113,9 +113,7 @@ const Appearance = () => {
           },
         };
   });
-  const PreviewComp = () => (
-    <Preview />
-  );
+  const PreviewComp = () => <Preview />;
   useEffect(() => {
     localStorage.setItem("design", JSON.stringify(formData));
   }, [formData]);
@@ -237,7 +235,7 @@ const Appearance = () => {
             className={styles.liveview}
             style={{ display: !isMobile ? "" : "none" }}
           >
-            {!isMobile && <PreviewComp />}
+            {!isMobile && <Preview designData={formData} />}
             <div className={styles.astrik}>
               *To watch for changes, Click on Save. If no changes seen, please
               refresh the page.
@@ -1030,7 +1028,7 @@ const Appearance = () => {
         </div>
       </div>
       {isPreviewOpen && isMobile && (
-        <Preview onClose={() => setIsPreviewOpen(false)} />
+        <Preview onClose={() => setIsPreviewOpen(false)} designData={formData} />
       )}
     </>
   );

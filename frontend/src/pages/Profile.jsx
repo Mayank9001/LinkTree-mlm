@@ -24,7 +24,7 @@ const Profile = () => {
   };
   const isMobile = useIsMobile();
   const [isLinkActive, setIsLinkActive] = useState(true);
-  const [isLinkToggle, setIsLinkToggle] = useState(false);
+  const [isLinkChanged, setIsLinkChanged] = useState(false);
   const [logoutVisbile, setLogoutVisible] = useState(false);
   const [isAddLinkModalOpen, setIsAddLinkModalOpen] = useState(false);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
@@ -265,6 +265,7 @@ const Profile = () => {
     const data = await res.json();
     if (res.status === 200) {
       setLinks(data.links);
+      setIsLinkChanged((prev)=>!prev);
       const apps = data.links.filter((link) => link.linkType === "app");
       const shops = data.links.filter((link) => link.linkType === "shop");
       setAppLink(apps);
@@ -281,8 +282,7 @@ const Profile = () => {
   };
   useEffect(() => {
     getallLinks();
-  }, []);
-  useEffect(() => {}, [
+  }, [
     saveBtnClicked,
     isEditLinkModalOpen,
     isAddLinkModalOpen,
@@ -330,9 +330,6 @@ const Profile = () => {
       console.log(error);
     }
   };
-  const PreviewComp = () => (
-    <Preview />
-  );
   const handleLogout = () => {
     localStorage.clear();
     toast.info("Logged Out Successfully!!!");
@@ -408,9 +405,7 @@ const Profile = () => {
             className={styles.liveview}
             style={{ display: !isMobile ? "" : "none" }}
           >
-            {!isMobile && (
-              <PreviewComp />
-            )}
+            {!isMobile && <Preview profileData={data} isLinkChanged={isLinkChanged} />}
             <div className={styles.astrik}>
               *To watch for changes, Click on Save. If no changes seen, please
               refresh the page.
@@ -744,7 +739,7 @@ const Profile = () => {
         </div>
       </div>
       {isPreviewOpen && isMobile && (
-        <Preview onClose={() => setIsPreviewOpen(false)} />
+        <Preview onClose={() => setIsPreviewOpen(false)} profileData={data} />
       )}
       {isAddLinkModalOpen && (
         <AddLinkModal

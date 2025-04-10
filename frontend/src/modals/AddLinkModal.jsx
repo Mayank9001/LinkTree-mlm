@@ -226,7 +226,6 @@ const AddLinkModal = ({ onClose, profileId }) => {
     profileId: profileId,
   });
   const saveLink = async () => {
-    console.log(linkData);
     const res = await createLink(linkData);
     const data = await res.json();
     if (data.status === 200) {
