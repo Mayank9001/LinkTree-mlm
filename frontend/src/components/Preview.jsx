@@ -21,7 +21,7 @@ const Preview = ({ onClose, profileData, isLinkChanged, designData }) => {
     },
     layout: "",
     buttonStyle: {
-      backgroundColor: "",
+      bgColor: "",
       boxShadow: "",
       border: "",
       borderRadius: "",
@@ -201,7 +201,7 @@ const Preview = ({ onClose, profileData, isLinkChanged, designData }) => {
         },
         layout: temp.profile.layout,
         buttonStyle: {
-          backgroundColor: temp.profile.buttonStyle.bgColor,
+          bgColor: temp.profile.buttonStyle.bgColor,
           boxShadow: temp.profile.buttonStyle.boxShadow,
           border: temp.profile.buttonStyle.border,
           borderRadius: temp.profile.buttonStyle.borderRadius,
@@ -228,8 +228,11 @@ const Preview = ({ onClose, profileData, isLinkChanged, designData }) => {
       setShopLinks(shops);
     }
   };
-  useEffect(() => {
+  useEffect(()=>{
     getDetails();
+  },[])
+  useEffect(() => {
+    // getDetails();
     getLink();
   }, [isLinkChanged]);
   const handleLogout = () => {
@@ -250,12 +253,47 @@ const Preview = ({ onClose, profileData, isLinkChanged, designData }) => {
     toast.success("copied to clipboard");
     navigator.clipboard.writeText(url + "/profile/" + profile.username);
   };
-  if (profileData) {
-    console.log("data", profileData);
-  }
-  if (designData) {
-    console.log("designData", designData);
-  }
+  useEffect(() => {
+    if (profileData) {
+      setProfile((prevData) => ({
+        ...prevData,
+        username: profileData.username,
+        profileId: profileData.profileId,
+        profilePic: profileData.profilePic,
+        banner: {
+          profileBg: profileData.banner.profileBg,
+          fontColor: profileData.banner.fontColor,
+        },
+      }));
+    }
+  }, [profileData]);
+  useEffect(() => {
+    if (designData) {
+      setProfile((prevData) => ({
+        ...prevData,
+        layout: designData.layout,
+        buttonStyle: {
+          bgColor: designData.buttonStyle.bgColor,
+          boxShadow: designData.buttonStyle.boxShadow,
+          border: designData.buttonStyle.border,
+          borderRadius: designData.buttonStyle.borderRadius,
+          fontFamily: designData.buttonStyle.fontFamily,
+          fontColor: designData.buttonStyle.fontColor,
+        },
+        themes: {
+          bgColor: designData.themes.bgColor,
+        },
+      }));
+    }
+  }, [designData]);
+  // if (profileData) {
+  //   console.log("data", profileData);
+  //   console.log("profile", profile);
+  // }
+  // if (designData) {
+  //   console.log("profile", profile);
+  //   console.log("designData", designData);
+  // }
   return (
     <>
       <div
@@ -380,7 +418,7 @@ const Preview = ({ onClose, profileData, isLinkChanged, designData }) => {
                   style={{
                     backgroundColor:
                       profile.themes.bgColor !== "#ffffff"
-                        ? profile.buttonStyle.backgroundColor
+                        ? profile.buttonStyle.bgColor
                         : "",
                     color: profile.buttonStyle.fontColor,
                     boxShadow: profile.buttonStyle.boxShadow,
@@ -398,7 +436,7 @@ const Preview = ({ onClose, profileData, isLinkChanged, designData }) => {
                   <div
                     style={{
                       backgroundColor:
-                        profile.buttonStyle.backgroundColor === "#ffffff"
+                        profile.buttonStyle.bgColor === "#ffffff"
                           ? "#f3f3f1"
                           : "#ffffff",
                       display: link.linkType === "shop" ? "none" : "",
