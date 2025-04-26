@@ -265,7 +265,7 @@ const Profile = () => {
     const data = await res.json();
     if (res.status === 200) {
       setLinks(data.links);
-      setIsLinkChanged((prev)=>!prev);
+      setIsLinkChanged((prev) => !prev);
       const apps = data.links.filter((link) => link.linkType === "app");
       const shops = data.links.filter((link) => link.linkType === "shop");
       setAppLink(apps);
@@ -282,12 +282,7 @@ const Profile = () => {
   };
   useEffect(() => {
     getallLinks();
-  }, [
-    saveBtnClicked,
-    isEditLinkModalOpen,
-    isAddLinkModalOpen,
-    isShowClicked,
-  ]);
+  }, [saveBtnClicked, isEditLinkModalOpen, isAddLinkModalOpen, isShowClicked]);
   useEffect(() => {
     getDetails();
     getUserData();
@@ -395,6 +390,7 @@ const Profile = () => {
             className={styles.deskHeadershare}
             onClick={() => {
               navigator.clipboard.writeText(url + "/profile/" + data.username);
+              toast.success("Copied to clipboard");
             }}
           >
             <BsShare size={12} /> Share
@@ -405,7 +401,9 @@ const Profile = () => {
             className={styles.liveview}
             style={{ display: !isMobile ? "" : "none" }}
           >
-            {!isMobile && <Preview profileData={data} isLinkChanged={isLinkChanged} />}
+            {!isMobile && (
+              <Preview profileData={data} isLinkChanged={isLinkChanged} />
+            )}
             <div className={styles.astrik}>
               *To watch for changes, Click on Save. If no changes seen, please
               refresh the page.

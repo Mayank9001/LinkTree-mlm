@@ -9,6 +9,7 @@ import MineralBlue from "../assets/themes/MineralBlue.png";
 import Preview from "../components/Preview";
 import MineralGreen from "../assets/themes/MineralGreen.png";
 import MineralOrange from "../assets/themes/MineralOrange.png";
+import { FcLock } from "react-icons/fc";
 import Spark from "../assets/Spark.png";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -637,10 +638,13 @@ const Appearance = () => {
                   </div>
                 </div>
                 <div className={styles.btnStyle}>
-                  <label>Special</label>
+                  <label>
+                    Special
+                    <FcLock size={10} style={{ paddingBottom: "4px", paddingLeft:"2px" }} />
+                  </label>
                   <div className={styles.btnRow5}>
                     <div className={styles.btnRow51}>
-                      <button>
+                      <button disabled>
                         <svg
                           width="96"
                           height="3"
@@ -676,7 +680,7 @@ const Appearance = () => {
                           />
                         </svg>
                       </button>
-                      <button>
+                      <button disabled>
                         <svg
                           width="96"
                           height="4"
@@ -724,10 +728,11 @@ const Appearance = () => {
                           />
                         </svg>
                       </button>
-                      <button></button>
+                      <button disabled></button>
                     </div>
                     <div className={styles.btnRow52}>
                       <button
+                        disabled
                         onClick={() => {
                           setFormData((prevData) => ({
                             ...prevData,
@@ -747,6 +752,7 @@ const Appearance = () => {
                         }}
                       ></button>
                       <button
+                        disabled
                         style={{
                           backgroundColor: "white",
                           display: "grid",
@@ -786,6 +792,7 @@ const Appearance = () => {
                         ></span>
                       </button>
                       <button
+                        disabled
                         onClick={() => {
                           setFormData((prevData) => ({
                             ...prevData,
@@ -1028,7 +1035,10 @@ const Appearance = () => {
         </div>
       </div>
       {isPreviewOpen && isMobile && (
-        <Preview onClose={() => setIsPreviewOpen(false)} designData={formData} />
+        <Preview
+          onClose={() => setIsPreviewOpen(false)}
+          designData={formData}
+        />
       )}
     </>
   );
