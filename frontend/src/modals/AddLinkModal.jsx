@@ -237,7 +237,6 @@ const AddLinkModal = ({ onClose, profileId }) => {
                       <div className={styles.svgdiv}>
                         <img src={app.svg} alt={app.title} />
                       </div>
-                      {/* <div className={styles.svgdiv}>{app.svg}</div> */}
                       <div className={styles.titlediv}>{app.title}</div>
                     </div>
                   ))}

@@ -221,7 +221,10 @@ const Visitprofile = () => {
                         display: link.linkType === "shop" ? "none" : "",
                       }}
                     >
-                      <img src={appIcons[link.appType]} />
+                      <img
+                        style={{ width: "1.5rem", height: "1.5rem" }}
+                        src={appIcons[link.appType]}
+                      />
                     </div>
                     <span>{link.linkTitle}</span>
                   </div>

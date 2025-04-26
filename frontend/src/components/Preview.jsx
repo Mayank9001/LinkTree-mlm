@@ -307,6 +307,7 @@ const Preview = ({ onClose, profileData, isLinkChanged, designData }) => {
                       <img src={link.shopImg} alt="shopImage" />
                     ) : (
                       <img
+                        style={{ width: "1.25rem", height: "1.25rem" }}
                         src={appIcons[link.appType]}
                         alt={`${link.appType}`}
                       />

@@ -206,6 +206,10 @@
   background-color: #efefef;
   place-items: center;
 }
+.svgdiv img {
+  width: 1.5rem;
+  height: 1.5rem;
+}
 .titlediv {
   font-family: "Poppins";
   font-weight: 400;
